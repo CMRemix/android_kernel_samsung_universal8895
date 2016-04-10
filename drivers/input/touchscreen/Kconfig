@@ -1134,8 +1134,8 @@ config TOUCHSCREEN_DUMP_MODE
 
 	  If unsure, say N.
 
-config TOUCHSCREEN_SWEEP2WAKE
-        tristate "Sweep2Wake for touchscreens"
+config TOUCHSCREEN_SWEEP2SLEEP
+        tristate "Sweep2Sleep for touchscreens"
         select TOUCHSCREEN_PREVENT_SLEEP
         default y
 
