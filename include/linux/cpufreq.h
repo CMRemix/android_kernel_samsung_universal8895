@@ -548,6 +548,9 @@ extern struct cpufreq_governor cpufreq_gov_ondemand;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE)
 extern struct cpufreq_governor cpufreq_gov_conservative;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_conservative)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_CULTIVATION)
+extern struct cpufreq_governor cpufreq_gov_cultivation;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_cultivation)
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_ZZMOOVE)
 extern struct cpufreq_governor cpufreq_gov_zzmoove;
 #define CPUFREQ_DEFAULT_GOVERNOR       (&cpufreq_gov_zzmoove)
@@ -564,6 +567,7 @@ extern struct cpufreq_governor cpufreq_gov_interactive;
 extern struct cpufreq_governor schedutil_gov;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&schedutil_gov)
 #endif
+
 
 /*********************************************************************
  *                     FREQUENCY TABLE HELPERS                       *
