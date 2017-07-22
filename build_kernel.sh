@@ -1,126 +1,226 @@
 #!/bin/bash
-# Kernel Build Script
 
-BUILD_WHERE=$(pwd)
-BUILD_KERNEL_DIR=$BUILD_WHERE
-BUILD_ROOT_DIR=$BUILD_KERNEL_DIR/..
-BUILD_KERNEL_OUT_DIR=$BUILD_ROOT_DIR/kernel_out/KERNEL_OBJ
-PRODUCT_OUT=$BUILD_ROOT_DIR/kernel_out
+###############################################################################
+# To all DEV around the world :)                                              #
+# to build this kernel you need to be ROOT and to have bash as script loader  #
+# do this:                                                                    #
+# cd /bin                                                                     #
+# rm -f sh                                                                    #
+# ln -s bash sh                                                               #
+#                                                                             #
+# Now you can build my kernel.                                                #
+# using bash will make your life easy. so it's best that way.                 #
+# Have fun and update me if something nice can be added to my source.	      #
+#                                                         		      #
+# Original scripts by halaszk & various sources throughout gitHub             #
+# modified by UpInTheAir for SkyHigh kernels				      #
+# very very slightly modified by The Sickness for his Twisted S6 kernel       #
+#                                                         		      #
+###############################################################################
 
-BUILD_CROSS_COMPILE=$KERNEL_TOOLCHAIN
-BUILD_JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
 
-KERNEL_DEFCONFIG=exynos8895-$1_eur_open_defconfig
+############################################ SETUP ############################################
 
-KERNEL_IMG=$PRODUCT_OUT/Image
-DTIMG=$PRODUCT_OUT/dt.img
+# Time of build startup
+res1=$(date +%s.%N)
 
-DTBTOOL=$KERNEL_DTBTOOL
+echo
+echo "${bldcya}***** Setting up Environment *****${txtrst}";
+echo
+. ./env_setup.sh ${1} || exit 1;
 
-FUNC_GENERATE_DEFCONFIG()
-{
-	echo ""
-        echo "=============================================="
-        echo "START : FUNC_GENERATE_DEFCONFIG"
-        echo "=============================================="
-        echo "build config="$KERNEL_DEFCONFIG ""
-        echo ""
+if [ ! -f $KERNELDIR/.config ]; then
+	echo
+	echo "${bldcya}***** Writing Config *****${txtrst}";
+	cp $KERNELDIR/arch/arm64/configs/$KERNEL_CONFIG .config;
+	make ARCH=arm64 $KERNEL_CONFIG;
+fi;
 
-	make -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE \
-			$KERNEL_DEFCONFIG || exit -1
+. $KERNELDIR/.config
 
-	cp $BUILD_KERNEL_OUT_DIR/.config $BUILD_KERNEL_DIR/arch/arm64/configs/$KERNEL_DEFCONFIG
 
-	echo ""
-	echo "================================="
-	echo "END   : FUNC_GENERATE_DEFCONFIG"
-	echo "================================="
-	echo ""
-}
+########################################### CLEAN UP ##########################################
 
-FUNC_GENERATE_DTB()
-{
-	echo ""
-        echo "=============================================="
-        echo "START : FUNC_GENERATE_DTB"
-        echo "=============================================="
-        echo ""
-	rm -rf $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/dts
+echo
+echo "${bldcya}***** Clean up first *****${txtrst}"
 
-	make dtbs -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE || exit -1
-	echo ""
-	echo "================================="
-	echo "END   : FUNC_GENERATE_DTB"
-	echo "================================="
-	echo ""
-}
+find . -type f -name "*~" -exec rm -f {} \;
+find . -type f -name "*orig" -exec rm -f {} \;
+find . -type f -name "*rej" -exec rm -f {} \;
 
-FUNC_BUILD_KERNEL()
-{
-	echo ""
-	echo "================================="
-	echo "START   : FUNC_BUILD_KERNEL"
-	echo "================================="
-	echo ""
-	rm $KERNEL_IMG $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/Image
-	rm -rf $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/dts
+# cleanup previous Image files
+if [ -e $KERNELDIR/dt.img ]; then
+	rm $KERNELDIR/dt.img;
+fi;
+if [ -e $KERNELDIR/arch/arm64/boot/Image ]; then
+	rm $KERNELDIR/arch/arm64/boot/Image;
+fi;
+if [ -e $KERNELDIR/arch/arm64/boot/dt.img ]; then
+	rm $KERNELDIR/arch/arm64/boot/dt.img;
+fi;
 
-if [ "$USE_CCACHE" ]
-then
-	make -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE \
-			CC="ccache "$BUILD_CROSS_COMPILE"gcc" CPP="ccache "$BUILD_CROSS_COMPILE"gcc -E" || exit -1
+# cleanup variant ramdisk files
+find . -type f -name "EMPTY_DIRECTORY" -exec rm -f {} \;
+
+if [ -e $BK/$TARGET/boot.img ]; then
+	rm -rf $BK/$TARGET/boot.img
+fi;
+if [ -e $BK/$TARGET/Image ]; then
+	rm -rf $BK/$TARGET/Image
+fi;
+if [ -e $BK/$TARGET/ramdisk.gz ]; then
+	rm -rf $BK/$TARGET/ramdisk.gz
+fi;
+if [ -e $BK/$TARGET/ramdisk/lib/modules/ ]; then
+	cd ${KERNELDIR}/$BK/$TARGET
+	find . -type f -name "*.ko" -exec rm -f {} \;
+	cd ${KERNELDIR}
+fi;
+if [ -e $BK/system/lib/modules/ ]; then
+	cd ${KERNELDIR}/$BK/system
+	find . -type f -name "*.ko" -exec rm -f {} \;
+fi;
+
+cd ${KERNELDIR}
+
+# cleanup old output files
+rm -rf ${KERNELDIR}/output/$TARGET/*
+
+# cleanup old dtb files
+rm -rf $KERNELDIR/arch/arm64/boot/dts/*.dtb;
+
+echo "Done"
+
+
+####################################### COMPILE IMAGES #######################################
+
+echo
+echo "${bldcya}***** Compiling kernel *****${txtrst}"
+
+if [ $USER != "root" ]; then
+	make CONFIG_DEBUG_SECTION_MISMATCH=y -j10 Image ARCH=arm64
 else
-	make -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE || exit -1
+	make -j10 Image ARCH=arm64
+fi;
+
+if [ -e $KERNELDIR/arch/arm64/boot/Image ]; then
+	echo
+	echo "${bldcya}***** Final Touch for Kernel *****${txtrst}"
+	stat $KERNELDIR/arch/arm64/boot/Image || exit 1;
+	mv ./arch/arm64/boot/Image ./$BK/$TARGET
+	echo
+	echo "--- Creating custom dt.img ---"
+	./utilities/dtbtool -o dt.img -s 2048 -p ./scripts/dtc/dtc arch/arm64/boot/dts/exynos/
+else
+	echo "${bldred}Kernel STUCK in BUILD!${txtrst}"
+	exit 0;
+fi;
+
+echo
+echo "Done"
+
+
+###################################### RAMDISK GENERATION #####################################
+
+echo
+echo "${bldcya}***** Make ramdisk *****${txtrst}"
+
+# make modules
+#make -j10 modules ARCH=arm64  || exit 1;
+
+# find modules
+#for i in $(find "$KERNELDIR" -name '*.ko'); do
+#	cp -av "$i" ./$BK/system/lib/modules/;
+#done;
+
+#if [ -f "./$BK/system/lib/modules/*" ]; then
+#chmod 0755 ./$BK/system/lib/modules/*
+#${CROSS_COMPILE}strip --strip-debug ./$BK/system/lib/modules/*.ko
+#${CROSS_COMPILE}strip --strip-unneeded ./$BK/system/lib/modules/*
+#fi;
+
+# fix ramdisk permissions
+cd ${KERNELDIR}/$BK
+cp ./ramdisk_fix_permissions.sh ./$TARGET/ramdisk/ramdisk_fix_permissions.sh
+cd ${KERNELDIR}/$BK/$TARGET/ramdisk
+chmod 0777 ramdisk_fix_permissions.sh
+./ramdisk_fix_permissions.sh 2>/dev/null
+rm -f ramdisk_fix_permissions.sh
+
+# make ramdisk
+cd ${KERNELDIR}/$BK
+./mkbootfs ./$TARGET/ramdisk | gzip > ./$TARGET/ramdisk.gz
+
+echo
+echo "Done"
+
+
+##################################### BOOT.IMG GENERATION #####################################
+
+echo
+echo "${bldcya}***** Make boot.img *****${txtrst}"
+
+read -p "Do you want to use a stock (s) or custom generated (c) dt.img? (s/c) > " dt
+echo
+if [ "$dt" = "c" -o "$dt" = "C" ]; then
+./mkbootimg --kernel ./$TARGET/Image --dt ${KERNELDIR}/dt.img --ramdisk ./$TARGET/ramdisk.gz --base 0x10000000 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --pagesize 2048 -o ./$TARGET/boot.img
+fi
+if [ "$dt" = "s" -o "$dt" = "S" ]; then
+./mkbootimg --kernel ./$TARGET/Image --dt ./$TARGET/dt.img --ramdisk ./$TARGET/ramdisk.gz --base 0x10000000 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --pagesize 2048 -o ./$TARGET/boot.img
 fi
 
-	cp $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/Image $KERNEL_IMG
-	echo "Made Kernel image: $KERNEL_IMG"
-	echo "================================="
-	echo "END   : FUNC_BUILD_KERNEL"
-	echo "================================="
-	echo ""
-}
+echo -n "SEANDROIDENFORCE" >> ./$TARGET/boot.img
 
-FUNC_GENERATE_DTIMG()
-{
-	echo ""
-	echo "================================="
-	echo "START   : FUNC_GENERATE_DTIMG"
-	echo "================================="
-	rm $DTIMG
-	$DTBTOOL -o $DTIMG -s 2048 -p $BUILD_KERNEL_OUT_DIR/scripts/dtc/ $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/dts/exynos
-	if [ -f "$DTIMG" ]; then
-		echo "Made DT image: $DTIMG"
-	fi
-	echo "================================="
-	echo "END   : FUNC_GENERATE_DTIMG"
-	echo "================================="
-	echo ""
-}
+echo "Done"
 
-# MAIN FUNCTION
-(
-    START_TIME=`date +%s`
 
-    FUNC_GENERATE_DEFCONFIG
-    if [ "$2" = "--dt-only" ]
-    then
-        FUNC_GENERATE_DTB
-    else
-        FUNC_BUILD_KERNEL
-    fi
-    FUNC_GENERATE_DTIMG
+###################################### ARCHIVE GENERATION #####################################
 
-    END_TIME=`date +%s`
+echo
+echo "${bldcya}***** Make archives *****${txtrst}"
 
-    let "ELAPSED_TIME=$END_TIME-$START_TIME"
-    echo "Total compile time is $ELAPSED_TIME seconds"
-) 2>&1
+cp -R ./zion959 ${KERNELDIR}/output/$TARGET/
+cp -R ./rootzip ${KERNELDIR}/output/$TARGET/
+cp -R ./busybox ${KERNELDIR}/output/$TARGET/
+cp ./$TARGET/boot.img ${KERNELDIR}/output/$TARGET/zion959
+cp -R ./system ${KERNELDIR}/output/$TARGET/
+cp -R ./META-INF ${KERNELDIR}/output/$TARGET/
 
-if [ ! -f "$KERNEL_IMG" ]; then
-  exit -1
+cd ${KERNELDIR}/output/$TARGET
+GETVER=`grep 'S8_NN_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
+
+# Without Clearwater audio mod
+AUDIO=`grep '# CONFIG_SND_SOC_ARIZONA_CONTROL*' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
+if [ "$AUDIO" == "# CONFIG_SND_SOC_ARIZONA_CONTROL is not set" ]; then
+	AUDIO="no-audio"
+else
+	AUDIO=""
 fi
+
+zip -r SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.zip .
+tar -H ustar -c ${KERNELDIR}/output/$TARGET/zion959/boot.img > SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar
+md5sum -t SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar >> SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar
+mv SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar.md5
+
+echo
+echo "Done"
+
+
+#################################### OPTIONAL SOURCE CLEAN ####################################
+
+echo
+echo "${bldcya}***** Clean source *****${txtrst}"
+
+cd ${KERNELDIR}
+read -p "Do you want to Clean the source? (y/n) > " mc
+if [ "$mc" = "Y" -o "$mc" = "y" ]; then
+	xterm -e make clean
+	xterm -e make mrproper
+fi
+
+echo
+echo "Build completed"
+echo
+echo "${txtbld}***** Flashable zip found in output directory *****${txtrst}"
+echo
+# build script ends
