@@ -5,7 +5,7 @@ EXTRAVERSION =
 NAME = Blurry Fish Butt
 
 #TOOLCHAIN_DIR = $(CURDIR)/toolchain/aarch64-7.0/bin/aarch64-
-TOOLCHAIN_DIR =/home/zion/aarch64-linux-android-6.3/bin/aarch64-linux-android-
+TOOLCHAIN_DIR =/home/zion/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin/aarch64-cortex_a53-linux-gnueabi-
 
 ifdef CONFIG_WITH_CCACHE
 ccache := ccache

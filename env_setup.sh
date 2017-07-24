@@ -81,7 +81,7 @@ export TMPFILE=`mktemp -t`;
 
 
 # system compiler
-export CROSS_COMPILE=/home/zion/aarch64-linux-android-6.3/bin/aarch64-linux-android-
+export CROSS_COMPILE=/home/zion/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin/aarch64-cortex_a53-linux-gnueabi-
 
 
 # CPU Core
