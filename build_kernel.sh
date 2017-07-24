@@ -183,6 +183,7 @@ cp -R ./zion959 ${KERNELDIR}/output/$TARGET/
 cp -R ./rootzip ${KERNELDIR}/output/$TARGET/
 cp -R ./busybox ${KERNELDIR}/output/$TARGET/
 cp ./$TARGET/boot.img ${KERNELDIR}/output/$TARGET/zion959
+cp -R ./Spectrum ${KERNELDIR}/output/$TARGET/
 cp -R ./system ${KERNELDIR}/output/$TARGET/
 cp -R ./META-INF ${KERNELDIR}/output/$TARGET/
 
