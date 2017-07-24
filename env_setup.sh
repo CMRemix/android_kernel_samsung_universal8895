@@ -29,7 +29,7 @@ echo "${bldcya}***** Clean up Environment before compile *****${txtrst}";
 
 
 # Make clean source
-read -t 5 -p "Make clean source, 5sec timeout (y/n)?";
+read -t 10 -p "Make clean source, 10sec timeout (y/n)?";
 if [ "$REPLY" == "y" ]; then
 ./build_clean.sh;
 make distclean;
@@ -37,7 +37,7 @@ make mrproper;
 fi;
 
 # clear ccache
-read -t 5 -p "Clear ccache but keeping the config file, 5sec timeout (y/n)?";
+read -t 10 -p "Clear ccache but keeping the config file, 10sec timeout (y/n)?";
 if [ "$REPLY" == "y" ]; then
 ccache -C;
 fi;
@@ -50,7 +50,7 @@ if [ "$TARGET" != "" ]; then
 else
         echo ""
         echo "You need to define your device target!"
-        echo "example: build_kernel.sh G920P"
+        echo "example: build_kernel.sh G955F or G950F"
         exit 1
 fi
 
