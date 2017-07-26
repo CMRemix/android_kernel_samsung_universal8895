@@ -5,10 +5,10 @@ EXTRAVERSION =
 NAME = Blurry Fish Butt
 
 #TOOLCHAIN_DIR = $(CURDIR)/toolchain/aarch64-7.0/bin/aarch64-
-TOOLCHAIN_DIR =/home/zion/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin/aarch64-cortex_a53-linux-gnueabi-
+TOOLCHAIN_DIR =$(CCACHE) ~/zion/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin/aarch64-cortex_a53-linux-gnueabi-
 
 ifdef CONFIG_WITH_CCACHE
-ccache := ccache
+CCACHE := ccache
 endif
 
 # *DOCUMENTATION*
@@ -306,8 +306,13 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
+ifdef CONFIG_WITH_CCACHE
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
+else
+HOSTCC       = gcc
+HOSTCXX      = g++
+endif
 HOSTCFLAGS   = -O3 -fomit-frame-pointer -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11
 HOSTCXXFLAGS = -O3 -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -w -std=gnu++11
 
