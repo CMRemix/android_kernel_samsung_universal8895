@@ -30,3 +30,10 @@ service wakelock /sbin/wakelock.sh
     seclabel u:r:init:s0
     oneshot
     disabled
+
+service ksm /ksm.sh
+    class late_start
+    user root
+    seclabel u:r:init:s0
+    oneshot
+    disabled

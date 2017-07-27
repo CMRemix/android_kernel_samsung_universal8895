@@ -23,7 +23,7 @@
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
    echo 728000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
-   echo 2158000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+   echo 2314000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/ondemand/ignore_nice_load
    echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/ondemand/ignore_nice_load
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/ondemand/io_is_busy
