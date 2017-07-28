@@ -355,7 +355,7 @@ export KBUILD_CHECKSRC KBUILD_SRC KBUILD_EXTMOD
 scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
-GRAPHITE = -Ofast -fgraphite -fgraphite-identity -floop-parallelize-all \
+GRAPHITE := -Ofast -fgraphite -fgraphite-identity -floop-parallelize-all \
            -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
 
 # Make variables (CC, etc...)
