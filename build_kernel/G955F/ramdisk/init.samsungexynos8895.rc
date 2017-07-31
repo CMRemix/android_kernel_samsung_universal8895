@@ -62,7 +62,7 @@ on post-fs-data
     chown system audio /sys/class/dsm/maxdsm_cal/rdc
     chown system audio /sys/class/dsm/maxdsm_power/duration
     chown system audio /sys/class/dsm/maxdsm_power/interval
-    chown system audio /sys/class/dsm/maxdsm_power/status	
+    chown system audio /sys/class/dsm/maxdsm_power/status
     mkdir /data/firmware 0770 audioserver system
     mkdir /efs/maxim 0770 system audio
     chown system audio /efs/maxim/temp_cal
@@ -131,6 +131,13 @@ on post-fs-data
     mkdir /data/bio/ir 0770 system system
 
     chmod 0755 /sys/kernel/debug/tracing
+
+# Private Mode
+    mkdir /mnt/shell/privatemode 0700 system system
+    mkdir /storage/Private 0000 system system
+    mkdir /data/privatemode 0770 system system
+    chown system system /data/privatemode
+    restorecon /data/privatemode
 
 on boot
 # SSWAP
@@ -471,6 +478,7 @@ on fs
     chown system system /sys/class/lcd/panel/SVC_OCTA
     chown system system /sys/class/lcd/panel/xtalk_mode
     chown system system /sys/class/lcd/panel/poc
+    chown system system /sys/class/lcd/panel/grayspot
 
 # Permissions for LCD COPR
     chown system system /sys/class/lcd/panel/copr
@@ -481,7 +489,7 @@ on fs
 
 # permissions for BCDS systrace
     chmod 0666 /sys/class/lcd/panel/fingerprint
-    chown system media_rw /sys/class/lcd/panel/fingerprint 
+    chown system media_rw /sys/class/lcd/panel/fingerprint
 
 # Permissions for MDNIE
     chown system media_rw /sys/class/mdnie/mdnie/mode
@@ -581,7 +589,7 @@ on fs
     chown system radio /sys/class/sensors/accelerometer_sensor/selftest
     chown system radio /sys/class/sensors/accelerometer_sensor/lowpassfilter
     chown system radio /sys/class/sensors/accelerometer_sensor/dhr_sensor_info
-    
+
 # Proximity_sensor
     chown system radio /sys/class/sensors/proximity_sensor/raw_data
     chown system radio /sys/class/sensors/proximity_sensor/prox_avg
@@ -650,7 +658,7 @@ on fs
     chown system radio /sys/class/sensors/magnetic_sensor/vendor
     chown system radio /sys/class/sensors/magnetic_sensor/name
     chown system radio /sys/class/sensors/magnetic_sensor/dhr_sensor_info
-    
+
 # HRM_sensor
     chown system radio /sys/class/sensors/hrm_sensor/name
     chown system radio /sys/class/sensors/hrm_sensor/vendor
@@ -888,7 +896,7 @@ on property:sys.boot_completed=1
 
 on property:security.semdaemonfinish=1
     stop sem_daemon
-	
+
 service prepare_param /system/bin/prepare_param.sh /dev/block/platform/11120000.ufs/by-name/PARAM
     class core
     user root
@@ -916,7 +924,7 @@ service wsmd /system/bin/wsmd
     group system
     disabled
 on property:ro.wsmd.enable=true
-    mkdir /dev/socket/wsm_socket 
+    mkdir /dev/socket/wsm_socket
     chmod 0711 /dev/socket/wsm_socket
     chown system system /dev/socket/wsm_socket
     start wsmd

@@ -1,0 +1,90 @@
+# zion kernel extras
+
+on early-init
+    # Tweak IO performance during boot up
+
+
+on boot
+
+
+on property:sys.boot_completed=1
+    # Fix permission for Governor Tuneable
+    # Little, cpu0 (A53)
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost
+    chmod 0644 /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration
+
+    # Big, cpu4 (M2)
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost
+    chmod 0644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration
+
+    # Setup cpu0, (A53)
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 455000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1690000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "19000 1274000:39000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 858000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "75 1170000:85"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 10000
+
+    # Setup cpu4, (M2)
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 455000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1937000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 89
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "59000 1248000:79000 1664000:19000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1248000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack 20000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "80 1040000:81 1352000:87 1664000:90"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 30000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 10000

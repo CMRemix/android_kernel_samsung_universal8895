@@ -3,12 +3,13 @@
 #
 persist.security.ams.enforcing=1
 ro.oem_unlock_supported=1
-ro.secure=1
+ro.secure=0
 security.perf_harden=1
 ro.adb.secure=1
 ro.allow.mock.location=0
-ro.debuggable=0
-persist.sys.usb.config=mtp
+ro.debuggable=1
+persist.sys.usb.config=mtp,adb
+persist.service.adb.enable=1
 ro.zygote=zygote64_32
 pm.dexopt.first-boot=interpret-only
 pm.dexopt.boot=verify-profile
@@ -28,13 +29,18 @@ dalvik.vm.usejit=true
 dalvik.vm.usejitprofiles=true
 dalvik.vm.appimageformat=lz4
 debug.atrace.tags.enableflags=0
+
+wlan.wfd.hdcp =disable
+boot.fps=32
+shutdown.fps=30
+sys.config.spcm_enable=false
+
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Thu Jun 8 22:11:43 KST 2017
-ro.bootimage.build.date.utc=1496927503
-ro.bootimage.build.fingerprint=samsung/dream2ltexx/dream2lte:7.0/NRD90M/G955FXXU1AQF7:user/test-keys
-
+ro.bootimage.build.date=Thu Jul 13 12:13:31 KST 2017
+ro.bootimage.build.date.utc=1499915611
+ro.bootimage.build.fingerprint=samsung/dream2ltexx/dream2lte:7.0/NRD90M/G955FXXU1AQG7:user/test-keys
 # Security Properties
 ro.config.tima=0
 ro.securestorage.support=false
