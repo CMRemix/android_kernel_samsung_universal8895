@@ -78,7 +78,7 @@ on property:sys.boot_completed=1
     # Setup cpu4, (M2)
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 455000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1937000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 2314000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 89
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "59000 1248000:79000 1664000:19000"
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000
