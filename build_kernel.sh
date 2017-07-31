@@ -187,21 +187,18 @@ cp -R ./Spectrum ${KERNELDIR}/output/$TARGET/
 cp -R ./system ${KERNELDIR}/output/$TARGET/
 cp -R ./META-INF ${KERNELDIR}/output/$TARGET/
 
+# Kernel Version
 cd ${KERNELDIR}/output/$TARGET
-GETVER=`grep 'S8_NN_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
-
-# Without Clearwater audio mod
-AUDIO=`grep '# CONFIG_SND_SOC_ARIZONA_CONTROL*' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
-if [ "$AUDIO" == "# CONFIG_SND_SOC_ARIZONA_CONTROL is not set" ]; then
-	AUDIO="no-audio"
+if [ -s ~/S8_KERNELname ]; then
+    export KERNEL_VERSION=$(cat ~/S8_KERNELname)
 else
-	AUDIO=""
+    export GETVER=`grep 'S8_NN_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
 fi
 
-zip -r SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.zip .
-tar -H ustar -c ${KERNELDIR}/output/$TARGET/zion959/boot.img > SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar
-md5sum -t SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar >> SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar
-mv SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar.md5
+zip -r SM-$TARGET-$KERNEL_VERSION-${GETVER}-`date +[%d-%m-%y]`.zip .
+tar -H ustar -c ${KERNELDIR}/output/$TARGET/zion959/boot.img > SM-$TARGET-$KERNEL_VERSION-${GETVER}-`date +[%d-%m-%y]`.tar
+md5sum -t SM-$TARGET-$KERNEL_VERSION-${GETVER}-`date +[%d-%m-%y]`.tar >> SM-$TARGET-$KERNEL_VERSION-${GETVER}-`date +[%d-%m-%y]`.tar
+mv SM-$TARGET-$KERNEL_VERSION-${GETVER}-`date +[%d-%m-%y]`.tar SM-$TARGET-$KERNEL_VERSION-${GETVER}-`date +[%d-%m-%y]`.tar.md5
 
 echo
 echo "Done"
