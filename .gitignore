@@ -15,7 +15,6 @@
 *.a
 *.s
 *.ko
-*.so
 *.so.dbg
 *.mod.c
 *.i
@@ -23,7 +22,6 @@
 *.symtypes
 *.order
 *.elf
-*.bin
 *.tar
 *.gz
 *.bz2
