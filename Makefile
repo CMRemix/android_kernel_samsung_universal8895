@@ -1,11 +1,11 @@
 VERSION = 4
 PATCHLEVEL = 4
 SUBLEVEL = 79
-EXTRAVERSION =
+EXTRAVERSION = -AQG5
 NAME = Blurry Fish Butt
 
 #TOOLCHAIN_DIR = $(CURDIR)/toolchain/aarch64-7.0/bin/aarch64-
-TOOLCHAIN_DIR =$(CCACHE) ~/zion/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin/aarch64-cortex_a53-linux-gnueabi-
+TOOLCHAIN_DIR =$(CCACHE) ~/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin/aarch64-cortex_a53-linux-gnueabi-
 
 ifdef CONFIG_WITH_CCACHE
 CCACHE := ccache
