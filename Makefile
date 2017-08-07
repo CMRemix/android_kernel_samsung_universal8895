@@ -4,12 +4,7 @@ SUBLEVEL = 80
 EXTRAVERSION =
 NAME = Blurry Fish Butt
 
-#TOOLCHAIN_DIR = $(CURDIR)/toolchain/aarch64-7.0/bin/aarch64-
-TOOLCHAIN_DIR =$(CCACHE) ~/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin/aarch64-cortex_a53-linux-gnueabi-
-
-ifdef CONFIG_WITH_CCACHE
 CCACHE := ccache
-endif
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
@@ -306,13 +301,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
-ifdef CONFIG_WITH_CCACHE
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
-else
-HOSTCC       = gcc
-HOSTCXX      = g++
-endif
 HOSTCFLAGS   = -O3 -fomit-frame-pointer -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11
 HOSTCXXFLAGS = -O3 -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -w -std=gnu++11
 
@@ -355,17 +345,13 @@ export KBUILD_CHECKSRC KBUILD_SRC KBUILD_EXTMOD
 scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
-GRAPHITE := -Ofast -fgraphite -fgraphite-identity -floop-parallelize-all \
-           -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
+GRAPHITE := -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
+FLAGS := -march=armv8-a -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -O3 -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
-ifdef CONFIG_WITH_CCACHE
-CC		= $(CCACHE) $(CROSS_COMPILE)gcc $(GRAPHITE) -w
-else
-CC		= $(CROSS_COMPILE)gcc $(GRAPHITE) -w
-endif
+CC		= $(CCACHE) $(CROSS_COMPILE)gcc $(GRAPHITE) $(FLAGS)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -384,7 +370,7 @@ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
 CFLAGS_MODULE   =
 AFLAGS_MODULE   =
-LDFLAGS_MODULE  = --strip-debug
+LDFLAGS_MODULE  = -O3 --strip-debug
 CFLAGS_KERNEL	=
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
@@ -410,7 +396,7 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -Ofast -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+KBUILD_CFLAGS   := -O3 -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security -mcpu=exynos-m1 \
@@ -651,18 +637,16 @@ KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 else
 ifdef CONFIG_PROFILE_ALL_BRANCHES
-KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
+KBUILD_CFLAGS	+= -O3 -Wno-maybe-uninitialized
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 else
-KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
+KBUILD_CFLAGS	+= -O3 -Wno-maybe-uninitialized
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 endif
 endif
 
-# -Ofast optimization
-KBUILD_CFLAGS	+= -Ofast
 
 # Processor-specific tunes for Exynos 8895
 KBUILD_CFLAGS	+= $(call cc-option,-mtune=exynos-m1.cortex-a53)
