@@ -303,8 +303,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
-HOSTCFLAGS   = -O3 -fomit-frame-pointer -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11
-HOSTCXXFLAGS = -O3 -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -w -std=gnu++11
+HOSTCFLAGS   = -Ofast -fomit-frame-pointer -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11
+HOSTCXXFLAGS = -Ofast -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -w -std=gnu++11
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -346,11 +346,11 @@ scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
 GRAPHITE := -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
-FLAGS := -march=armv8-a -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -O3 -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare
+FLAGS := -march=armv8-a -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -Ofast -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld
+LD		= $(CROSS_COMPILE)ld -Ofast -flto
 CC		= $(CCACHE) $(CROSS_COMPILE)gcc $(GRAPHITE) $(FLAGS)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
@@ -370,7 +370,7 @@ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
 CFLAGS_MODULE   =
 AFLAGS_MODULE   =
-LDFLAGS_MODULE  = -O3 --strip-debug
+LDFLAGS_MODULE  = -Ofast --strip-debug
 CFLAGS_KERNEL	=
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
@@ -396,7 +396,7 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -O3 -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+KBUILD_CFLAGS   := -Ofast -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security -mcpu=exynos-m1 \
@@ -632,16 +632,16 @@ KBUILD_CFLAGS	+= $(call cc-disable-warning, format-overflow)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, int-in-bool-context)
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
-KBUILD_CFLAGS	+= -O3 $(call cc-disable-warning,maybe-uninitialized,)
+KBUILD_CFLAGS	+= -Ofast $(call cc-disable-warning,maybe-uninitialized,)
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 else
 ifdef CONFIG_PROFILE_ALL_BRANCHES
-KBUILD_CFLAGS	+= -O3 -Wno-maybe-uninitialized
+KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 else
-KBUILD_CFLAGS	+= -O3 -Wno-maybe-uninitialized
+KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 endif
