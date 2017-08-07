@@ -20,14 +20,14 @@ KERNELDIR=`readlink -f .`;
 BOOTDIR=$KERNELDIR/arch/$ARCH/boot/
 
 # Make clean source
-read -t 10 -p "Make clean source, 10sec timeout (y/n)?";
+read -t 30 -p "Make clean source, 10sec timeout (y/n)?";
 if [ "$REPLY" == "y" ]; then
 make distclean;
 make mrproper;
 fi;
 
 # clear ccache
-read -t 10 -p "Clear ccache but keeping the config file, 10sec timeout (y/n)?";
+read -t 30 -p "Clear ccache but keeping the config file, 10sec timeout (y/n)?";
 if [ "$REPLY" == "y" ]; then
 ccache -C;
 fi;
