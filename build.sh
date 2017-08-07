@@ -1,129 +1,124 @@
 #!/bin/bash
-# Kernel Build Script
 
-BUILD_WHERE=$(pwd)
-BUILD_KERNEL_DIR=$BUILD_WHERE
-BUILD_ROOT_DIR=$BUILD_KERNEL_DIR/..
-BUILD_KERNEL_OUT_DIR=$BUILD_ROOT_DIR/kernel_out/KERNEL_OBJ
-PRODUCT_OUT=$BUILD_ROOT_DIR/kernel_out
-
-export KERNEL_TOOLCHAIN=/home/zion/aarch64-linux-android-6.3/bin/aarch64-linux-android-
-export KERNEL_DTBTOOL=/home/zion/S8-NN/android_kernel_samsung_universal8895/build_kernel/dtbTool
-
-BUILD_CROSS_COMPILE=$KERNEL_TOOLCHAIN
-BUILD_JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
-
-KERNEL_DEFCONFIG=exynos8895-$1_eur_open_defconfig
-
-KERNEL_IMG=$PRODUCT_OUT/Image
-DTIMG=$PRODUCT_OUT/dt.img
-
-DTBTOOL=$KERNEL_DTBTOOL
-
-FUNC_GENERATE_DEFCONFIG()
-{
-	echo ""
-        echo "=============================================="
-        echo "START : FUNC_GENERATE_DEFCONFIG"
-        echo "=============================================="
-        echo "build config="$KERNEL_DEFCONFIG ""
-        echo ""
-
-	make -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE \
-			$KERNEL_DEFCONFIG || exit -1
-
-	cp $BUILD_KERNEL_OUT_DIR/.config $BUILD_KERNEL_DIR/arch/arm64/configs/$KERNEL_DEFCONFIG
-
-	echo ""
-	echo "================================="
-	echo "END   : FUNC_GENERATE_DEFCONFIG"
-	echo "================================="
-	echo ""
-}
-
-FUNC_GENERATE_DTB()
-{
-	echo ""
-        echo "=============================================="
-        echo "START : FUNC_GENERATE_DTB"
-        echo "=============================================="
-        echo ""
-	rm -rf $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/dts
-
-	make dtbs -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE || exit -1
-	echo ""
-	echo "================================="
-	echo "END   : FUNC_GENERATE_DTB"
-	echo "================================="
-	echo ""
-}
-
-FUNC_BUILD_KERNEL()
-{
-	echo ""
-	echo "================================="
-	echo "START   : FUNC_BUILD_KERNEL"
-	echo "================================="
-	echo ""
-	rm $KERNEL_IMG $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/Image
-	rm -rf $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/dts
-
-if [ "$USE_CCACHE" ]
-then
-	make -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE \
-			CC="ccache "$BUILD_CROSS_COMPILE"gcc" CPP="ccache "$BUILD_CROSS_COMPILE"gcc -E" || exit -1
+DEVICE=$1
+if [ "$DEVICE" != "" ]; then
+	echo
+        echo "Starting your build for $DEVICE"
 else
-	make -C $BUILD_KERNEL_DIR O=$BUILD_KERNEL_OUT_DIR -j$BUILD_JOB_NUMBER ARCH=arm64 \
-			CROSS_COMPILE=$BUILD_CROSS_COMPILE || exit -1
+        echo ""
+        echo "You need to define your device target!"
+        echo "example: bash build.sh G955F or G950F"
+        exit 1
 fi
 
-	cp $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/Image $KERNEL_IMG
-	echo "Made Kernel image: $KERNEL_IMG"
-	echo "================================="
-	echo "END   : FUNC_BUILD_KERNEL"
-	echo "================================="
-	echo ""
-}
+export ARCH=arm64
+export PATH=~/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin:$PATH
+export CROSS_COMPILE=aarch64-cortex_a53-linux-gnueabi-
 
-FUNC_GENERATE_DTIMG()
-{
-	echo ""
-	echo "================================="
-	echo "START   : FUNC_GENERATE_DTIMG"
-	echo "================================="
-	rm $DTIMG
-	$DTBTOOL -o $DTIMG -s 2048 -p $BUILD_KERNEL_OUT_DIR/scripts/dtc/ $BUILD_KERNEL_OUT_DIR/arch/arm64/boot/dts/exynos
-	if [ -f "$DTIMG" ]; then
-		echo "Made DT image: $DTIMG"
-	fi
-	echo "================================="
-	echo "END   : FUNC_GENERATE_DTIMG"
-	echo "================================="
-	echo ""
-}
+THREAD=-j$(bc <<< $(grep -c ^processor /proc/cpuinfo)+2)
+KERNELDIR=`readlink -f .`;
+BOOTDIR=$KERNELDIR/arch/$ARCH/boot/
 
-# MAIN FUNCTION
-(
-    START_TIME=`date +%s`
+# Make clean source
+read -t 10 -p "Make clean source, 10sec timeout (y/n)?";
+if [ "$REPLY" == "y" ]; then
+make distclean;
+make mrproper;
+fi;
 
-    FUNC_GENERATE_DEFCONFIG
-    if [ "$2" = "--dt-only" ]
-    then
-        FUNC_GENERATE_DTB
-    else
-        FUNC_BUILD_KERNEL
-    fi
-    FUNC_GENERATE_DTIMG
+# clear ccache
+read -t 10 -p "Clear ccache but keeping the config file, 10sec timeout (y/n)?";
+if [ "$REPLY" == "y" ]; then
+ccache -C;
+fi;
 
-    END_TIME=`date +%s`
+# cleanup previous Image files
+find . -type f -name "*~" -exec rm -f {} \;
+find . -type f -name "*orig" -exec rm -f {} \;
+find . -type f -name "*rej" -exec rm -f {} \;
 
-    let "ELAPSED_TIME=$END_TIME-$START_TIME"
-    echo "Total compile time is $ELAPSED_TIME seconds"
-) 2>&1
+rm -rf $KERNELDIR/arch/arm64/boot/dts/exynos/*.dtb;
 
-if [ ! -f "$KERNEL_IMG" ]; then
-  exit -1
-fi
+if [ -e $KERNELDIR/dt.img ]; then
+	rm $KERNELDIR/dt.img;
+fi;
+if [ -e $KERNELDIR/boot.tar ]; then
+	rm $KERNELDIR/boot.tar;
+fi;
+if [ -e $KERNELDIR/out/G955F/dream2lte.img ]; then
+	rm $KERNELDIR/out/G955F/dream2lte.img;
+fi;
+if [ -e $KERNELDIR/out/G950F/dreamlte.img ]; then
+	rm $KERNELDIR/out/G950F/dreamlte.img;
+fi;
+if [ -e $KERNELDIR/ramdisk.packed ]; then
+	rm $KERNELDIR/ramdisk.packed;
+fi;
+if [ -e $KERNELDIR/$BOOTDIR/Image ]; then
+	rm $KERNELDIR/$BOOTDIR/Image;
+fi;
+if [ -e $KERNELDIR/$BOOTDIR/dt.img ]; then
+	rm $KERNELDIR/$BOOTDIR/dt.img;
+fi;
+if [ -e $KERNELDIR/$BOOTDIR/Image ]; then
+	rm $KERNELDIR/$BOOTDIR/Image;
+fi;
+if [ -e $KERNELDIR/$BOOTDIR/Image.gz ]; then
+	rm $KERNELDIR/$BOOTDIR/Image.gz;
+fi;
+
+# Create Output Directory
+if [ "$DEVICE" = "G955F" ]; then
+mkdir -p $KERNELDIR/out/G955F
+fi;
+if [ "$DEVICE" = "G950F" ]; then
+mkdir -p $KERNELDIR/out/G950F
+fi;
+
+# G955F
+if [ "$DEVICE" = "G955F" ]; then
+    make exynos8895-dream2lte_eur_open_defconfig
+fi;
+# G950F
+if [ "$DEVICE" = "G950F" ]; then
+    make exynos8895-dreamlte_eur_open_defconfig
+fi;
+
+# Build Kernel
+make $THREAD
+
+# Build DTB
+make dtbs
+
+./utilities/dtbtool -o dt.img -s 2048 -p ./scripts/dtc/dtc arch/arm64/boot/dts/exynos/
+
+# Make Ramdisk
+if [ "$DEVICE" = "G955F" ]; then
+    ./utilities/mkbootfs ramdisk/G955F/ramdisk | lzma > ramdisk.packed
+fi;
+if [ "$DEVICE" = "G950F" ]; then
+    ./utilities/mkbootfs ramdisk/G950F/ramdisk | lzma > ramdisk.packed
+fi;
+
+# Make BootImage
+./utilities/mkbootimg \
+      --kernel arch/arm64/boot/Image \
+      --ramdisk ramdisk.packed \
+      --cmdline "" \
+      --base 0x10000000 \
+      --pagesize 2048 \
+      --dt dt.img \
+      --ramdisk_offset 0x01000000 \
+      --tags_offset 0x00000100 \
+      --output boot.img
+
+echo SEANDROIDENFORCE >> boot.img
+if [ "$DEVICE" = "G955F" ]; then
+    mv boot.img out/G955F/dream2lte.img
+fi;
+if [ "$DEVICE" = "G950F" ]; then
+    tar -cvf boot.tar boot.img
+    mv boot.img out/G950F/dreamlte.img
+fi;
+
+echo "Build completed"

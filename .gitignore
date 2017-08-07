@@ -35,6 +35,7 @@ modules.builtin
 Module.symvers
 *.dwo
 *.su
+*.so
 
 #
 # Top-level generic files
@@ -112,3 +113,8 @@ all.config
 *.kdev4
 /output/
 /dt.img
+*Image
+/boot.img
+*.img
+/Image
+*.packed
