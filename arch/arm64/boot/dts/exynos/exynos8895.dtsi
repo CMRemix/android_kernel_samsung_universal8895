@@ -223,7 +223,7 @@
 			enable-method = "psci";
 			cpu-idle-states = <&NONBOOTCL_CPU_SLEEP>;
 			#cooling-cells = <2>; /* min followed by max */
-			current = <445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
+			current = <510750 495730 480700 445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
 		};
 		cpu@1 {
 			device_type = "cpu";
@@ -232,7 +232,7 @@
 			logical-id = <5>;
 			enable-method = "psci";
 			cpu-idle-states = <&NONBOOTCL_CPU_SLEEP>;
-			current = <445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
+			current = <510750 495730 480700 445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
 		};
 		cpu@2 {
 			device_type = "cpu";
@@ -241,7 +241,7 @@
 			logical-id = <6>;
 			enable-method = "psci";
 			cpu-idle-states = <&NONBOOTCL_CPU_SLEEP>;
-			current = <445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
+			current = <510750 495730 480700 445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
 		};
 		cpu@3 {
 			device_type = "cpu";
@@ -250,7 +250,7 @@
 			logical-id = <7>;
 			enable-method = "psci";
 			cpu-idle-states = <&NONBOOTCL_CPU_SLEEP>;
-			current = <445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
+			current = <510750 495730 480700 445650 355850 295970 251060 233620 201350 177320 137850 111850 100000 88090 78470 69380 58880>;
 		};
 
 		idle-states {
@@ -515,7 +515,7 @@
 			cal-id = <ACPM_DVFS_CPUCL0>;
 			dm-type = <DM_CPU_CL1>;
 
-			max-freq = <2496000>;
+			max-freq = <2652000>;
 			min-freq = <741000>;
 
 			/* PM QoS Class ID*/
@@ -4494,8 +4494,8 @@
 		/* gpu cooling related table */
 		/* flags, driver_data(index), frequency */
 		gpu_idx_num = <6>;
-		gpu_cooling_table = < 0 0 546000
-				      0 1 455000
+		gpu_cooling_table = < 0 0 572000
+				      0 1 546000
 				      0 2 385000
 				      0 3 338000
 				      0 4 260000
@@ -4955,3 +4955,4 @@
 		interrupts = <0 79 0>, <0 78 0>;
 	};
 };
+
