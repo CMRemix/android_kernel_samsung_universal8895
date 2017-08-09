@@ -1,13 +1,25 @@
 #!/bin/bash
 
+# Colorize and add text parameters
+export red=$(tput setaf 1)             #  red
+export grn=$(tput setaf 2)             #  green
+export blu=$(tput setaf 4)             #  blue
+export cya=$(tput setaf 6)             #  cyan
+export txtbld=$(tput bold)             #  Bold
+export bldred=${txtbld}$(tput setaf 1) #  red
+export bldgrn=${txtbld}$(tput setaf 2) #  green
+export bldblu=${txtbld}$(tput setaf 4) #  blue
+export bldcya=${txtbld}$(tput setaf 6) #  cyan
+export txtrst=$(tput sgr0) 
+
 DEVICE=$1
 if [ "$DEVICE" != "" ]; then
 	echo
-        echo "Starting your build for $DEVICE"
+        echo "${bldcya}***Starting your build for $DEVICE***${txtrst}"
 else
         echo ""
-        echo "You need to define your device target!"
-        echo "example: bash build.sh G955F or G950F"
+        echo "${bldred}***You need to define your device target!***${txtrst}"
+        echo "${bldred}***example: bash build.sh G955F or G950F***${txtrst}"
         exit 1
 fi
 
@@ -20,19 +32,20 @@ KERNELDIR=`readlink -f .`;
 BOOTDIR=$KERNELDIR/arch/$ARCH/boot/
 
 # Make clean source
-read -t 30 -p "Make clean source, 10sec timeout (y/n)?";
+read -t 30 -p "${bldred}***Make clean source, 10sec timeout (y/n)?***${txtrst}";
 if [ "$REPLY" == "y" ]; then
 make distclean;
 make mrproper;
 fi;
 
 # clear ccache
-read -t 30 -p "Clear ccache but keeping the config file, 10sec timeout (y/n)?";
+read -t 30 -p "${bldred}***Clear ccache but keeping the config file, 10sec timeout (y/n)?***${txtrst}";
 if [ "$REPLY" == "y" ]; then
 ccache -C;
 fi;
 
 # cleanup previous Image files
+echo "${bldgrn}***Clean Up Junks***${txtrst}"
 find . -type f -name "*~" -exec rm -f {} \;
 find . -type f -name "*orig" -exec rm -f {} \;
 find . -type f -name "*rej" -exec rm -f {} \;
@@ -68,6 +81,7 @@ if [ -e $KERNELDIR/$BOOTDIR/Image.gz ]; then
 fi;
 
 # Create Output Directory
+echo "${bldgrn}***Create Kernel Output Folder***${txtrst}"
 if [ "$DEVICE" = "G955F" ]; then
 mkdir -p $KERNELDIR/out/G955F
 fi;
@@ -85,14 +99,17 @@ if [ "$DEVICE" = "G950F" ]; then
 fi;
 
 # Build Kernel
+echo "${bldgrn}***Compile Kernel Source Code***${txtrst}"
 make $THREAD
 
 # Build DTB
+echo "${bldgrn}***Make DTBS***${txtrst}"
 make dtbs
 
 ./utilities/dtbtool -o dt.img -s 2048 -p ./scripts/dtc/dtc arch/arm64/boot/dts/exynos/
 
 # Make Ramdisk
+echo "${bldgrn}***Create Ramdisk***${txtrst}"
 if [ "$DEVICE" = "G955F" ]; then
     ./utilities/mkbootfs ramdisk/G955F/ramdisk | lzma > ramdisk.packed
 fi;
@@ -101,6 +118,7 @@ if [ "$DEVICE" = "G950F" ]; then
 fi;
 
 # Make BootImage
+echo "${bldgrn}***Create Boot Image***${txtrst}"
 ./utilities/mkbootimg \
       --kernel arch/arm64/boot/Image \
       --ramdisk ramdisk.packed \
@@ -121,4 +139,4 @@ if [ "$DEVICE" = "G950F" ]; then
     mv boot.img out/G950F/dreamlte.img
 fi;
 
-echo "Build completed"
+echo "${bldred}***Build completed Please Check the OUTPUT folder***${txtrst}"
