@@ -183,6 +183,14 @@ su -c "pm enable com.google.android.gsf/.update.SystemUpdateService"
 su -c "pm enable com.google.android.gsf/.update.SystemUpdateService$Receiver"
 su -c "pm enable com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver"
 
+# Deep Sleep fix by @Chainfire from SuperSU
+for i in `ls /sys/class/scsi_disk/`; do
+	cat /sys/class/scsi_disk/$i/write_protect 2>/dev/null | grep 1 >/dev/null
+	if [ $? -eq 0 ]; then
+		echo 'temporary none' > /sys/class/scsi_disk/$i/cache_type
+	fi
+done
+
 ############################# ARE YOU ALIVE IN ?############################
 
 
