@@ -303,8 +303,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
-HOSTCFLAGS   = -Ofast -fomit-frame-pointer -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11
-HOSTCXXFLAGS = -Ofast -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -w -std=gnu++11
+HOSTCFLAGS   = -Ofast -fomit-frame-pointer -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11
+HOSTCXXFLAGS = -Ofast -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize -pipe -w -std=gnu++11
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -345,7 +345,7 @@ export KBUILD_CHECKSRC KBUILD_SRC KBUILD_EXTMOD
 scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
-GRAPHITE := -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
+GRAPHITE := -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize
 FLAGS := -march=armv8-a -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -Ofast -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare
 
 # Make variables (CC, etc...)
@@ -368,11 +368,11 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   =
-AFLAGS_MODULE   =
-LDFLAGS_MODULE  = -Ofast --strip-debug
-CFLAGS_KERNEL	=
-AFLAGS_KERNEL	=
+CFLAGS_MODULE   = $(GRAPHITE) -DMODULE -DNDEBUG
+AFLAGS_MODULE   = $(GRAPHITE) -DMODULE -DNDEBUG
+LDFLAGS_MODULE  = $(GRAPHITE) -DMODULE -DNDEBUG
+CFLAGS_KERNEL	= $(GRAPHITE) -DNDEBUG -fsingle-precision-constant
+AFLAGS_KERNEL	= $(GRAPHITE) -DNDEBUG
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 
 
@@ -396,15 +396,20 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -Ofast -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
-		   -fno-strict-aliasing -fno-common \
-		   -Werror-implicit-function-declaration \
-		   -Wno-format-security -mcpu=exynos-m1 \
-		   -mtune=exynos-m1 -funroll-loops \
+KBUILD_CFLAGS   := -DNDEBUG $(GRAPHITE) -w -Wstrict-prototypes -Wno-trigraphs \
+		   -fno-strict-aliasing -finline-functions -fno-common \
+		   -Werror-implicit-function-declaration -fno-pic \
+		   -Wno-format-security -ffast-math \
+		   -fno-delete-null-pointer-checks \
+		   -fdiagnostics-show-option \
+		   -pipe  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
+		   -ftree-loop-distribution -ftree-loop-if-convert -fivopts -fipa-pta -fira-hoist-pressure \
 		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
-		   -ftree-loop-im -ftree-vectorize \
-		   -std=gnu89 $(call cc-option,-fno-PIE) \
-		   $(GRAPHITE)
+		   -fbranch-target-load-optimize -fsingle-precision-constant \
+		   -Werror -Wno-error=unused-variable -Wno-error=unused-function \
+		   -std=gnu89 -Wno-discarded-array-qualifiers -Wno-logical-not-parentheses -Wno-array-bounds -Wno-switch -Wno-unused-variable \
+		   -march=armv8-a+crc -mtune=cortex-a57.cortex-a53 \
+           $(call cc-option,-fno-PIE)
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -647,6 +652,8 @@ KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 endif
 endif
 
+# -Ofast optimization
+KBUILD_CFLAGS	+= -Ofast
 
 # Processor-specific tunes for Exynos 8895
 KBUILD_CFLAGS	+= $(call cc-option,-mtune=exynos-m1.cortex-a53)
