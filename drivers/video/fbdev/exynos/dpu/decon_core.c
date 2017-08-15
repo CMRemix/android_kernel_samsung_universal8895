@@ -45,6 +45,14 @@
 #include "dpp.h"
 #include "displayport.h"
 
+#ifdef CONFIG_POWERSUSPEND
+#include <linux/powersuspend.h>
+#endif
+
+#ifdef CONFIG_STATE_NOTIFIER
+#include <linux/state_notifier.h>
+#endif
+
 int decon_log_level = 6;
 module_param(decon_log_level, int, 0644);
 struct decon_device *decon_drvdata[MAX_DECON_CNT];
@@ -900,6 +908,12 @@ static int decon_blank(int blank_mode, struct fb_info *info)
 	case FB_BLANK_NORMAL:
 		DPU_EVENT_LOG(DPU_EVT_BLANK, &decon->sd, ktime_set(0, 0));
 		ret = decon_disable(decon);
+#ifdef CONFIG_POWERSUSPEND
+		set_power_suspend_state_panel_hook(POWER_SUSPEND_ACTIVE);
+#endif
+#ifdef CONFIG_STATE_NOTIFIER
+		state_suspend();
+#endif
 		if (ret) {
 			decon_err("failed to disable decon\n");
 			goto blank_exit;
@@ -908,6 +922,12 @@ static int decon_blank(int blank_mode, struct fb_info *info)
 	case FB_BLANK_UNBLANK:
 		DPU_EVENT_LOG(DPU_EVT_UNBLANK, &decon->sd, ktime_set(0, 0));
 		ret = decon_enable(decon);
+#ifdef CONFIG_POWERSUSPEND
+		set_power_suspend_state_panel_hook(POWER_SUSPEND_INACTIVE);
+#endif
+#ifdef CONFIG_STATE_NOTIFIER
+		state_resume();
+#endif
 		if (ret) {
 			decon_err("failed to enable decon\n");
 			goto blank_exit;
