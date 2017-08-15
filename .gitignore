@@ -37,6 +37,8 @@ modules.builtin
 Module.symvers
 *.dwo
 *.su
+*.img
+*.packed
 
 #
 # Top-level generic files
