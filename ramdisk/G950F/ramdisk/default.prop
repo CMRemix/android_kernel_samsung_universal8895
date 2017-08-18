@@ -38,9 +38,9 @@ sys.config.spcm_enable=false
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Wed Jul 19 21:12:20 KST 2017
-ro.bootimage.build.date.utc=1500466340
-ro.bootimage.build.fingerprint=samsung/dreamltexx/dreamlte:7.0/NRD90M/G950FXXU1AQGB:user/test-keys
+ro.bootimage.build.date=Tue Aug 8 23:42:10 KST 2017
+ro.bootimage.build.date.utc=1502203330
+ro.bootimage.build.fingerprint=samsung/dreamltexx/dreamlte:7.0/NRD90M/G950FXXU1AQH3:user/test-keys
 
 # Security Properties
 ro.config.tima=0
