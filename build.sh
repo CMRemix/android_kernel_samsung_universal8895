@@ -58,11 +58,15 @@ fi;
 if [ -e $KERNELDIR/boot.tar ]; then
 	rm $KERNELDIR/boot.tar;
 fi;
+if [ "$DEVICE" = "G955F" ]; then
 if [ -e $KERNELDIR/out/G955F/dream2lte.img ]; then
 	rm $KERNELDIR/out/G955F/dream2lte.img;
+  fi;
 fi;
+if [ "$DEVICE" = "G950F" ]; then
 if [ -e $KERNELDIR/out/G950F/dreamlte.img ]; then
 	rm $KERNELDIR/out/G950F/dreamlte.img;
+  fi;
 fi;
 if [ -e $KERNELDIR/ramdisk.packed ]; then
 	rm $KERNELDIR/ramdisk.packed;
