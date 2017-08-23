@@ -27,6 +27,12 @@
 
 #include "exynos-acme.h"
 
+// AP: Default startup frequencies
+#define CONFIG_EXYNOS_CPU_FREQ_MIN_CLUSTER1	455000
+#define CONFIG_EXYNOS_CPU_FREQ_MAX_CLUSTER1	1690000
+#define CONFIG_EXYNOS_CPU_FREQ_MIN_CLUSTER2	741000
+#define CONFIG_EXYNOS_CPU_FREQ_MAX_CLUSTER2	2314000
+
 /*
  * list head of cpufreq domain
  */
@@ -279,9 +285,32 @@ static int exynos_cpufreq_driver_init(struct cpufreq_policy *policy)
 
 	ret = cpufreq_table_validate_and_show(policy, domain->freq_table);
 	if (ret) {
+		if (policy->cpu <= 3)
+		{
+			policy->cpuinfo.min_freq = CONFIG_EXYNOS_CPU_FREQ_MIN_CLUSTER1;
+			policy->cpuinfo.max_freq = CONFIG_EXYNOS_CPU_FREQ_MAX_CLUSTER1;
+		}
+
+		if (policy->cpu >= 4)
+		{
+			policy->cpuinfo.min_freq = CONFIG_EXYNOS_CPU_FREQ_MIN_CLUSTER2;
+			policy->cpuinfo.max_freq = CONFIG_EXYNOS_CPU_FREQ_MAX_CLUSTER2;
+        }
 		pr_err("%s: invalid frequency table: %d\n", __func__, ret);
 		return ret;
 	}
+	// AP: set default frequencies to prevent overclocking or underclocking during start
+	if (policy->cpu <= 3)
+	{
+		policy->min = CONFIG_EXYNOS_CPU_FREQ_MIN_CLUSTER1;
+		policy->max = CONFIG_EXYNOS_CPU_FREQ_MAX_CLUSTER1;
+	}
+
+	if (policy->cpu >= 4)
+	{
+		policy->min = CONFIG_EXYNOS_CPU_FREQ_MIN_CLUSTER2;
+		policy->max = CONFIG_EXYNOS_CPU_FREQ_MAX_CLUSTER2;
+    }
 
 	policy->cur = get_freq(domain);
 	policy->cpuinfo.transition_latency = TRANSITION_LATENCY;
