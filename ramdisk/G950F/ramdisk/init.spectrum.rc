@@ -21,10 +21,10 @@ on property:persist.spectrum.profile=0
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 741000
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 2314000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost_poolse_duaration 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 40000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 858000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost_poolse_duaration 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 40000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1248000
     write /dev/cpuset/foreground/cpus 0-2,4-7
     write /dev/cpuset/foreground/boost/cpus 4-7
@@ -51,12 +51,34 @@ on property:persist.spectrum.profile=2
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor zzmoove
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 741000
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1937000
-    write /sys/devices/system/cpu/cpu0/cpufreq/conservative/down_threshold 20
-    write /sys/devices/system/cpu/cpu0/cpufreq/conservative/freq_step 5
-    write /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold 80
-    write /sys/devices/system/cpu/cpu4/cpufreq/conservative/down_threshold 20
-    write /sys/devices/system/cpu/cpu4/cpufreq/conservative/freq_step 5
-    write /sys/devices/system/cpu/cpu4/cpufreq/conservative/up_threshold 80
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold1 25
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold2 50
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold3 75
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold4 90
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/down_threshold 40
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/fast_scaling_down 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/fast_scaling_up 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/ignore_nice_load 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/sampling_down_factor 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/sampling_rate 200000
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/sampling_rate_min 200000
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/scaling_proportional 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/smooth_up 75
+    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/up_threshold 80
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold1 25
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold2 50
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold3 75
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold4 90
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/down_threshold 40
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/fast_scaling_down 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/fast_scaling_up 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/ignore_nice_load 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/sampling_down_factor 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/sampling_rate 200000
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/sampling_rate_min 200000
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/scaling_proportional 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/smooth_up 75
+    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/up_threshold 80
     write /dev/cpuset/foreground/cpus 0-2,4-5
     write /dev/cpuset/foreground/boost/cpus 4-5
     write /dev/cpuset/top-app/cpus 0-5
