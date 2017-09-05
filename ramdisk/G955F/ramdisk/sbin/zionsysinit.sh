@@ -16,6 +16,42 @@
 mount -o remount,rw /;
 mount -o rw,remount /system
 
+# Make internal storage directory.
+if [ ! -d /data/zion ]; then
+    DATA_RO=$(busybox mount | grep ' /data ' | grep -c 'ro,')
+    if [ "$DATA_RO" -eq "1" ]; then
+        busybox mount -o remount,rw /data
+    fi
+    mkdir /data/zion
+    if [ "$DATA_RO" -eq "1" ]; then
+        busybox mount -o remount,ro /data
+    fi
+fi;
+
+# Synapse permissions
+ROOTFS_RO=$(busybox mount | grep 'rootfs' | grep -c 'ro,')
+if [ "$ROOTFS_RO" -eq "1" ]; then
+    busybox mount -o remount,rw /
+fi
+if [ "$(busybox mount | grep 'rootfs' | grep -c 'ro,')" -eq "1" ]; then
+    su -c "busybox mount -o remount,rw /"
+fi
+if [ "$(busybox mount | grep 'rootfs' | grep -c 'ro,')" -eq "1" ]; then
+    log_print "can't mount rootfs"
+else
+    chmod -R 755 /res/*
+    ln -fs /res/synapse/uci /sbin/uci
+    /sbin/uci
+
+    # Mount root as RO
+    if [ "$ROOTFS_RO" -eq "1" ]; then
+        busybox mount -o remount,ro /
+        if [ "$(busybox mount | grep 'rootfs' | grep -c 'rw,')" -eq "1" ]; then
+            su -c "busybox mount -o remount,ro /"
+        fi
+    fi
+fi
+
 # init.d support
 if [ ! -e /system/etc/init.d ]; then
 	mkdir /system/etc/init.d

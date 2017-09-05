@@ -194,11 +194,11 @@ done
 ############################# ARE YOU ALIVE IN ?############################
 
 
-if [ -e /data/.zion959/alive-test.log ]; then
-	rm /data/.zion959/alive-test.log;
+if [ -e /data/.zion/alive-test.log ]; then
+	rm /data/.zion/alive-test.log;
 fi;
-echo  Kernel script is working !!! >> /data/.zion959/alive-test.log;
-echo "excecuted on $(date +"%d-%m-%Y %r" )" >> /data/.zion959/alive-test.log;
+echo  Kernel script is working !!! >> /data/.zion/alive-test.log;
+echo "excecuted on $(date +"%d-%m-%Y %r" )" >> /data/.zion/alive-test.log;
 
 ############################# ARE YOU ALIVE OUT ?############################
 
