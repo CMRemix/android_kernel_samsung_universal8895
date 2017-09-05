@@ -408,6 +408,21 @@ static struct fiops_ioc *fiops_select_ioc(struct fiops_data *fiopsd)
 		return NULL;
 	}
 
+	/* Let sync request preempt async queue */
+	if (!rq_is_sync(rq) && service_tree->count > 1) {
+		struct rb_node *tmp = rb_next(&ioc->rb_node);
+		struct fiops_ioc *sync_ioc = NULL;
+		while (tmp) {
+			sync_ioc = rb_entry(tmp, struct fiops_ioc, rb_node);
+			rq = rq_entry_fifo(sync_ioc->fifo.next);
+			if (rq_is_sync(rq))
+				break;
+			tmp = rb_next(&sync_ioc->rb_node);
+		}
+		if (sync_ioc)
+			ioc = sync_ioc;
+	}
+
 	return ioc;
 }
 
@@ -528,7 +543,9 @@ fiops_find_rq_fmerge(struct fiops_data *fiopsd, struct bio *bio)
 	cic = fiops_cic_lookup(fiopsd, tsk->io_context);
 
 	if (cic) {
-		return elv_rb_find(&cic->sort_list, bio_end_sector(bio));
+		sector_t sector = bio->bi_iter.bi_sector + bio_sectors(bio);
+
+		return elv_rb_find(&cic->sort_list, sector);
 	}
 
 	return NULL;
@@ -760,4 +777,3 @@ module_exit(fiops_exit);
 MODULE_AUTHOR("Jens Axboe, Shaohua Li <shli@kernel.org>");
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("IOPS based IO scheduler");
-
