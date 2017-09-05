@@ -40,6 +40,10 @@
 #if defined(CONFIG_USB_TYPEC_MANAGER_NOTIFIER)
 #include <linux/usb/manager/usb_typec_manager_notifier.h>
 #endif
+#include <linux/moduleparam.h>
+
+static int wl_grip = 1;
+module_param(wl_grip, int, 0644);
 
 #define VENDOR_NAME              "SEMTECH"
 #define MODEL_NAME               "SX9320"
@@ -1396,7 +1400,7 @@ static irqreturn_t sx9320_interrupt_thread(int irq, void *pdata)
 	if (sx9320_get_nirq_state(data) == 1) {
 		pr_err("[SX9320]: %s - nirq read high\n", __func__);
 	} else {
-		wake_lock_timeout(&data->grip_wake_lock, 3 * HZ);
+		wake_lock_timeout(&data->grip_wake_lock, wl_grip * HZ);
 		schedule_delayed_work(&data->irq_work, msecs_to_jiffies(100));
 	}
 

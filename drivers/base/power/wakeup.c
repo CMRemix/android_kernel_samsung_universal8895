@@ -24,27 +24,35 @@
 
 #include "power.h"
 
-static bool enable_rx_wakelock_ws = true;
-module_param(enable_rx_wakelock_ws, bool, 0644);
-static bool enable_wlan_extscan_wl_ws = true;
-module_param(enable_wlan_extscan_wl_ws, bool, 0644);
-static bool enable_wlan_wow_wl_ws = true;
-module_param(enable_wlan_wow_wl_ws, bool, 0644);
-static bool enable_ipa_ws = true;
-module_param(enable_ipa_ws, bool, 0644);
-static bool enable_wlan_ws = true;
-module_param(enable_wlan_ws, bool, 0644);
-static bool enable_timerfd_ws = true;
-module_param(enable_timerfd_ws, bool, 0644);
-
 static bool enable_sensorhub_wl = true;
 module_param(enable_sensorhub_wl, bool, 0644);
 
 static bool enable_ssp_wl = true;
 module_param(enable_ssp_wl, bool, 0644);
 
-static bool enable_bcm4773_wl = true;
-module_param(enable_bcm4773_wl, bool, 0644);
+static bool enable_lli_pm_wl = true;
+module_param(enable_lli_pm_wl, bool, 0644);
+
+static bool enable_radio_interface_wl = true;
+module_param(enable_radio_interface_wl, bool, 0644);
+
+static bool enable_umts_ipc0_wl = true;
+module_param(enable_umts_ipc0_wl, bool, 0644);
+
+static bool enable_power_manager_service_wl = true;
+module_param(enable_power_manager_service_wl, bool, 0644);
+
+static bool enable_wlan_rx_wake_ws = true;
+module_param(enable_wlan_rx_wake_ws, bool, 0644);
+
+static bool enable_wlan_ctrl_wake_ws = true;
+module_param(enable_wlan_ctrl_wake_ws, bool, 0644);
+
+static bool enable_wlan_wake_ws = true;
+module_param(enable_wlan_wake_ws, bool, 0644);
+
+static bool enable_bluedroid_timer_ws = true;
+module_param(enable_bluedroid_timer_ws, bool, 0644);
 
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
@@ -506,22 +514,6 @@ EXPORT_SYMBOL_GPL(device_set_wakeup_enable);
  */
 static bool wakeup_source_not_registered(struct wakeup_source *ws)
 {
-
-	if (!enable_sensorhub_wl && !strcmp(ws->name, "ssp_sensorhub_wake_lock")) {
-		pr_info("wakeup source sensorhub activation skipped\n");
-		return;
-	}
-
-	if (!enable_ssp_wl && !strcmp(ws->name, "ssp_wake_lock")) {
-		pr_info("wakeup source ssp activation skipped\n");
-		return;
-	}
-
-	if (!enable_bcm4773_wl && !strcmp(ws->name, "bcm4773_wake_lock")) {
-		pr_info("wakeup source bcm4773 activation skipped\n");
-		return;
-	}
-
 	/*
 	 * Use timer struct to check if the given source is initialized
 	 * by wakeup_source_add.
@@ -668,37 +660,6 @@ static void wakeup_source_deactivate(struct wakeup_source *ws)
 		wake_up(&wakeup_count_wait_queue);
 }
 
-static bool wakeup_source_blocker(struct wakeup_source *ws)
-{
-	unsigned int wslen = 0;
-
-	if (ws) {
-		wslen = strlen(ws->name);
-
-		if ((!enable_ipa_ws && !strncmp(ws->name, "IPA_WS", wslen)) ||
-			(!enable_wlan_extscan_wl_ws &&
-				!strncmp(ws->name, "wlan_extscan_wl", wslen)) ||
-			(!enable_rx_wakelock_ws &&
-				!strncmp(ws->name, "rx_wakelock", wslen)) ||
-			(!enable_wlan_wow_wl_ws &&
-	                        !strncmp(ws->name, "wlan_wow_wl", wslen)) ||
-			(!enable_wlan_ws &&
-				!strncmp(ws->name, "wlan", wslen)) ||
-			(!enable_timerfd_ws &&
-				!strncmp(ws->name, "[timerfd]", wslen))) {
-			if (ws->active) {
-				wakeup_source_deactivate(ws);
-				pr_info("forcefully deactivate wakeup source: %s\n",
-					ws->name);
-			}
-
-			return true;
-		}
-	}
-
-	return false;
-}
-
 /*
  * The functions below use the observation that each wakeup event starts a
  * period in which the system should not be suspended.  The moment this period
@@ -739,6 +700,76 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
 
+	if (!enable_sensorhub_wl && !strcmp(ws->name, "ssp_sensorhub_wake_lock")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source sensorhub activation skipped\n");
+		return;
+	}
+
+	if (!enable_ssp_wl && !strcmp(ws->name, "ssp_wake_lock")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source ssp activation skipped\n");
+		return;
+	}
+
+	if (!enable_lli_pm_wl && !strcmp(ws->name, "lli_pm_wlock")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source lli_pm activation skipped\n");
+		return;
+	}
+
+	if (!enable_radio_interface_wl && !strcmp(ws->name, "radio-interface")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source radio-interface activation skipped\n");
+		return;
+	}
+
+	if (!enable_umts_ipc0_wl && !strcmp(ws->name, "umts_ipc0")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source umts_ipc0 activation skipped\n");
+		return;
+	}
+
+	if (!enable_power_manager_service_wl && !strcmp(ws->name, "PowerManagerService.WakeLocks")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source PowerManagerService.WakeLocks activation skipped\n");
+		return;
+	}
+
+	if (!enable_wlan_rx_wake_ws && !strcmp(ws->name, "wlan_rx_wake")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source wlan_rx_wake activation skipped\n");
+		return;
+	}
+
+	if (!enable_wlan_ctrl_wake_ws && !strcmp(ws->name, "wlan_ctrl_wake")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source wlan_ctrl_wake activation skipped\n");
+		return;
+	}
+
+	if (!enable_wlan_wake_ws && !strcmp(ws->name, "wlan_wake")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source wlan_wake activation skipped\n");
+		return;
+	}
+
+	if (!enable_bluedroid_timer_ws && !strcmp(ws->name, "bluedroid_timer")) {
+		if (ws->active)
+			wakeup_source_deactivate(ws);
+			pr_info("wakeup source bluedroid_timer activation skipped\n");
+		return;
+	}
+
 	if (WARN_ONCE(wakeup_source_not_registered(ws),
 			"unregistered wakeup source\n"))
 		return;
@@ -771,15 +802,13 @@ static void wakeup_source_activate(struct wakeup_source *ws)
  */
 static void wakeup_source_report_event(struct wakeup_source *ws)
 {
-	if (!wakeup_source_blocker(ws)) {
-		ws->event_count++;
-		/* This is racy, but the counter is approximate anyway. */
-		if (events_check_enabled)
-			ws->wakeup_count++;
+	ws->event_count++;
+	/* This is racy, but the counter is approximate anyway. */
+	if (events_check_enabled)
+		ws->wakeup_count++;
 
-		if (!ws->active)
-			wakeup_source_activate(ws);
-	}
+	if (!ws->active)
+		wakeup_source_activate(ws);
 }
 
 /**
@@ -1000,9 +1029,7 @@ void pm_print_active_wakeup_sources(void)
 	list_for_each_entry_rcu(ws, &wakeup_sources, entry) {
 		if (ws->active) {
 			pr_info("active wakeup source: %s\n", ws->name);
-
-			if (!wakeup_source_blocker(ws))
-				active = 1;
+			active = 1;
 		} else if (!active &&
 			   (!last_activity_ws ||
 			    ktime_to_ns(ws->last_time) >
