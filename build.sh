@@ -18,7 +18,7 @@ if [ "$DEVICE" != "" ]; then
         echo "${bldcya}***Starting your build for $DEVICE***${txtrst}"
 else
         echo ""
-        echo "${bldred}***You need to define your device target!***${txtrst}"
+        echo "${bldcya}***You need to define your device target!***${txtrst}"
         echo "${bldred}***example: bash build.sh G955F or G950F***${txtrst}"
         exit 1
 fi
@@ -30,8 +30,10 @@ export CROSS_COMPILE=aarch64-cortex_a53-linux-gnueabi-
 THREAD=-j$(bc <<< $(grep -c ^processor /proc/cpuinfo)+2)
 KERNELDIR=`readlink -f .`;
 BOOTDIR=$KERNELDIR/arch/$ARCH/boot/
+BK=build
 
 # Make clean source
+echo
 read -t 30 -p "${bldred}***Make clean source, 10sec timeout (y/n)?***${txtrst}";
 if [ "$REPLY" == "y" ]; then
 make distclean;
@@ -39,12 +41,14 @@ make mrproper;
 fi;
 
 # clear ccache
+echo
 read -t 30 -p "${bldred}***Clear ccache but keeping the config file, 10sec timeout (y/n)?***${txtrst}";
 if [ "$REPLY" == "y" ]; then
 ccache -C;
 fi;
 
 # cleanup previous Image files
+echo
 echo "${bldgrn}***Clean Up Junks***${txtrst}"
 find . -type f -name "*~" -exec rm -f {} \;
 find . -type f -name "*orig" -exec rm -f {} \;
@@ -52,21 +56,13 @@ find . -type f -name "*rej" -exec rm -f {} \;
 
 rm -rf $KERNELDIR/arch/arm64/boot/dts/exynos/*.dtb;
 
+rm -rf ${KERNELDIR}/out/$DEVICE/*
+
 if [ -e $KERNELDIR/dt.img ]; then
 	rm $KERNELDIR/dt.img;
 fi;
 if [ -e $KERNELDIR/boot.tar ]; then
 	rm $KERNELDIR/boot.tar;
-fi;
-if [ "$DEVICE" = "G955F" ]; then
-if [ -e $KERNELDIR/out/G955F/dream2lte.img ]; then
-	rm $KERNELDIR/out/G955F/dream2lte.img;
-  fi;
-fi;
-if [ "$DEVICE" = "G950F" ]; then
-if [ -e $KERNELDIR/out/G950F/dreamlte.img ]; then
-	rm $KERNELDIR/out/G950F/dreamlte.img;
-  fi;
 fi;
 if [ -e $KERNELDIR/ramdisk.packed ]; then
 	rm $KERNELDIR/ramdisk.packed;
@@ -85,6 +81,7 @@ if [ -e $KERNELDIR/$BOOTDIR/Image.gz ]; then
 fi;
 
 # Create Output Directory
+echo
 echo "${bldgrn}***Create Kernel Output Folder***${txtrst}"
 if [ "$DEVICE" = "G955F" ]; then
 mkdir -p $KERNELDIR/out/G955F
@@ -113,6 +110,7 @@ make dtbs
 ./utilities/dtbtool -o dt.img -s 2048 -p ./scripts/dtc/dtc arch/arm64/boot/dts/exynos/
 
 # Make Ramdisk
+echo
 echo "${bldgrn}***Create Ramdisk***${txtrst}"
 if [ "$DEVICE" = "G955F" ]; then
     ./utilities/mkbootfs ramdisk/G955F/ramdisk | gzip > ramdisk.packed
@@ -122,6 +120,7 @@ if [ "$DEVICE" = "G950F" ]; then
 fi;
 
 # Make BootImage
+echo
 echo "${bldgrn}***Create Boot Image***${txtrst}"
 ./utilities/mkbootimg \
       --kernel arch/arm64/boot/Image \
@@ -143,4 +142,18 @@ if [ "$DEVICE" = "G950F" ]; then
     mv boot.img out/G950F/dreamlte.img
 fi;
 
-echo "${bldred}***Build completed Please Check the OUTPUT folder***${txtrst}"
+echo
+echo "${bldcya}***** Make archives *****${txtrst}"
+
+cp -R ./$BK/vendor ${KERNELDIR}/out/$DEVICE/
+cp -R ./$BK/META-INF ${KERNELDIR}/out/$DEVICE/
+
+cd ${KERNELDIR}/out/$DEVICE
+GET_VERSION=`grep 'S8_NN_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
+
+zip -r ZION959-$DEVICE-Kernel-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
+
+echo
+echo "Done"
+
+echo "${bldcya}***Build completed Please Check the OUTPUT folder***${txtrst}"
