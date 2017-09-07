@@ -158,270 +158,320 @@ GPU_min_lock)
 MNGS_max_limit)
   P=/res/synapse/prom/tuning_MNGS_max_limit
   if [ ! -z "$2" ]; then
-  if [ "$2" == 2652000 ]; then
+  if [ "$2" == 2704000 ]; then
     echo 0 > $P
+    echo "2704000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
+	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
+	echo "2704000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
+	chmod 0644 /sys/power/cpufreq_max_limit;
+	echo "2704000" > /sys/power/cpufreq_max_limit;
+  elif [ "$2" == 2652000 ]; then
+    echo 1 > $P
+    echo "2652000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "2652000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
 	echo "2652000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 2574000 ]; then
-    echo 1 > $P
+    echo 2 > $P
+    echo "2574000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "2574000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "2574000" > /sys/power/cpufreq_max_limit;	
+	echo "2574000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 2496000 ]; then
-    echo 2 > $P
+    echo 3 > $P
+    echo "2496000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "2496000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "2496000" > /sys/power/cpufreq_max_limit;	
+	echo "2496000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 2314000 ]; then
-    echo 3 > $P
+    echo 4 > $P
+    echo "2314000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "2314000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "2314000" > /sys/power/cpufreq_max_limit;	
+	echo "2314000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 2158000 ]; then
-    echo 4 > $P
+    echo 5 > $P
+    echo "2158000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "2158000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "2158000" > /sys/power/cpufreq_max_limit;	
+	echo "2158000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 2002000 ]; then
-    echo 5 > $P
+    echo 6 > $P
+    echo "2002000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "2002000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "2002000" > /sys/power/cpufreq_max_limit;	
+	echo "2002000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 1937000 ]; then
-    echo 6 > $P
+    echo 7 > $P
+    echo "1937000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "1937000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "1937000" > /sys/power/cpufreq_max_limit;	
+	echo "1937000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 1807000 ]; then
-    echo 7 > $P
+    echo 8 > $P
+    echo "1807000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "1807000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "1807000" > /sys/power/cpufreq_max_limit;	
+	echo "1807000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 1703000 ]; then
-    echo 8 > $P
+    echo 9 > $P
+    echo "1703000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "1703000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "1703000" > /sys/power/cpufreq_max_limit;	
+	echo "1703000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 1469000 ]; then
-    echo 9 > $P
+    echo 10 > $P
+    echo "1469000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "1469000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "1469000" > /sys/power/cpufreq_max_limit;	
+	echo "1469000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 1261000 ]; then
-    echo 10 > $P
+    echo 11 > $P
+    echo "1261000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "1261000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "1261000" > /sys/power/cpufreq_max_limit;	
+	echo "1261000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 1170000 ]; then
-    echo 11 > $P
+    echo 12 > $P
+    echo "1170000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "1170000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "1170000" > /sys/power/cpufreq_max_limit;	
+	echo "1170000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 1066000 ]; then
-    echo 12 > $P
+    echo 13 > $P
+    echo "1066000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "1066000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "1066000" > /sys/power/cpufreq_max_limit;	
+	echo "1066000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 962000 ]; then
-    echo 13 > $P
+    echo 14 > $P
+    echo "962000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "962000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "962000" > /sys/power/cpufreq_max_limit;	
+	echo "962000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 858000 ]; then
-    echo 14 > $P
+    echo 15 > $P
+    echo "858000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "858000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "858000" > /sys/power/cpufreq_max_limit;	
+	echo "858000" > /sys/power/cpufreq_max_limit;
   elif [ "$2" == 741000 ]; then
-    echo 15 > $P
+    echo 16 > $P
+    echo "741000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	echo "741000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq;
 	chmod 0644 /sys/power/cpufreq_max_limit;
-	echo "741000" > /sys/power/cpufreq_max_limit;	
+	echo "741000" > /sys/power/cpufreq_max_limit;
   fi; fi
   copy=$(cat $P)
   if [ "$copy" == 0 ]; then
-    echo 2652000
+    echo 2704000
   elif [ "$copy" == 1 ]; then
-    echo 2574000    
+    echo 2652000
   elif [ "$copy" == 2 ]; then
-    echo 2496000
+    echo 2574000
   elif [ "$copy" == 3 ]; then
-    echo 2314000
+    echo 2496000
   elif [ "$copy" == 4 ]; then
-    echo 2158000
+    echo 2314000
   elif [ "$copy" == 5 ]; then
-    echo 2002000
+    echo 2158000
   elif [ "$copy" == 6 ]; then
-    echo 1937000
+    echo 2002000
   elif [ "$copy" == 7 ]; then
-    echo 1807000    
+    echo 1937000
   elif [ "$copy" == 8 ]; then
-    echo 1703000
+    echo 1807000
   elif [ "$copy" == 9 ]; then
-    echo 1469000
+    echo 1703000
   elif [ "$copy" == 10 ]; then
-    echo 1261000
+    echo 1469000
   elif [ "$copy" == 11 ]; then
-    echo 1170000
+    echo 1261000
   elif [ "$copy" == 12 ]; then
-    echo 1066000
+    echo 1170000
   elif [ "$copy" == 13 ]; then
-    echo 962000
+    echo 1066000
   elif [ "$copy" == 14 ]; then
-    echo 858000
+    echo 962000
   elif [ "$copy" == 15 ]; then
+    echo 858000
+  elif [ "$copy" == 16 ]; then
     echo 741000
   fi 
   ;;
 MNGS_min_limit)
   P=/res/synapse/prom/tuning_MNGS_min_limit
   if [ ! -z "$2" ]; then
-  if [ "$2" == 2652000 ]; then
+  if [ "$2" == 2704000 ]; then
     echo 0 > $P
+    echo "2704000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
+	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
+	echo "2704000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
+	chmod 0644 /sys/power/cpufreq_min_limit;
+	echo "2704000" > /sys/power/cpufreq_min_limit;
+  elif [ "$2" == 2652000 ]; then
+    echo 1 > $P
+    echo "2652000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "2652000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
 	echo "2652000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 2574000 ]; then
-    echo 1 > $P
+    echo 2 > $P
+    echo "2574000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "2574000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "2574000" > /sys/power/cpufreq_min_limit;	
+	echo "2574000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 2496000 ]; then
-    echo 2 > $P
+    echo 3 > $P
+    echo "2496000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "2496000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "2496000" > /sys/power/cpufreq_min_limit;	
+	echo "2496000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 2314000 ]; then
-    echo 3 > $P
+    echo 4 > $P
+    echo "2314000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "2314000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "2314000" > /sys/power/cpufreq_min_limit;	
+	echo "2314000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 2158000 ]; then
-    echo 4 > $P
+    echo 5 > $P
+    echo "2158000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "2158000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "2158000" > /sys/power/cpufreq_min_limit;	
+	echo "2158000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 2002000 ]; then
-    echo 5 > $P
+    echo 6 > $P
+    echo "2002000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "2002000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "2002000" > /sys/power/cpufreq_min_limit;	
+	echo "2002000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 1937000 ]; then
-    echo 6 > $P
+    echo 7 > $P
+    echo "1937000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "1937000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "1937000" > /sys/power/cpufreq_min_limit;	
+	echo "1937000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 1807000 ]; then
-    echo 7 > $P
+    echo 8 > $P
+    echo "1807000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "1807000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "1807000" > /sys/power/cpufreq_min_limit;	
+	echo "1807000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 1703000 ]; then
-    echo 8 > $P
+    echo 9 > $P
+    echo "1703000" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "1703000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "1703000" > /sys/power/cpufreq_min_limit;	
+	echo "1703000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 1469000 ]; then
-    echo 9 > $P
+    echo 10 > $P
+    echo "1469000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "1469000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "1469000" > /sys/power/cpufreq_min_limit;	
+	echo "1469000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 1261000 ]; then
-    echo 10 > $P
+    echo 11 > $P
+    echo "1261000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "1261000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "1261000" > /sys/power/cpufreq_min_limit;	
+	echo "1261000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 1170000 ]; then
-    echo 11 > $P
+    echo 12 > $P
+    echo "1170000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "1170000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "1170000" > /sys/power/cpufreq_min_limit;	
+	echo "1170000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 1066000 ]; then
-    echo 12 > $P
+    echo 13 > $P
+    echo "1066000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "1066000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "1066000" > /sys/power/cpufreq_min_limit;	
+	echo "1066000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 962000 ]; then
-    echo 13 > $P
+    echo 14 > $P
+    echo "962000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "962000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "962000" > /sys/power/cpufreq_min_limit;	
+	echo "962000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 858000 ]; then
-    echo 14 > $P
+    echo 15 > $P
+    echo "858000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "858000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "858000" > /sys/power/cpufreq_min_limit;	
+	echo "858000" > /sys/power/cpufreq_min_limit;
   elif [ "$2" == 741000 ]; then
-    echo 15 > $P
+    echo 16 > $P
+    echo "741000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	echo "741000" > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq;
 	chmod 0644 /sys/power/cpufreq_min_limit;
-	echo "741000" > /sys/power/cpufreq_min_limit;	
+	echo "741000" > /sys/power/cpufreq_min_limit;
   fi; fi
   copy=$(cat $P)
   if [ "$copy" == 0 ]; then
+    echo 2704000
+  elif [ "$copy" == 0 ]; then
     echo 2652000
-  elif [ "$copy" == 1 ]; then
-    echo 2574000    
   elif [ "$copy" == 2 ]; then
-    echo 2496000
+    echo 2574000
   elif [ "$copy" == 3 ]; then
-    echo 2314000
+    echo 2496000
   elif [ "$copy" == 4 ]; then
-    echo 2158000
+    echo 2314000
   elif [ "$copy" == 5 ]; then
-    echo 2002000
+    echo 2158000
   elif [ "$copy" == 6 ]; then
-    echo 1937000
+    echo 2002000
   elif [ "$copy" == 7 ]; then
-    echo 1807000    
+    echo 1937000
   elif [ "$copy" == 8 ]; then
-    echo 1703000
+    echo 1807000
   elif [ "$copy" == 9 ]; then
-    echo 1469000
+    echo 1703000
   elif [ "$copy" == 10 ]; then
-    echo 1261000
+    echo 1469000
   elif [ "$copy" == 11 ]; then
-    echo 1170000
+    echo 1261000
   elif [ "$copy" == 12 ]; then
-    echo 1066000
+    echo 1170000
   elif [ "$copy" == 13 ]; then
-    echo 962000
+    echo 1066000
   elif [ "$copy" == 14 ]; then
-    echo 858000
+    echo 962000
   elif [ "$copy" == 15 ]; then
+    echo 858000
+  elif [ "$copy" == 16 ]; then
     echo 741000
   fi 
   ;;
@@ -430,38 +480,47 @@ A53_max_limit)
   if [ ! -z "$2" ]; then
   if [ "$2" == 1690000 ]; then
     echo 0 > $P
+    echo "1690000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "1690000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 1456000 ]; then
     echo 1 > $P
+    echo "1456000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "1456000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 1248000 ]; then
     echo 2 > $P
+    echo "1248000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "1248000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 1053000 ]; then
     echo 3 > $P
+    echo "1053000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "1053000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 949000 ]; then
     echo 4 > $P
+    echo "949000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "949000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 832000 ]; then
     echo 5 > $P
+    echo "832000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "832000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 715000 ]; then
     echo 6 > $P
+    echo "715000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "715000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 598000 ]; then
     echo 7 > $P
+    echo "598000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "598000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   elif [ "$2" == 455000 ]; then
     echo 8 > $P
+    echo "455000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
 	echo "455000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq;
   fi; fi
@@ -469,7 +528,7 @@ A53_max_limit)
   if [ "$copy" == 0 ]; then
     echo 1690000
   elif [ "$copy" == 1 ]; then
-    echo 1456000    
+    echo 1456000
   elif [ "$copy" == 2 ]; then
     echo 1248000
   elif [ "$copy" == 3 ]; then
@@ -481,7 +540,7 @@ A53_max_limit)
   elif [ "$copy" == 6 ]; then
     echo 715000
   elif [ "$copy" == 7 ]; then
-    echo 598000    
+    echo 598000
   elif [ "$copy" == 8 ]; then
     echo 455000
   fi 
@@ -491,38 +550,47 @@ A53_min_limit)
   if [ ! -z "$2" ]; then
   if [ "$2" == 1690000 ]; then
     echo 0 > $P
+    echo "1690000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "1690000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 1456000 ]; then
     echo 1 > $P
+    echo "1456000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "1456000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 1248000 ]; then
     echo 2 > $P
+    echo "1248000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "1248000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 1053000 ]; then
     echo 3 > $P
+    echo "1053000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "1053000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 949000 ]; then
     echo 4 > $P
+    echo "949000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "949000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 832000 ]; then
     echo 5 > $P
+    echo "832000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "832000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 715000 ]; then
     echo 6 > $P
+    echo "715000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "715000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 598000 ]; then
     echo 7 > $P
+    echo "598000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "598000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   elif [ "$2" == 455000 ]; then
     echo 8 > $P
+    echo "455000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq_hardlimit;
 	chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
 	echo "455000" > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq;
   fi; fi
@@ -530,7 +598,7 @@ A53_min_limit)
   if [ "$copy" == 0 ]; then
     echo 1690000
   elif [ "$copy" == 1 ]; then
-    echo 1456000    
+    echo 1456000
   elif [ "$copy" == 2 ]; then
     echo 1248000
   elif [ "$copy" == 3 ]; then
@@ -542,11 +610,11 @@ A53_min_limit)
   elif [ "$copy" == 6 ]; then
     echo 715000
   elif [ "$copy" == 7 ]; then
-    echo 598000    
+    echo 598000
   elif [ "$copy" == 8 ]; then
     echo 455000
   fi 
-  ;;    
+  ;;
 interactive_b)
   P=/res/synapse/prom/tuning_interactive_b
   if [ ! -z "$2" ]; then
