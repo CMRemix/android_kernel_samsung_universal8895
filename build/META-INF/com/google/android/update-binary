@@ -39,6 +39,13 @@ rm -f /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 rm -f /system/app/mcRegistry/ffffffffd00000000000000000000004.tlbin
 rm -f /system/app/mcRegistry/ffffffff000000000000000000000013.tlbin
 
+ui_print " - removing old Synapse junk data for clean install"
+rm -f /data/dalvik-cache/arm64/data@app@com.af.synapse@base.apk@classes.dex
+rm -f /data/dalvik-cache/arm64/data@app@com.af.synapse-1@base.apk@classes.dex
+rm -f /data/dalvik-cache/arm64/data@app@com.af.synapse-2@base.apk@classes.dex
+rm -f /data/dalvik-cache/profiles/com.af.synapse
+rm -f /data/data/com.af.synapse
+
 ui_print " - removing vendor files"
 rm -f /system/vendor/firmware/fimc_is_lib.bin
 rm -f /system/vendor/firmware/fimc_is_rta_2l2_3h1.bin
