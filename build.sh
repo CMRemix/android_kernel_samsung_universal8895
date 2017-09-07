@@ -103,10 +103,21 @@ fi;
 echo "${bldgrn}***Compile Kernel Source Code***${txtrst}"
 make $THREAD
 
-# Build DTB
-echo "${bldgrn}***Make DTBS***${txtrst}"
-make dtbs
+# fix ramdisk permissions
+echo
+echo "${bldgrn}***Fixed Ramdisk Permissions***${txtrst}"
+cd ${KERNELDIR}/$BK
+cp ./ramdisk_fix_permissions.sh /${KERNELDIR}/ramdisk/$DEVICE/ramdisk/ramdisk_fix_permissions.sh
+cd ${KERNELDIR}/ramdisk/$DEVICE/ramdisk/
+chmod 0777 ramdisk_fix_permissions.sh
+./ramdisk_fix_permissions.sh 2>/dev/null
+rm -f ramdisk_fix_permissions.sh
 
+# Build DTB
+echo
+echo "${bldgrn}***Make DTBS***${txtrst}"
+cd ${KERNELDIR}/
+make dtbs
 ./utilities/dtbtool -o dt.img -s 2048 -p ./scripts/dtc/dtc arch/arm64/boot/dts/exynos/
 
 # Make Ramdisk
