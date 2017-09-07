@@ -15,6 +15,9 @@ elif [ -d "/sys/devices/battery.51" ]; then
 fi;
 
 case $1 in
+susp)
+  $BB echo "$(cat /sys/kernel/power_suspend/power_suspend_version)";
+  ;;
 gpu)
   echo "Clock: $(cat /sys/kernel/gpu/gpu_clock) MHz"
   ;;
