@@ -97,6 +97,31 @@ cat << CTAG
 		height:1
 	}},
 	{ SOptionList:{
+		title:{
+			en:"Enable FSYNC"
+		},
+		description:" ",
+		default:Y,
+		action:"generic /sys/module/sync/parameters/fsync_enabled",
+		values:{
+			N:"Disabled", Y:"Enabled"
+		}
+	}},
+	{ SSpacer:{
+		height:1
+	}},
+    { SPane:{
+		title:{
+            en:"Dynamic Filesync"
+        },
+		description:{
+			en:"When enabled and screen is on, fsync operation is asynchronous. When screen is off, this operation is done synchronously."
+		}
+        }},
+	{ SSpacer:{
+		height:1
+	}},
+	{ SOptionList:{
 		title:"Enable UKSM",
 		description:" ",
 		default:0,
