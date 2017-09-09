@@ -351,6 +351,12 @@ config FREQVAR_SCHEDTUNE
 
 	  Say N if unsure.
 
+config CPU_INPUT_BOOST
+	bool "CPU Input Boost"
+	help
+	  Boosts the CPU on touchscreen and touchpad input. Boost frequencies and
+	  durations are calculated automatically.
+
 comment "CPU frequency scaling drivers"
 
 config CPUFREQ_DT
