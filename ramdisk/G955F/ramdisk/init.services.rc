@@ -4,33 +4,45 @@
 # This is a common source of Android security bugs.
 #
 
-on boot
-    start kernelinit
+on late-fs
+   # boot time fs tune
+   write /sys/block/sda/queue/iostats 0
+   # write /sys/block/sda/queue/iosched/slice_idle 0
+   write /sys/block/sda/queue/read_ahead_kb 2048
 
 on property:sys.boot_completed=1
-    start zioninit
-    start zionsysinit
-    start wakelock
+   # Setup ZION on first boot
+   # end boot time fs tune
+   write /sys/block/sda/queue/read_ahead_kb 256
+   write /sys/block/sda/queue/iostats 1
+   # exec u:r:init:s0 root root -- /init.zion.sh
+   exec u:r:su:s0 root root -- /init.zion.sh
+   start zioninit
+   start zionsysinit
+   start wakelock
 
 service zioninit /sbin/zioninit.sh
-    user root
-    seclabel u:r:init:s0
-    oneshot
-    disabled
+   user root
+   # seclabel u:r:init:s0
+   seclabel u:r:su:s0
+   oneshot
+   disabled
 
 service zionsysinit /sbin/zionsysinit.sh
-    class late_start
-    user root
-    seclabel u:r:init:s0
-    oneshot
-    disabled
+   class late_start
+   user root
+   # seclabel u:r:init:s0
+   seclabel u:r:su:s0
+   oneshot
+   disabled
 
 service wakelock /sbin/wakelock.sh
-    class late_start
-    user root
-    seclabel u:r:init:s0
-    oneshot
-    disabled
+   class late_start
+   user root
+   # seclabel u:r:init:s0
+   seclabel u:r:su:s0
+   oneshot
+   disabled
 
 service ksm /ksm.sh
     class late_start

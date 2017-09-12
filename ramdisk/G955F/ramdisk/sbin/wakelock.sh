@@ -33,6 +33,13 @@ su -c "pm enable com.google.android.gsf/.update.SystemUpdateService"
 su -c "pm enable com.google.android.gsf/.update.SystemUpdateService$Receiver"
 su -c "pm enable com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver"
 
+# Alive ?
+if [ -f /system/etc/ZION_LOGs/WAKELOCK_Test.log ] ; then
+    rm /system/etc/ZION_LOGs/WAKELOCK_Test.log
+fi
+
+echo "Init.d is working" >> /system/etc/ZION_LOGs/WAKELOCK_Test.log
+echo "excecuted on $(date +"%d-%m-%Y %r" )" >> /system/etc/ZION_LOGs/WAKELOCK_Test.log
 
 mount -o remount,ro -t auto /
 mount -t rootfs -o remount,ro rootfs

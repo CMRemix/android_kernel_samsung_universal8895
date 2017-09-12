@@ -11,6 +11,9 @@ ro.debuggable=1
 persist.sys.usb.config=mtp,adb
 persist.service.adb.enable=1
 ro.zygote=zygote64_32
+ro.telephony.default_network=9
+ro.supportmodel.mptcp=1
+ro.radio.noril=no
 pm.dexopt.first-boot=interpret-only
 pm.dexopt.boot=verify-profile
 pm.dexopt.install=interpret-only
@@ -30,17 +33,18 @@ dalvik.vm.usejitprofiles=true
 dalvik.vm.appimageformat=lz4
 debug.atrace.tags.enableflags=0
 
-wlan.wfd.hdcp =disable
+wlan.wfd.hdcp=disable
 boot.fps=32
 shutdown.fps=30
+wifi.supplicant_scan_interval=180
 sys.config.spcm_enable=false
 
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Tue Aug 8 23:42:10 KST 2017
-ro.bootimage.build.date.utc=1502203330
-ro.bootimage.build.fingerprint=samsung/dreamltexx/dreamlte:7.0/NRD90M/G950FXXU1AQH3:user/test-keys
+ro.bootimage.build.date=Fri Sep 1 22:08:44 KST 2017
+ro.bootimage.build.date.utc=1504271324
+ro.bootimage.build.fingerprint=samsung/greatltexx/greatlte:7.1.1/NMF26X/N950FXXU1AQI1:user/test-keys
 
 # Security Properties
 ro.config.tima=0

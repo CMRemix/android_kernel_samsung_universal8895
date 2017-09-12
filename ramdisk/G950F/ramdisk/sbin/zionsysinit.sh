@@ -63,3 +63,11 @@ fi
 for FILE in /system/etc/init.d/*; do
 	sh $FILE >/dev/null
 done;
+
+# Alive ?
+if [ -f /system/etc/ZION_LOGs/zionsysinit_Test.log ] ; then
+    rm /system/etc/ZION_LOGs/zionsysinit_Test.log
+fi
+
+echo "Init.d is working" >> /system/etc/ZION_LOGs/zionsysinit_Test.log
+echo "excecuted on $(date +"%d-%m-%Y %r" )" >> /system/etc/ZION_LOGs/zionsysinit_Test.log

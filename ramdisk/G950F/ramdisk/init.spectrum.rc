@@ -17,86 +17,110 @@ on property:persist.spectrum.profile=0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 455000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1690000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "19000 1274000:39000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 858000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "75 1170000:85"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 0
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 741000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 2314000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 40000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 858000
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1937000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 89
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "59000 1248000:79000 1664000:19000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 1248000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack 20000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "80 1040000:81 1352000:87 1664000:90"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 30000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boost 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 0
     write /dev/cpuset/foreground/cpus 0-2,4-7
     write /dev/cpuset/foreground/boost/cpus 4-7
     write /dev/cpuset/top-app/cpus 0-7
+    write /sys/kernel/cpu_input_boost/ib_freqs "949000 858000"
+    write /sys/kernel/cpu_input_boost/ib_duration_ms 700
+    write /sys/kernel/cpu_input_boost/enabled 1
 
-# Performance (based on DrunkSauce Lite)
+# Performance
 on property:persist.spectrum.profile=1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor blu_active
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 598000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1690000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor schedutil
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq_hardlimit 2704000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 1066000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 2704000
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/above_hispeed_delay 5000
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/hispeed_freq 1248000
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/timer_slack "-1"
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/target_loads "80 598000:33 715000:50 949000:60 1053000:67 1248000:75 1456000:93 1690000:99"
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/min_sample_time 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/fastlane_threshold 40
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/fastlane 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/blu_active/align_windows 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor blu_active
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 858000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 2496000
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/go_hispeed_load 80
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/above_hispeed_delay "0 1937000:10000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/timer_rate 20000
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/hispeed_freq 1170000
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/timer_slack "-1"
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/target_loads "75 858000:60 1066000:70 1261000:73 1703000:80 1937000:90 2158000:95 2496000:99"
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/min_sample_time 25000
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/fastlane_threshold 50
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/fastlane 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/blu_active/align_windows 0
     write /dev/cpuset/foreground/cpus 0-2,4-7
     write /dev/cpuset/foreground/boost/cpus 4-7
     write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/top-app/cpus 0-7
+    write /sys/kernel/cpu_input_boost/ib_freqs "1248000 741000"
+    write /sys/kernel/cpu_input_boost/ib_duration_ms 1100
+    write /sys/kernel/cpu_input_boost/enabled 1
 
 # Battery
 on property:persist.spectrum.profile=2
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor zzmoove
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 455000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1248000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor zzmoove
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor schedutil
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 741000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1937000
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold1 25
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold2 50
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold3 75
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/afs_threshold4 90
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/down_threshold 40
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/fast_scaling_down 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/fast_scaling_up 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/ignore_nice_load 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/sampling_down_factor 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/sampling_rate 200000
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/sampling_rate_min 200000
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/scaling_proportional 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/smooth_up 75
-    write /sys/devices/system/cpu/cpu0/cpufreq/zzmoove/up_threshold 80
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold1 25
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold2 50
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold3 75
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/afs_threshold4 90
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/down_threshold 40
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/fast_scaling_down 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/fast_scaling_up 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/ignore_nice_load 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/sampling_down_factor 1
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/sampling_rate 200000
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/sampling_rate_min 200000
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/scaling_proportional 0
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/smooth_up 75
-    write /sys/devices/system/cpu/cpu4/cpufreq/zzmoove/up_threshold 80
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1703000
     write /dev/cpuset/foreground/cpus 0-2,4-5
     write /dev/cpuset/foreground/boost/cpus 4-5
     write /dev/cpuset/top-app/cpus 0-5
+    write /dev/cpuset/top-app/cpus 0-7
+    write /sys/kernel/cpu_input_boost/enabled 0
 
 # Gaming
 on property:persist.spectrum.profile=3
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 1053000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1690000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 1703000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 2314000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 442000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1586000
+    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/ignore_nice_load 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/io_is_busy 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/powersave_bias 0
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_down_factor 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate 1000000
+    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate_min 10000
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold 95
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 728000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 2158000
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/ignore_nice_load 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/io_is_busy 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/powersave_bias 0
     write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_down_factor 1
-    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate 1000000
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate 50000
+    write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/sampling_rate_min 10000
     write /sys/devices/system/cpu/cpu4/cpufreq/ondemand/up_threshold 95
     write /dev/cpuset/foreground/cpus 0-2,4-7
     write /dev/cpuset/foreground/boost/cpus 4-7
     write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/top-app/cpus 0-7
+    write /sys/kernel/cpu_input_boost/ib_freqs "1248000 1066000"
+    write /sys/kernel/cpu_input_boost/ib_duration_ms 1400
+    write /sys/kernel/cpu_input_boost/enabled 1
