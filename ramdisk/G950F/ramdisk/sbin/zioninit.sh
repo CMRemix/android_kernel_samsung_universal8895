@@ -83,7 +83,7 @@ done
     /sbin/resetprop -n sys.oem_unlock_allowed "0"
 
 # Change to Enforce Status.
-    setenforce 1
+    setenforce 0
 # Fix SafetyNet by Repulsa
     chmod 664 /sys/fs/selinux/enforce
 
