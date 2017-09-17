@@ -3,6 +3,7 @@ import init.baseband.rc
 import init.carrier.rc
 import init.gps.rc
 import init.wifi.rc
+import init.bootcpuset.rc
 
 on early-init
     mkdir /efs 0771 radio system
@@ -25,7 +26,6 @@ on init
     #export SECONDARY_STORAGE /storage/extSdCard
 
     symlink /data/app /factory
-
     #Reactivation Lock
     symlink /dev/block/platform/11120000.ufs/by-name/STEADY /dev/block/steady
 
@@ -35,6 +35,7 @@ on init
 on post-fs-data
 # Log data folder
     mkdir /data/log 0771 radio system
+    mkdir /data/log/abox 0771 audioserver system
 
     setprop vold.post_fs_data_done 1
 
@@ -70,11 +71,11 @@ on post-fs-data
     chown system audio /sys/class/dsm/maxdsm_cal/duration
     chown system audio /sys/class/dsm/maxdsm_cal/temp
     chown system audio /sys/class/dsm/maxdsm_cal/rdc
-    chown system audio /sys/class/dsm/maxdsm_power/duration
-    chown system audio /sys/class/dsm/maxdsm_power/interval
     chown system audio /sys/class/dsm/maxdsm_cal/v_status
     chown system audio /sys/class/dsm/maxdsm_cal/v_duration
     chown system audio /sys/class/dsm/maxdsm_cal/v_validation
+    chown system audio /sys/class/dsm/maxdsm_power/duration
+    chown system audio /sys/class/dsm/maxdsm_power/interval
     chown system audio /sys/class/dsm/maxdsm_power/status
     mkdir /data/firmware 0770 audioserver system
     mkdir /efs/maxim 0770 system audio
@@ -84,12 +85,34 @@ on post-fs-data
     chmod 0660 /efs/maxim/rdc_cal
     chown audioserver system /data/firmware
 
+# Change permission for A-Box firmware logs file & GPR dump
+    chown audioserver system /sys/kernel/debug/abox/log-00
+    chown audioserver system /sys/devices/platform/13e50000.abox/13e50000.abox:abox_debug@0/gpr
+    chown audioserver system /sys/devices/platform/13e50000.abox/13e50000.abox:abox_debug@0/calliope_sram
+    chown audioserver system /sys/devices/platform/13e50000.abox/13e50000.abox:abox_debug@0/calliope_dram
+    chown audioserver system /sys/devices/platform/13e50000.abox/13e50000.abox:abox_debug@0/calliope_iva
+
+# VTS sysfs file permission
+    chown audioserver system /sys/devices/platform/14020000.vts/vts_svoice_model
+    chown audioserver system /sys/devices/platform/14020000.vts/vts_google_model
+    chmod 0660 /sys/devices/platform/14020000.vts/vts_svoice_model
+    chmod 0660 /sys/devices/platform/14020000.vts/vts_google_model
+
 # Permissions Camera
     mkdir /data/camera 0770 cameraserver system
     chown system radio /sys/class/camera/rear/rear_camfw
     chown system radio /sys/class/camera/rear/rear_camfw_full
+    chown system radio /sys/class/camera/rear/rear_camfw_all
     chown system radio /sys/class/camera/rear/rear_checkfw_user
     chown system radio /sys/class/camera/rear/rear_checkfw_factory
+    chown system radio /sys/class/camera/rear/rear2_camfw
+    chown system radio /sys/class/camera/rear/rear2_camfw_full
+    chown system radio /sys/class/camera/rear/rear2_checkfw_user
+    chown system radio /sys/class/camera/rear/rear2_checkfw_factory
+    chown system radio /sys/class/camera/rear/rear2_tilt
+    chown system system /sys/class/camera/rear/rear2_hwparam
+    chown system radio /sys/class/camera/rear/rear_dualcal
+    chown system radio /sys/class/camera/rear/rear_dualcal_size
     chown system radio /sys/class/camera/rear/rear_sensor_standby
     chown system radio /sys/class/camera/rear/rear_camtype
     chown system radio /sys/class/camera/rear/rear_companionfw
@@ -124,6 +147,7 @@ on post-fs-data
     chown system radio /sys/class/camera/ois/oisfw
     chown system radio /sys/class/camera/ois/ois_diff
     chown system radio /sys/class/camera/ois/autotest
+    chown system radio /sys/class/camera/ois/autotest_2nd
     chown cameraserver cameraserver /sys/class/camera/ois/ois_exif
     chown system radio /sys/class/camera/secure/iris_camfw
     chown system radio /sys/class/camera/secure/iris_camfw_full
@@ -143,6 +167,7 @@ on post-fs-data
     mkdir /data/bio/ir 0770 system system
 
     chmod 0755 /sys/kernel/debug/tracing
+    restorecon /sys/kernel/debug/tracing/trace_marker
 
 # Private Mode
     mkdir /mnt/shell/privatemode 0700 system system
@@ -153,7 +178,7 @@ on post-fs-data
 
 on boot
 # SSWAP
-    write /proc/sys/vm/swappiness 160
+    write /proc/sys/vm/swappiness 130
 
     # Allow to access debugfs for system:system
     chmod 755 /sys/kernel/debug
@@ -165,10 +190,9 @@ on boot
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
 
-    # SEC_PM sysfs
-    # RTC logging daemon
-    chmod 0770 /system/bin/rtc_log.sh
-    chown system system /system/bin/rtc_log.sh
+    # LPM control node
+    chown system system /sys/module/cpuidle/parameters/priv_disable
+    chmod 0664 /sys/module/cpuidle/parameters/priv_disable
 
     # Permissions for NAD
     symlink /dev/block/platform/11120000.ufs/by-name/NAD_REFER /dev/block/NAD_REFER
@@ -184,12 +208,18 @@ on boot
     chmod 0664 /sys/class/sec/sec_nad/nad_all
     chown system radio /sys/class/sec/sec_nad/nad_support
     chmod 0664 /sys/class/sec/sec_nad/nad_support
+    chown system radio /sys/class/sec/sec_nad/nad_api
+    chmod 0664 /sys/class/sec/sec_nad/nad_api
     chown system radio /dev/block/NAD_REFER
     chmod 0664 /dev/block/NAD_REFER
 
-# remove MTK_NAD folder
-    rmdir /efs/MTK_NAD
+    # sec abc
+    chown system radio /sys/class/sec/sec_abc/enabled
+    chmod 0664 /sys/class/sec/sec_abc/enabled
+    chown system radio /sys/class/sec/sec_abc/result
+    chmod 0664 /sys/class/sec/sec_abc/result
 
+    # SEC_PM sysfs
     # DVFS & Hotplug
     chown system system /sys/power/cpuhotplug/enabled
     chown system system /sys/power/cpuhotplug/min_online_cpu
@@ -229,6 +259,9 @@ on boot
     chmod 0664 /sys/devices/platform/13900000.mali/dvfs_min_lock
     chown radio system /sys/devices/platform/13900000.mali/dvfs_max_lock
     chmod 0664 /sys/devices/platform/13900000.mali/dvfs_max_lock
+
+    #Permission for gpu_info
+    chown system system /sys/kernel/gpu/gpu_info
 
     # Change permission for interactive governor
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
@@ -463,6 +496,12 @@ on fs
     chmod 0771 /cpefs
     restorecon_recursive /cpefs
 
+# DQMDBG
+    chown system system /dqmdbg
+    chmod 0770 /dqmdbg
+    mkdir /dqmdbg/backup 0770 system system
+    restorecon -R /dqmdbg
+
 # Permissions for ION
     chmod 0660 /sys/class/ion_cma/ion_video_ext/isolated
     chown system system /sys/class/ion_cma/ion_video_ext/isolated
@@ -488,28 +527,37 @@ on fs
     chown system system /sys/class/lcd/panel/lux
     chown system media_rw /sys/class/lcd/panel/adaptive_control
     chown system system /sys/class/lcd/panel/SVC_OCTA
+    chown system system /sys/class/lcd/panel/SVC_OCTA_CHIPID
     chown system system /sys/class/lcd/panel/xtalk_mode
+    chown system system /sys/class/lcd/panel/mst
     chown system system /sys/class/lcd/panel/poc
+    chown system system /sys/class/lcd/panel/gct
     chown system system /sys/class/lcd/panel/grayspot
+    chown system system /sys/class/lcd/panel/poc_onoff
+    chown system system /sys/class/lcd/panel/irc_onoff
 
 # Permissions for LCD COPR
     chown system system /sys/class/lcd/panel/copr
+    chown system system /sys/class/lcd/panel/read_copr
 
 # Permissions for LCD DPUI
     chown system system /sys/class/lcd/panel/dpui
     chown system system /sys/class/lcd/panel/dpui_dbg
+    chown system system /sys/class/lcd/panel/dpci
+    chown system system /sys/class/lcd/panel/dpci_dbg
 
 # permissions for BCDS systrace
     chmod 0666 /sys/class/lcd/panel/fingerprint
     chown system media_rw /sys/class/lcd/panel/fingerprint
 
 # Permissions for MDNIE
+    chown system media_rw /sys/class/mdnie/mdnie/bypass
     chown system media_rw /sys/class/mdnie/mdnie/mode
     chown system media_rw /sys/class/mdnie/mdnie/scenario
     chown system system /sys/class/mdnie/mdnie/accessibility
     chown system system /sys/class/mdnie/mdnie/sensorRGB
     chown system system /sys/class/mdnie/mdnie/mdnie_ldu
-    chown system media_rw /sys/class/mdnie/mdnie/hdr
+    chown system system /sys/class/mdnie/mdnie/hdr
     chown system system /sys/class/mdnie/mdnie/night_mode
     chown system system /sys/class/mdnie/mdnie/whiteRGB
     chown system system /sys/class/mdnie/mdnie/light_notification
@@ -526,11 +574,9 @@ on fs
 
 # Permission for DRM Key
     chmod 0644 /factory/wv.keys
-
 # Permission for Active clock
     chmod 0660 /dev/act_clk
     chown system system /dev/act_clk
-
 # Permission for PANEL POC
     chmod 0660 /dev/poc
     chown system system /dev/poc
@@ -549,8 +595,14 @@ on fs
     chown system system /sys/class/dp_sec/dp_sbu_sw_sel
     chown system system /sys/class/dp_sec/dex
 
-# Resampling Latency valule
-    setprop ro.input.resamplelatency 1
+# DP error info
+    chown system system /sys/class/dp_sec/dp_error_info
+
+# Permission for flashlight control for HAL3.3
+# The Istor espresso board does not have the flash led h/w, So the below permission line are blocked.
+# If you want to test the flashlight in universal board which have the flash led h/w, Enable the below blocked lines.
+    chmod 0660 /sys/class/camera/flash/rear_flash
+    chown system camera /sys/class/camera/flash/rear_flash
 
 # Permissions for TouchScreen
     chown system radio /sys/class/sec/tsp/cmd
@@ -567,6 +619,25 @@ on fs
     chown radio system /sys/class/sec/sec_key/wakeup_keys
     write /sys/class/sec/sec_key/wakeup_keys 116,172
 
+# Permissions for epen
+    chown system radio /sys/class/sec/sec_epen/epen_firm_update
+    chown system radio /sys/class/sec/sec_epen/epen_reset
+    chown system radio /sys/class/sec/sec_epen/epen_reset_result
+    chown system radio /sys/class/sec/sec_epen/epen_checksum
+    chown system radio /sys/class/sec/sec_epen/epen_checksum_result
+    chown system radio /sys/class/sec/sec_epen/epen_saving_mode
+    chown system radio /sys/class/sec/sec_epen/boost_level
+    chown system radio /sys/class/sec/sec_epen/epen_wcharging_mode
+    chown system radio /sys/class/sec/sec_epen/keyboard_mode
+    chown system radio /sys/class/sec/sec_epen/epen_disable_mode
+    chown system radio /sys/class/sec/sec_epen/aod_enable
+    chown system radio /sys/class/sec/sec_epen/screen_off_memo_enable
+    chown system radio /sys/class/sec/sec_epen/dex_enable
+    chown system system /sys/class/sec/sec_epen/input/enabled
+    chown system system /sys/class/sec/sec_epen/abnormal_reset_count
+    chown system system /sys/class/sec/sec_epen/i2c_fail_count
+    chown system radio /sys/class/sec/sec_epen/epen_fac_garage_mode
+
 # Permissions for input_booster
     chown system radio /sys/class/input_booster/level
     chown system radio /sys/class/input_booster/head
@@ -575,11 +646,9 @@ on fs
     chmod 0664 /sys/class/input_booster/head
     chmod 0664 /sys/class/input_booster/tail
 
-# Permission for flashlight control for HAL3.3
-# The Istor espresso board does not have the flash led h/w, So the below permission line are blocked.
-# If you want to test the flashlight in universal board which have the flash led h/w, Enable the below blocked lines.
-    chmod 0660 /sys/class/camera/flash/rear_flash
-    chown system camera /sys/class/camera/flash/rear_flash
+# Permissions for family_boost
+    chown system radio /sys/kernel/hmp/family_boost
+    chmod 0664 /sys/kernel/hmp/family_boost
 
 # terminal mode
     chmod 0660 /sys/class/android_usb/android0/terminal_version
@@ -602,7 +671,8 @@ on fs
     chown system radio /sys/class/sensors/accelerometer_sensor/name
     chown system radio /sys/class/sensors/accelerometer_sensor/selftest
     chown system radio /sys/class/sensors/accelerometer_sensor/lowpassfilter
-    chown system radio /sys/class/sensors/accelerometer_sensor/dhr_sensor_info
+    chown system radio /sys/class/sensors/accelerometer_sensor/calibration_info
+    chmod 0660         /sys/class/sensors/accelerometer_sensor/calibration_info
 
 # Proximity_sensor
     chown system radio /sys/class/sensors/proximity_sensor/raw_data
@@ -618,7 +688,6 @@ on fs
     chown system radio /sys/class/sensors/proximity_sensor/prox_trim
     chown system radio /sys/class/sensors/proximity_sensor/prox_probe
     chown system radio /sys/class/sensors/proximity_sensor/prox_alert_thresh
-    chown system radio /sys/class/sensors/proximity_sensor/dhr_sensor_info
 
 # Light_sensor
     chown system radio /sys/class/sensors/light_sensor/lux
@@ -654,11 +723,13 @@ on fs
 # Gyro_sensor
     chown system radio /sys/class/sensors/gyro_sensor/power_on
     chown system radio /sys/class/sensors/gyro_sensor/power_off
-    chown system media /sys/class/sensors/gyro_sensor/temperature
+    chown system radio /sys/class/sensors/gyro_sensor/temperature
     chown system radio /sys/class/sensors/gyro_sensor/selftest
     chown system radio /sys/class/sensors/gyro_sensor/selftest_dps
     chown system radio /sys/class/sensors/gyro_sensor/vendor
     chown system radio /sys/class/sensors/gyro_sensor/name
+    chown system radio /sys/class/sensors/gyro_sensor/calibration_info
+    chmod 0660         /sys/class/sensors/gyro_sensor/calibration_info
 
 # Barometer_sensor
     chown system radio /sys/class/sensors/barometer_sensor/sea_level_pressure
@@ -671,7 +742,6 @@ on fs
     chown system radio /sys/class/sensors/magnetic_sensor/raw_data
     chown system radio /sys/class/sensors/magnetic_sensor/vendor
     chown system radio /sys/class/sensors/magnetic_sensor/name
-    chown system radio /sys/class/sensors/magnetic_sensor/dhr_sensor_info
 
 # HRM_sensor
     chown system radio /sys/class/sensors/hrm_sensor/name
@@ -703,8 +773,6 @@ on fs
     chown system radio /sys/class/sensors/hrm_sensor/adpd_mode
     chown system radio /sys/class/sensors/hrm_sensor/adpd_configuration
     chown system radio /sys/class/sensors/hrm_sensor/adpd_stat
-    chown system system /sys/class/sensors/hrm_sensor/curr_adc
-    chown system system /sys/class/sensors/hrm_sensor/i2c_err_cnt
     chmod 0600 /dev/max_hrm
     chown system system /dev/max_hrm
 
@@ -751,6 +819,7 @@ on fs
     chown system radio /sys/class/sensors/ssp_sensor/mcu_update
     chown system radio /sys/class/sensors/ssp_sensor/mcu_sleep_test
     chown system radio /sys/class/sensors/ssp_sensor/ori_poll_delay
+	chown system radio /sys/class/sensors/ssp_sensor/reset_info
     chown root system /sys/class/sec/sensorhub/mcu_power
 
 # Sensorhub IIO
@@ -868,6 +937,12 @@ service fingerprintd /system/bin/fingerprintd
     user system
     group system
 
+# irisd
+service irisd /system/bin/irisd
+    class late_start
+    user system
+    group system
+
 # faced
 service faced /system/bin/faced
     class late_start
@@ -912,12 +987,6 @@ service prepare_param /system/bin/prepare_param.sh /dev/block/platform/11120000.
     seclabel u:r:prepare_param:s0
     oneshot
 
-# irisd
-service irisd /system/bin/irisd
-    class late_start
-    user system
-    group system
-
 # Secure Storage startup
 service secure_storage /system/bin/secure_storage_daemon
     class core
@@ -943,14 +1012,8 @@ on property:ro.wsmd.enable=true
     chown system system /dev/socket/wsm_socket
     start wsmd
 
-# AIR
-service visiond /system/bin/visiond
-    class main
-    user system
-    group system camera media media_rw
-
 # SSWAP
-service swapon /sbin/sswap -s -f 2048
+service swapon /sbin/sswap -s -f 2560
     class core
     user root
     group root
