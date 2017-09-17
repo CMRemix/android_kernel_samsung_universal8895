@@ -2004,6 +2004,7 @@ static int __init cpufreq_interactive_init(void)
 {
 	unsigned int i;
 	struct cpufreq_interactive_cpuinfo *pcpu;
+	int ret = 0;
 
 	/* Initalize per-cpu timers */
 	for_each_possible_cpu(i) {
@@ -2036,7 +2037,12 @@ static int __init cpufreq_interactive_init(void)
 	pm_qos_add_notifier(PM_QOS_CLUSTER0_FREQ_MAX, &cpufreq_interactive_cluster0_max_qos_notifier);
 #endif
 
-	return cpufreq_register_governor(&cpufreq_gov_interactive);
+	ret = cpufreq_register_governor(&cpufreq_gov_interactive);
+	if (ret) {
+		kthread_stop(speedchange_task);
+		put_task_struct(speedchange_task);
+	}
+	return ret;
 }
 
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVE
