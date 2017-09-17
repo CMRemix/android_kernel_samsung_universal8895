@@ -346,6 +346,9 @@ static void ext4_journal_commit_callback(journal_t *journal, transaction_t *txn)
 	struct ext4_journal_cb_entry	*jce;
 
 	BUG_ON(txn->t_state == T_FINISHED);
+
+	ext4_process_freed_data(sb, txn->t_tid);
+
 	spin_lock(&sbi->s_md_lock);
 	while (!list_empty(&txn->t_private_list)) {
 		jce = list_entry(txn->t_private_list.next,
@@ -4984,8 +4987,8 @@ static int ext4_statfs(struct dentry *dentry, struct kstatfs *buf)
 	/* prevent underflow in case that few free space is available */
 	buf->f_bfree = EXT4_C2B(sbi, max_t(s64, bfree, 0));
 	buf->f_bavail = buf->f_bfree -
-			(ext4_r_blocks_count(es) + resv_blocks);
-	if (buf->f_bfree < (ext4_r_blocks_count(es) + resv_blocks))
+			(ext4_r_blocks_count(es) * 2 + resv_blocks);
+	if (buf->f_bfree < (ext4_r_blocks_count(es) * 2 + resv_blocks))
 		buf->f_bavail = 0;
 	buf->f_files = le32_to_cpu(es->s_inodes_count);
 	buf->f_ffree = percpu_counter_sum_positive(&sbi->s_freeinodes_counter);

@@ -61,6 +61,7 @@ obj-$(CONFIG_MEMORY_STATE_TIME) += memory_state_time.o
 obj-$(CONFIG_MCU_IPC)		+= mcu_ipc/
 obj-$(CONFIG_SEC_MODEM_IF)  += modem_if/
 obj-$(CONFIG_SEC_SIPC_MODEM_IF)	+= modem_v1/
+obj-$(CONFIG_SEC_SIPC_HIGGS_MODEM_IF)	+= modem_5g/
 obj-$(CONFIG_EXYNOS_IMA)	+= exynos_ima.o
 
 # Secure OS Mobicore Interface

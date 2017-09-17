@@ -717,8 +717,10 @@ static long misc_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 
 	case IOCTL_MODEM_FORCE_CRASH_EXIT:
 		if (mc->ops.modem_force_crash_exit) {
-			mif_err("%s: IOCTL_MODEM_FORCE_CRASH_EXIT\n",
-				iod->name);
+			if (arg)
+ 				ld->crash_type = arg;
+			mif_err("%s: IOCTL_MODEM_FORCE_CRASH_EXIT (%d)\n",
+				iod->name, ld->crash_type);
 			return mc->ops.modem_force_crash_exit(mc);
 		}
 		mif_err("%s: !mc->ops.modem_force_crash_exit\n", iod->name);
@@ -1531,6 +1533,8 @@ int sipc5_init_io_device(struct io_device *iod)
 void sipc5_deinit_io_device(struct io_device *iod)
 {
 	mif_err("%s: io_typ=%d\n", iod->name, iod->io_typ);
+	
+	wake_lock_destroy(&iod->wakelock);
 	
 	/* De-register misc or net device */
 	switch (iod->io_typ) {

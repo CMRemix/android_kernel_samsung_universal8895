@@ -279,9 +279,9 @@ void *fimc_is_alloc_reserved_buffer(u32 size)
 		return NULL;
 	}
 
-	spin_lock_irqsave(&lib->slock_mem, flag);
+	spin_lock_irqsave(&lib->slock_lib_mem, flag);
 	if (lib->reserved_lib_size + size > pb_lib->size) {
-		spin_unlock_irqrestore(&lib->slock_mem, flag);
+		spin_unlock_irqrestore(&lib->slock_lib_mem, flag);
 		err_lib("Out of reserved memory(0x%x), use dynamic alloc (0x%x)\n",
 			lib->reserved_lib_size, size);
 		reserved_buf->kvaddr = (ulong)kzalloc(size, GFP_KERNEL);
@@ -299,7 +299,7 @@ void *fimc_is_alloc_reserved_buffer(u32 size)
 		aligned_size = ALIGN(size, 0x40);
 		reserved_buf->size = aligned_size;
 		lib->reserved_lib_size += aligned_size;
-		spin_unlock_irqrestore(&lib->slock_mem, flag);
+		spin_unlock_irqrestore(&lib->slock_lib_mem, flag);
 	}
 
 #ifdef ENABLE_DBG_EVENT
@@ -315,9 +315,9 @@ void *fimc_is_alloc_reserved_buffer(u32 size)
 	dbg_lib("alloc_reserved_buffer: kva(0x%lx) size(0x%x)\n",
 		reserved_buf->kvaddr, aligned_size);
 
-	spin_lock_irqsave(&lib->slock_mem, flag);
+	spin_lock_irqsave(&lib->slock_lib_mem, flag);
 	list_add(&reserved_buf->list, &lib->lib_mem_list);
-	spin_unlock_irqrestore(&lib->slock_mem, flag);
+	spin_unlock_irqrestore(&lib->slock_lib_mem, flag);
 #ifdef LIB_MEM_TRACK
 	add_alloc_track(MT_TYPE_RESERVED, reserved_buf->kvaddr, aligned_size);
 #endif
@@ -337,7 +337,7 @@ void fimc_is_free_reserved_buffer(void *buf)
 	if (buf == NULL)
 		return;
 
-	spin_lock_irqsave(&lib->slock_mem, flag);
+	spin_lock_irqsave(&lib->slock_lib_mem, flag);
 	list_for_each_entry_safe(reserved_buf, temp, &lib->lib_mem_list, list) {
 		if ((void *)reserved_buf->kvaddr == buf) {
 #ifdef LIB_MEM_TRACK
@@ -362,7 +362,7 @@ void fimc_is_free_reserved_buffer(void *buf)
 			break;
 		}
 	}
-	spin_unlock_irqrestore(&lib->slock_mem, flag);
+	spin_unlock_irqrestore(&lib->slock_lib_mem, flag);
 }
 
 void *fimc_is_alloc_reserved_taaisp_dma_buffer(u32 size)
@@ -2337,7 +2337,7 @@ int fimc_is_load_bin(void)
 	}
 
 	INIT_LIST_HEAD(&lib->lib_mem_list);
-	spin_lock_init(&lib->slock_mem);
+	spin_lock_init(&lib->slock_lib_mem);
 	INIT_LIST_HEAD(&lib->taaisp_mem_list);
 	INIT_LIST_HEAD(&lib->vra_mem_list);
 

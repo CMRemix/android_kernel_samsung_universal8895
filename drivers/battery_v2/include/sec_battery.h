@@ -64,12 +64,14 @@
 #define SEC_BAT_CURRENT_EVENT_USB_100MA			0x0000
 #endif
 #define SEC_BAT_CURRENT_EVENT_LOW_TEMP			0x0080
+#define SEC_BAT_CURRENT_EVENT_SWELLING_MODE		(SEC_BAT_CURRENT_EVENT_LOW_TEMP_SWELLING | SEC_BAT_CURRENT_EVENT_LOW_TEMP | SEC_BAT_CURRENT_EVENT_HIGH_TEMP_SWELLING)
 #define SEC_BAT_CURRENT_EVENT_USB_SUPER			0x0100
 #define SEC_BAT_CURRENT_EVENT_CHG_LIMIT			0x0200
 #define SEC_BAT_CURRENT_EVENT_CALL			0x0400
 #define SEC_BAT_CURRENT_EVENT_SLATE			0x0800
 #define SEC_BAT_CURRENT_EVENT_VBAT_OVP			0x1000
 #define SEC_BAT_CURRENT_EVENT_VSYS_OVP			0x2000
+#define SEC_BAT_CURRENT_EVENT_WPC_VOUT_LOCK		0x4000
 
 #define SIOP_EVENT_NONE 	0x0000
 #define SIOP_EVENT_WPC_CALL 	0x0001
@@ -182,6 +184,7 @@ struct sec_battery_info {
 
 	bool is_sysovlo;
 	bool is_vbatovlo;
+	bool is_abnormal_temp;
 
 	bool safety_timer_set;
 	bool lcd_status;
@@ -328,6 +331,10 @@ struct sec_battery_info {
 	struct wake_lock batt_data_wake_lock;
 	char *data_path;
 #endif
+#ifdef CONFIG_OF
+	struct delayed_work parse_mode_dt_work;
+	struct wake_lock parse_mode_dt_wake_lock;
+#endif
 
 	char batt_type[48];
 	unsigned int full_check_cnt;
@@ -383,6 +390,7 @@ struct sec_battery_info {
 #endif
 #if defined(CONFIG_CALC_TIME_TO_FULL)
 	int timetofull;
+	struct delayed_work timetofull_work;
 #endif
 	struct delayed_work slowcharging_work;
 #if defined(CONFIG_BATTERY_AGE_FORECAST)
