@@ -36,15 +36,12 @@ fi;
 
 ui_print " - removing critical mcRegistry"
 rm -f /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
-rm -f /system/app/mcRegistry/ffffffffd00000000000000000000004.tlbin
-rm -f /system/app/mcRegistry/ffffffff000000000000000000000013.tlbin
-
-ui_print " - removing old Synapse junk data for clean install"
-rm -f /data/dalvik-cache/arm64/data@app@com.af.synapse@base.apk@classes.dex
-rm -f /data/dalvik-cache/arm64/data@app@com.af.synapse-1@base.apk@classes.dex
-rm -f /data/dalvik-cache/arm64/data@app@com.af.synapse-2@base.apk@classes.dex
-rm -f /data/dalvik-cache/profiles/com.af.synapse
-rm -f /data/data/com.af.synapse
+rm -rf /data/media/0/Spectrum
+rm -rf /system/etc/ZION_LOGs
+rm -rf /system/etc/init.d
+rm -rf /data/data/com.moro.mtweaks*
+mkdir /system/etc/ZION_LOGs
+mkdir /system/etc/init.d
 
 ui_print " - removing vendor files"
 rm -f /system/vendor/firmware/fimc_is_lib.bin
@@ -56,6 +53,18 @@ rm -f /system/vendor/lib/libsecure_storage.so
 rm -f /system/vendor/lib/libsecure_storage_jni.so
 rm -f /system/vendor/lib64/libsecure_storage.so
 rm -f /system/vendor/lib64/libsecure_storage_jni.so
+rm -f /system/etc/wifi/.clminfo
+rm -f /system/etc/wifi/bcmdhd_clm.blob
+rm -f /system/etc/wifi/bcmdhd_mfg.bin_b0
+rm -f /system/etc/wifi/bcmdhd_sta.bin_b0
+rm -f /system/etc/wifi/nvram.txt_murata_r031_b0
+rm -f /system/etc/wifi/nvram.txt_murata_r032_b0
+rm -f /system/etc/wifi/nvram.txt_murata_r033_b0
+rm -f /system/etc/wifi/nvram.txt_r02j_b0
+rm -f /system/etc/wifi/p2p_supplicant_overlay.conf
+rm -f /system/etc/wifi/wldu.conf
+rm -f /system/etc/wifi/wpa_supplicant.conf
+rm -f /system/etc/wifi/wpa_supplicant_overlay.conf
 
 cd
 cd /tmp/zion
@@ -69,6 +78,18 @@ mv -f vendor/lib/libsecure_storage.so /system/vendor/lib/libsecure_storage.so
 mv -f vendor/lib/libsecure_storage_jni.so /system/vendor/lib/libsecure_storage_jni.so
 mv -f vendor/lib64/libsecure_storage.so /system/vendor/lib64/libsecure_storage.so
 mv -f vendor/lib64/libsecure_storage_jni.so /system/vendor/lib64/libsecure_storage_jni.so
+mv -f wifi/.clminfo /system/etc/wifi/.clminfo
+mv -f wifi/bcmdhd_clm.blob /system/etc/wifi/bcmdhd_clm.blob
+mv -f wifi/bcmdhd_mfg.bin_b0 /system/etc/wifi/bcmdhd_mfg.bin_b0
+mv -f wifi/bcmdhd_sta.bin_b0 /system/etc/wifi/bcmdhd_sta.bin_b0
+mv -f wifi/nvram.txt_murata_r031_b0 /system/etc/wifi/nvram.txt_murata_r031_b0
+mv -f wifi/nvram.txt_murata_r032_b0 /system/etc/wifi/nvram.txt_murata_r032_b0
+mv -f wifi/nvram.txt_murata_r033_b0 /system/etc/wifi/nvram.txt_murata_r033_b0
+mv -f wifi/nvram.txt_r02j_b0 /system/etc/wifi/nvram.txt_r02j_b0
+mv -f wifi/p2p_supplicant_overlay.conf /system/etc/wifi/p2p_supplicant_overlay.conf
+mv -f wifi/wldu.conf /system/etc/wifi/wldu.conf
+mv -f wifi/wpa_supplicant.conf /system/etc/wifi/wpa_supplicant.conf
+mv -f wifi/wpa_supplicant_overlay.conf /system/etc/wifi/wpa_supplicant_overlay.conf
 
 ui_print " - setting permissions"
 chmod 0644 /system/vendor/firmware/fimc_is_lib.bin
@@ -80,8 +101,21 @@ chmod 0644 /system/vendor/lib/libsecure_storage.so
 chmod 0644 /system/vendor/lib/libsecure_storage_jni.so
 chmod 0644 /system/vendor/lib64/libsecure_storage.so
 chmod 0644 /system/vendor/lib64/libsecure_storage_jni.so
+chmod 0644 /system/etc/wifi/.clminfo
+chmod 0644 /system/etc/wifi/bcmdhd_clm.blob
+chmod 0644 /system/etc/wifi/bcmdhd_mfg.bin_b0
+chmod 0644 /system/etc/wifi/bcmdhd_sta.bin_b0
+chmod 0644 /system/etc/wifi/nvram.txt_murata_r031_b0
+chmod 0644 /system/etc/wifi/nvram.txt_murata_r032_b0
+chmod 0644 /system/etc/wifi/nvram.txt_murata_r033_b0
+chmod 0644 /system/etc/wifi/nvram.txt_r02j_b0
+chmod 0644 /system/etc/wifi/p2p_supplicant_overlay.conf
+chmod 0644 /system/etc/wifi/wldu.conf
+chmod 0644 /system/etc/wifi/wpa_supplicant.conf
+chmod 0644 /system/etc/wifi/wpa_supplicant_overlay.conf
+chmod 0755 /system/etc/init.d/*
 
 ui_print " "
-ui_print "finished"
+ui_print "ENJOY! ZION959's Kernel"
 rm -rf /tmp/zion
 sync
