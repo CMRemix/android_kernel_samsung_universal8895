@@ -162,9 +162,23 @@ fi;
 echo
 echo "${bldcya}***** Make archives *****${txtrst}"
 
+cp -R ./$BK/apps ${KERNELDIR}/out/$DEVICE/
+cp -R ./$BK/kernel ${KERNELDIR}/out/$DEVICE/
+cp -R ./$BK/magisk ${KERNELDIR}/out/$DEVICE/
 cp -R ./$BK/META-INF ${KERNELDIR}/out/$DEVICE/
-cp -R ./$BK/vendor ${KERNELDIR}/out/$DEVICE/
-cp -R ./$BK/wifi ${KERNELDIR}/out/$DEVICE/
+cp -R ./$BK/su ${KERNELDIR}/out/$DEVICE/
+if [ "$DEVICE" = "G955F" ]; then
+cp -R ${KERNELDIR}/out/$DEVICE/dream2lte.img ${KERNELDIR}/out/$DEVICE/kernel
+rm -f ${KERNELDIR}/out/$DEVICE/dream2lte.img
+fi;
+if [ "$DEVICE" = "G950F" ]; then
+cp -R ${KERNELDIR}/out/$DEVICE/dreamlte.img ${KERNELDIR}/out/$DEVICE/kernel
+rm -f ${KERNELDIR}/out/$DEVICE/dreamlte.img
+fi;
+if [ "$DEVICE" = "N950F" ]; then
+cp -R ${KERNELDIR}/out/$DEVICE/greatlte.img ${KERNELDIR}/out/$DEVICE/kernel
+rm -f ${KERNELDIR}/out/$DEVICE/greatlte.img
+fi;
 
 cd ${KERNELDIR}/out/$DEVICE
 GET_VERSION=`grep 'S8_NN_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`

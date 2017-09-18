@@ -1,1 +1,142 @@
-# this is a dummy file, the magic is in update-binary, which is a shell script
+# ===========================================
+# updater-script for Apollo kernel
+# Adapted For ZION959-Kernel-8895
+# ===========================================
+# Created by lyapota
+# Adapted by farovitus
+# Adapted by ZION959
+
+set_progress(0.01);
+
+###########################Prepare###############################
+ui_print("@prepare");
+
+# unmount
+    if is_mounted("/system") == "/system" then
+        assert(run_program("/sbin/busybox", "umount", "/system"));
+    endif;
+
+    if is_mounted("/data") == "/data" then
+        assert(run_program("/sbin/busybox", "umount", "/data"));
+    endif;
+
+    ui_print("|-> mount data");
+        run_program("/sbin/mount", "/data");
+
+    ui_print("|-> mount system");
+        run_program("/sbin/mount", "/system");
+
+set_progress(0.02);
+
+###########################Prepare###############################
+show_progress(0.08, "-2000");
+
+    ui_print("|-> Installing ....");
+  package_extract_dir("kernel", "/tmp/zion");
+  set_perm_recursive(0, 0, 0777, 0777, "/tmp/zion");
+  run_program("/sbin/busybox", "unzip", "/tmp/zion/ZION.zip", "META-INF/com/google/android/*", "-d", "/tmp/zion");
+  run_program("/sbin/busybox", "sh", "/tmp/zion/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/zion/ZION");
+
+    ui_print("|-> extract kernel");
+        assert(package_extract_dir("kernel", "/tmp"));
+        set_perm_recursive(0, 0, 0755, 0755, "/tmp");
+
+    ui_print("|-> clean old su backups and data");
+    if file_getprop("/tmp/aroma/ap_su.prop","selected.0") == "1" then
+	run_program("/tmp/clean.sh", "1");
+    endif;
+    if file_getprop("/tmp/aroma/ap_su.prop","selected.0") == "2" then
+	run_program("/tmp/clean.sh", "2");
+    endif;
+    if file_getprop("/tmp/aroma/ap_su.prop","selected.0") == "3" then
+	run_program("/tmp/clean.sh", "3");
+    endif;
+
+set_progress(0.10);
+show_progress(0.50, "-12000");
+
+##############################Tuning#############################
+
+ui_print("@install");
+
+##Kernel image
+    ui_print("@flash kernel");
+    if is_substring("G955", getprop("ro.boot.bootloader")) then
+        ui_print("|-> in work SM-G955");
+        run_program("/tmp/busybox", "dd", "if=/tmp/dream2lte.img", "of=/dev/block/platform/11120000.ufs/by-name/BOOT");
+    endif;
+    if is_substring("G950", getprop("ro.boot.bootloader")) then
+        ui_print("|-> in work SM-G950");
+        run_program("/tmp/busybox", "dd", "if=/tmp/dreamlte.img", "of=/dev/block/platform/11120000.ufs/by-name/BOOT");
+    endif;
+    if is_substring("N950", getprop("ro.boot.bootloader")) then
+        ui_print("|-> in work SM-N950");
+        run_program("/tmp/busybox", "dd", "if=/tmp/greatlte.img", "of=/dev/block/platform/11120000.ufs/by-name/BOOT");
+    endif;
+
+###########################Unmounting###########################
+unmount("/system");
+run_program("/sbin/sleep", "1");
+
+set_progress(0.60);
+
+# Spectrum
+  if file_getprop("/tmp/aroma/apps.prop", "selected.0") == "2" then
+  ui_print("|-> Spectrum App");
+	delete_recursive("/data/app/org.frap129.spectrum-*");
+	package_extract_dir("apps/org.frap129.spectrum-1", "/data/app/org.frap129.spectrum-1");
+endif;
+
+###########################External###########################
+    if file_getprop("/tmp/aroma/ap_su.prop","selected.0") == "1" then
+# No root
+        ui_print("|-> No root");
+    endif;
+
+# Magisk
+    if file_getprop("/tmp/aroma/ap_su.prop","selected.0") == "2" then
+        show_progress(0.39, "-12000");
+
+        # Magisk
+        ui_print("|-> Magisk");
+        package_extract_dir("magisk/ma", "/tmp/magisk");
+        run_program("/sbin/busybox", "unzip", "/tmp/magisk/Magisk.zip", "META-INF/com/google/android/update-binary", "-d", "/tmp/magisk");
+        run_program("/sbin/busybox", "sh", "/tmp/magisk/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/magisk/Magisk.zip");
+    endif;
+
+# SuperSU
+    if file_getprop("/tmp/aroma/ap_su.prop","selected.0") == "3" then
+        show_progress(0.39, "-32000");
+
+        # SuperSU
+        ui_print("|-> SuperSU");
+	      package_extract_dir("su/SuperSU", "/tmp/su");
+        ui_print("Configuring SuperSU...");
+        set_perm(0, 0, 0777, "/tmp/su/supersu.sh");
+        run_program("/tmp/su/supersu.sh");
+        ui_print("|-> SuperSU with suhide");
+        run_program("/sbin/busybox", "unzip", "/tmp/su/SR3-SuperSU-v2.82-SR3-20170813133244", "META-INF/com/google/android/*", "-d", "/tmp/su");
+        run_program("/sbin/busybox", "sh", "/tmp/su/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/su/SR3-SuperSU-v2.82-SR3-20170813133244");
+        ui_print("|-> You can now install suhide on next system reboot to pass SafetyNet");
+
+    endif;
+
+# Busybox
+    if file_getprop("/tmp/aroma/ap_su.prop","selected.0") != "2" then
+        ui_print("|-> Busybox");
+    	package_extract_dir("su/busybox", "/tmp/bb");
+            run_program("/sbin/busybox", "unzip", "/tmp/bb/Busybox.v1.26.2.zip", "META-INF/com/google/android/*", "-d", "/tmp/bb");
+            run_program("/sbin/busybox", "sh", "/tmp/bb/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/bb/Busybox.v1.26.2.zip");
+    endif;
+
+set_progress(0.99);
+
+    ui_print("|-> remove tmp folder ");
+	delete_recursive("/tmp");
+
+###########################Finish############################
+
+ui_print("");
+ui_print("@installation complete!");
+
+set_progress(1);

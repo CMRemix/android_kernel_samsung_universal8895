@@ -1,0 +1,4 @@
+<@center><b><#selectbg_g>Terms of Use</#></b>
+ZION959-KERNEL IS TESTED ON G955/G950 and reported to be compatible with "F & FD & N" VARIANTS,USE IT ON ANY OTHER VARIANTS ON YOUR OWN RISK. ZION959 kernel is completely free for using. As any custom software made in free time, this can contain bugs. After flashing zip file ("KERNEL") you can get bootloop or hanging your device if your ROM not meet the requirements.
+
+<#c00><b>Read please technical requirements on next page!</b></#>
