@@ -19,7 +19,7 @@ if [ "$DEVICE" != "" ]; then
 else
         echo ""
         echo "${bldcya}***You need to define your device target!***${txtrst}"
-        echo "${bldred}***example: bash build.sh G955F or G950F***${txtrst}"
+        echo "${bldred}***example: bash build.sh G955F or G950F or N950F***${txtrst}"
         exit 1
 fi
 
@@ -83,12 +83,7 @@ fi;
 # Create Output Directory
 echo
 echo "${bldgrn}***Create Kernel Output Folder***${txtrst}"
-if [ "$DEVICE" = "G955F" ]; then
-mkdir -p $KERNELDIR/out/G955F
-fi;
-if [ "$DEVICE" = "G950F" ]; then
-mkdir -p $KERNELDIR/out/G950F
-fi;
+mkdir -p $KERNELDIR/out/$DEVICE
 
 # G955F
 if [ "$DEVICE" = "G955F" ]; then
@@ -97,6 +92,10 @@ fi;
 # G950F
 if [ "$DEVICE" = "G950F" ]; then
     make exynos8895-dreamlte_eur_open_defconfig
+fi;
+# N950F
+if [ "$DEVICE" = "N950F" ]; then
+    make exynos8895-greatlte_eur_open_defconfig
 fi;
 
 # Build Kernel
@@ -129,6 +128,9 @@ fi;
 if [ "$DEVICE" = "G950F" ]; then
     ./utilities/mkbootfs ramdisk/G950F/ramdisk | gzip > ramdisk.packed
 fi;
+if [ "$DEVICE" = "N950F" ]; then
+    ./utilities/mkbootfs ramdisk/N950F/ramdisk | gzip > ramdisk.packed
+fi;
 
 # Make BootImage
 echo
@@ -152,12 +154,17 @@ if [ "$DEVICE" = "G950F" ]; then
     tar -cvf boot.tar boot.img
     mv boot.img out/G950F/dreamlte.img
 fi;
+if [ "$DEVICE" = "N950F" ]; then
+    tar -cvf boot.tar boot.img
+    mv boot.img out/N950F/greatlte.img
+fi;
 
 echo
 echo "${bldcya}***** Make archives *****${txtrst}"
 
-cp -R ./$BK/vendor ${KERNELDIR}/out/$DEVICE/
 cp -R ./$BK/META-INF ${KERNELDIR}/out/$DEVICE/
+cp -R ./$BK/vendor ${KERNELDIR}/out/$DEVICE/
+cp -R ./$BK/wifi ${KERNELDIR}/out/$DEVICE/
 
 cd ${KERNELDIR}/out/$DEVICE
 GET_VERSION=`grep 'S8_NN_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
