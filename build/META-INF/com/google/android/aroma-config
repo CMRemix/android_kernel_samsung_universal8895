@@ -1,16 +1,16 @@
 ini_set("force_colorspace", "rgba");
-ini_set("rom_name",             "<#a92914><b>ZION959-Kernel-8895-TYPE-H</b>");
-ini_set("rom_version",          "<#a92914><b>V2.1</b>");
+ini_set("rom_name",             "<#a92914><b>ZION959-EXYNOS-8895-Mainline-Kernel</b>");
+ini_set("rom_version",          "<#a92914><b>V2.5</b>");
 ini_set("rom_author",           "<#a92914><b>ZION959</b>");
 ini_set("rom_device",           "<#a92914><b>Samsung SM-G95XF/FD/N</b>");
-ini_set("rom_date",             "<#a92914><b>17 SEPTEMBER 2017</b>");
+ini_set("rom_date",             "<#a92914><b>September-24-2017</b>");
 
 splash(2500, "zion");
 
 fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
 fontresload( "1", "ttf/Roboto-Regular.ttf", "16" );
 
-theme("miui4");
+theme("touchwiz");
 
 ###################################################################################################################
 #
@@ -92,7 +92,7 @@ textbox(
     "<~Changelog>",
 
   #-- Subtitle
-    "<~Read <b>ZION959-Kernel-8895's Changelog</b> >",
+    "<~Read <b>ZION959-EXYNOS-8895-Mainline-Kernel's Changelog</b> >",
 
   #-- Icon
     "@update",
@@ -126,9 +126,9 @@ textbox(
     #------------------+-----------------+---------------#
     #--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
 
-    "No root",                  "ZION959-Kernel-8895 without root",        0, #-- selected.0 = 1
-    "Magisk",                   "ZION959-Kernel-8895 rooted by Magisk",    1, #-- selected.0 = 2
-    "SuperSU",                  "ZION959-Kernel-8895 rooted by SuperSU",   0 #-- selected.0 = 3
+    "No root",                  "ZION959-EXYNOS-8895-Mainline-Kernel without root",        0, #-- selected.0 = 1
+    "Magisk",                   "ZION959-EXYNOS-8895-Mainline-Kernel rooted by Magisk",    1, #-- selected.0 = 2
+    "SuperSU",                  "ZION959-EXYNOS-8895-Mainline-Kernel rooted by SuperSU",   0 #-- selected.0 = 3
 
   );
 ###################################################################################################################
@@ -144,15 +144,15 @@ textbox(
     "Install SPECTRUM app so you 4 can choose between 4 pre-configured profiles ?",
     "@sim",
     "apps.prop",
-    "NO",                                      "Go with zion's personal settings", 1,  #-- selected.0 = 1
-    "YES",                             "I don't care, I Want Spectrum !!", 0 #-- selected.0 = 2
+    "NO",                                      "Go with Zion's personal Settings", 1,  #-- selected.0 = 1
+    "YES",                             "I Don't Care, I Want Spectrum !!", 0 #-- selected.0 = 2
   );
 ###################################################################################################################
 #
 # STEP 6 - INSTALLING
 #
 viewbox(
-  "ready to install ZION959-Kernel-8895",
+  "ready to install ZION959-EXYNOS-8895-Mainline-Kernel",
   "all informations has been collected for installation.\n\n"+
   "press <b>Next</b> to start the installation..."+
   "if you want to review or change any of your installation settings, press <b>Back</b>.",
@@ -161,7 +161,7 @@ viewbox(
 
 setvar("retstatus",
 install(
-  "installing ZION959-Kernel-8895",
+  "installing ZION959-EXYNOS-8895-Mainline-Kernel",
   "installing <b>" + ini_get("rom_name") + " " + ini_get("rom_version") + "</b>" +
   "...\nplease wait until it's finished...",
   "@install")
@@ -173,7 +173,7 @@ ini_set("text_next", "Finish");
 if getvar("retstatus")=="0" then
 
       viewbox(
-              "<b>ZION959-Kernel-8895's installation Completed</b>",
+              "<b>ZION959-EXYNOS-8895-Mainline-Kernel's installation Completed</b>",
               "<#080>Congratulations...</#>\n\n"+
               "<b>"+ini_get("rom_name")+"</b> has been installed into your device.\n\n"+
               "Installer Status: "+getvar("retstatus")+"\n\n",
@@ -181,7 +181,7 @@ if getvar("retstatus")=="0" then
       );
 else
       viewbox(
-           "ZION959-Kernel-8895's installation failed",
+           "ZION959-EXYNOS-8895-Mainline-Kernel's installation failed",
            "\n\ninstaller status: "+ getvar("retstatus"),
            "@alert"
       );

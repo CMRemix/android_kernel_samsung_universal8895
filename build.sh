@@ -146,8 +146,9 @@ echo "${bldgrn}***Create Boot Image***${txtrst}"
       --tags_offset 0x00000100 \
       --output boot.img
 
-echo SEANDROIDENFORCE >> boot.img
+echo -n "SEANDROIDENFORCE" >> boot.img
 if [ "$DEVICE" = "G955F" ]; then
+    tar -cvf boot.tar boot.img
     mv boot.img out/G955F/dream2lte.img
 fi;
 if [ "$DEVICE" = "G950F" ]; then
@@ -157,6 +158,13 @@ fi;
 if [ "$DEVICE" = "N950F" ]; then
     tar -cvf boot.tar boot.img
     mv boot.img out/N950F/greatlte.img
+fi;
+
+# Generate Changelog
+echo
+read -t 30 -p "${bldred}**Generate Changelog, 30 sec timeout (y/n)?***${txtrst}";
+if [ "$REPLY" == "y" ]; then
+bash changelog.sh
 fi;
 
 echo
@@ -183,6 +191,10 @@ fi;
 cd ${KERNELDIR}/out/$DEVICE
 GET_VERSION=`grep 'S8_NN_*v' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
 
+cd ${KERNELDIR}/out/$DEVICE/kernel/ZION/
+zip -r ../ZION.zip *
+rm -rf ${KERNELDIR}/out/$DEVICE/kernel/ZION/
+cd ${KERNELDIR}/out/$DEVICE/
 zip -r ZION959-$DEVICE-Kernel-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
 
 echo

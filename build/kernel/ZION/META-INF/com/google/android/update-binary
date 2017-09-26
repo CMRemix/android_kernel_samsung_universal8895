@@ -1,0 +1,92 @@
+#!/sbin/sh
+
+OUTFD=$2
+ZIP=$3
+
+ui_print() {
+  echo -n -e "ui_print $1\n" > /proc/self/fd/$OUTFD
+  echo -n -e "ui_print\n" > /proc/self/fd/$OUTFD
+}
+
+cd /tmp
+rm -rf zion959
+mkdir zion959
+cd zion959
+unzip -o "$ZIP"
+
+getprop ro.boot.bootloader >> BLmodel
+
+ui_print " - Setup in progress"
+
+ui_print " - removing critical mcRegistry"
+rm -f /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
+rm -f /system/app/mcRegistry/ffffffffd00000000000000000000004.tlbin
+rm -f /system/app/mcRegistry/ffffffff000000000000000000000013.tlbin
+
+ui_print "- Remove, Create & Fixed Permission for Misc Files"
+rm -f /data/media/0/UPDATE-suhide-*
+rm -rf /data/media/0/Spectrum
+rm -rf /data/data/com.moro.mtweaks*
+rm -rf /system/etc/ZION_LOGs
+rm -rf /system/etc/init.d
+rm -f /system/app/SecurityLogAgent
+mkdir /system/etc/ZION_LOGs
+mkdir /system/etc/init.d
+mv -f files/fstrim /system/xbin
+mv -f files/00ZION_test /system/etc/init.d
+mv -f files/UPDATE-suhide-v1.08-20170815171034.zip /data/media/0/
+chmod 0777 /system/xbin/fstrim
+chmod 0755 /system/etc/init.d/*
+
+ui_print " - Removing Vendor Files"
+
+rm -f /system/vendor/firmware/fimc_is_lib.bin
+rm -f /system/vendor/firmware/fimc_is_rta_2l2_3h1.bin
+rm -f /system/vendor/firmware/fimc_is_rta_2l2_imx320.bin
+rm -f /system/vendor/firmware/fimc_is_rta_imx333_3h1.bin
+rm -f /system/vendor/firmware/fimc_is_rta_imx333_imx320.bin
+rm -f /system/vendor/lib/libsecure_storage.so
+rm -f /system/vendor/lib/libsecure_storage_jni.so
+rm -f /system/vendor/lib64/libsecure_storage.so
+rm -f /system/vendor/lib64/libsecure_storage_jni.so
+
+cd
+cd /tmp/zion959
+ui_print " - Moving Vendor Files To Support Devices"
+if grep -q G95 BLmodel; then
+   mv -f vendor/s8/firmware/fimc_is_lib.bin /system/vendor/firmware/fimc_is_lib.bin
+   mv -f vendor/s8/firmware/fimc_is_rta_2l2_3h1.bin /system/vendor/firmware/fimc_is_rta_2l2_3h1.bin
+   mv -f vendor/s8/firmware/fimc_is_rta_2l2_imx320.bin /system/vendor/firmware/fimc_is_rta_2l2_imx320.bin
+   mv -f vendor/s8/firmware/fimc_is_rta_imx333_3h1.bin /system/vendor/firmware/fimc_is_rta_imx333_3h1.bin
+   mv -f vendor/s8/firmware/fimc_is_rta_imx333_imx320.bin /system/vendor/firmware/fimc_is_rta_imx333_imx320.bin
+ui_print " - Moving vendor files To G95XX Success"
+else
+   mv -f vendor/n8/firmware/fimc_is_lib.bin /system/vendor/firmware/fimc_is_lib.bin
+   mv -f vendor/n8/firmware/fimc_is_rta_2l2_3h1.bin /system/vendor/firmware/fimc_is_rta_2l2_3h1.bin
+   mv -f vendor/n8/firmware/fimc_is_rta_2l2_imx320.bin /system/vendor/firmware/fimc_is_rta_2l2_imx320.bin
+   mv -f vendor/n8/firmware/fimc_is_rta_imx333_3h1.bin /system/vendor/firmware/fimc_is_rta_imx333_3h1.bin
+   mv -f vendor/n8/firmware/fimc_is_rta_imx333_imx320.bin /system/vendor/firmware/fimc_is_rta_imx333_imx320.bin
+ui_print " - Moving vendor files To N950X Success"
+fi;
+
+mv -f vendor/lib/libsecure_storage.so /system/vendor/lib/libsecure_storage.so
+mv -f vendor/lib/libsecure_storage_jni.so /system/vendor/lib/libsecure_storage_jni.so
+mv -f vendor/lib64/libsecure_storage.so /system/vendor/lib64/libsecure_storage.so
+mv -f vendor/lib64/libsecure_storage_jni.so /system/vendor/lib64/libsecure_storage_jni.so
+
+ui_print " - setting permissions"
+
+chmod 0644 /system/vendor/firmware/fimc_is_lib.bin
+chmod 0644 /system/vendor/firmware/fimc_is_rta_2l2_3h1.bin
+chmod 0644 /system/vendor/firmware/fimc_is_rta_2l2_imx320.bin
+chmod 0644 /system/vendor/firmware/fimc_is_rta_imx333_3h1.bin
+chmod 0644 /system/vendor/firmware/fimc_is_rta_imx333_imx320.bin
+chmod 0644 /system/vendor/lib/libsecure_storage.so
+chmod 0644 /system/vendor/lib/libsecure_storage_jni.so
+chmod 0644 /system/vendor/lib64/libsecure_storage.so
+chmod 0644 /system/vendor/lib64/libsecure_storage_jni.so
+
+ui_print " "
+ui_print "ENJOY! ZION959's Kernel"
+rm -rf /tmp/zion959
+sync

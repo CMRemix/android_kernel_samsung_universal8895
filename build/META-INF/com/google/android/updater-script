@@ -1,9 +1,10 @@
 # ===========================================
 # updater-script for Apollo kernel
-# Adapted For ZION959-Kernel-8895
+# Adapted For ZION959-EXYNOS-8895-Kernel
 # ===========================================
 # Created by lyapota
 # Adapted by farovitus
+# Credit to farovitus
 # Adapted by ZION959
 
 set_progress(0.01);
