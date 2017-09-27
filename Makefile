@@ -346,7 +346,7 @@ scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
 GRAPHITE := -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize
-KERNELFLAGS := -march=armv8-a -mtune=exynos-m1.cortex-a53 -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -O3 -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare -fmodulo-sched -fmodulo-sched-allow-regmoves -fira-loop-pressure
+KERNELFLAGS := -march=armv8-a -mtune=exynos-m1.cortex-a53 -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -O3 -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare -fmodulo-sched -fmodulo-sched-allow-regmoves -fira-loop-pressure -ffast-math -ftree-vectorize
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
@@ -382,7 +382,7 @@ USERINCLUDE    := \
 		-Iarch/$(hdr-arch)/include/generated/uapi \
 		-I$(srctree)/include/uapi \
 		-Iinclude/generated/uapi \
-                -include $(srctree)/include/linux/kconfig.h
+        -include $(srctree)/include/linux/kconfig.h
 
 # Use LINUXINCLUDE when you must reference the include/ directory.
 # Needed to be compatible with the O= option
@@ -399,7 +399,7 @@ KBUILD_CPPFLAGS := -D__KERNEL__
 KBUILD_CFLAGS   := -DNDEBUG $(GRAPHITE) -w -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -finline-functions -fno-common \
 		   -Werror-implicit-function-declaration -fno-pic \
-		   -Wno-format-security -ffast-math \
+		   -Wno-format-security -ffast-math -ftree-vectorize \
 		   -fno-delete-null-pointer-checks \
 		   -fdiagnostics-show-option \
 		   -pipe  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
