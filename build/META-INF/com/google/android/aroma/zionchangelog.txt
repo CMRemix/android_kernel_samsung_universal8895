@@ -1,2 +1,101 @@
-<b><#selectbg_g>SM-G95XX-EXYNOS-8895-ZION959-KERNEL-TW7.1.1-V2.1</#></b>
+====================
+     09-27-2017
+====================
+
+c5d6a9f defconfig: update kernel version to AQI8
+81c574a ramdisk: drop AQI8
+eca3295 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+35ad2e8 f2fs: fixed compilation error and enable it
+10def3a Linux 4.4.89
+ed1bf43 ftrace: Fix memleak when unregistering dynamic ops when tracing disabled
+a069d0a bcache: fix bch_hprint crash and improve output
+f522051 bcache: fix for gc and write-back race
+a6c5e7a bcache: Correct return value for sysfs attach errors
+d9c6a28 bcache: correct cache_dirty_target in __update_writeback_rate()
+0471f58 bcache: do not subtract sectors_to_gc for bypassed IO
+093457f bcache: Fix leak of bdev reference
+5025da3 bcache: initialize dirty stripes in flash_dev_run()
+4931578 media: uvcvideo: Prevent heap overflow when accessing mapped controls
+04affe4 media: v4l2-compat-ioctl32: Fix timespec conversion
+7498bd6 PCI: shpchp: Enable bridge bus mastering if MSI is enabled
+81306fc ARC: Re-enable MMU upon Machine Check exception
+d28e96b tracing: Apply trace_clock changes to instance max buffer
+753154f ftrace: Fix selftest goto location on error
+d8663aa scsi: qla2xxx: Fix an integer overflow in sysfs code
+72896ca scsi: sg: fixup infoleak when using SG_GET_REQUEST_TABLE
+c04996a scsi: sg: factor out sg_fill_request_table()
+f0cd701 scsi: sg: off by one in sg_ioctl()
+3682e0c scsi: sg: use standard lists for sg_requests
+6b498ad scsi: sg: remove 'save_scat_len'
+cf22210 scsi: storvsc: fix memory leak on ring buffer busy
+b4730f4 scsi: megaraid_sas: Return pended IOCTLs with cmd_status MFI_STAT_WRONG_STATE in case adapter is dead
+d9b8f1c scsi: megaraid_sas: Check valid aen class range to avoid kernel panic
+4dd6cbb scsi: zfcp: trace high part of "new" 64 bit SCSI LUN
+1e6c640 scsi: zfcp: trace HBA FSF response by default on dismiss or timedout late response
+7194822 scsi: zfcp: fix payload with full FCP_RSP IU in SCSI trace records
+d0fbe22 scsi: zfcp: fix missing trace records for early returns in TMF eh handlers
+1a84736 scsi: zfcp: fix passing fsf_req to SCSI trace on TMF to correlate with HBA
+5266171 scsi: zfcp: fix capping of unsuccessful GPN_FT SAN response trace records
+d0c02c6 scsi: zfcp: add handling for FCP_RESID_OVER to the fcp ingress path
+cfc4996 scsi: zfcp: fix queuecommand for scsi_eh commands when DIX enabled
+19978c5 skd: Submit requests to firmware before triggering the doorbell
+0bcaf51 skd: Avoid that module unloading triggers a use-after-free
+f05dafb md/bitmap: disable bitmap_resize for file-backed bitmaps.
+30e81e7 block: Relax a check in blk_start_queue()
+a918d32 powerpc: Fix DAR reporting when alignment handler faults
+c53f016 ext4: fix quota inconsistency during orphan cleanup for read-only mounts
+cd46241 ext4: fix incorrect quotaoff if the quota feature is enabled
+5e9d28b crypto: AF_ALG - remove SGL terminator indicator when chaining
+9354f4d MIPS: math-emu: MINA.<D|S>: Fix some cases of infinity and zero inputs
+f4d77fc MIPS: math-emu: <MAXA|MINA>.<D|S>: Fix cases of both infinite inputs
+322bf69 MIPS: math-emu: <MAXA|MINA>.<D|S>: Fix cases of input values with opposite signs
+a83ffb5 MIPS: math-emu: <MAX|MIN>.<D|S>: Fix cases of both inputs negative
+6acd1d2 MIPS: math-emu: <MAX|MAXA|MIN|MINA>.<D|S>: Fix cases of both inputs zero
+b6c818d MIPS: math-emu: <MAX|MAXA|MIN|MINA>.<D|S>: Fix quiet NaN propagation
+bf592dd Input: i8042 - add Gigabyte P57 to the keyboard reset table
+c13c5c7 tty: fix __tty_insert_flip_char regression
+077933d tty: improve tty_insert_flip_char() slow path
+e1e6620 tty: improve tty_insert_flip_char() fast path
+c576160 mm: prevent double decrease of nr_reserved_highatomic
+6ea627b nfsd: Fix general protection fault in release_lock_stateid()
+d5c59ee md/raid5: release/flush io in raid5_do_work()
+e21d660 x86/fsgsbase/64: Report FSBASE and GSBASE correctly in core dumps
+53e5f7b f2fs: check hot_data for roll-forward recovery
+be99948 ipv6: fix typo in fib6_net_exit()
+70479ea ipv6: fix memory leak with multiple tables during netns destruction
+9b5e5d8 gianfar: Fix Tx flow control deactivation
+5f529e0 Revert "net: fix percpu memory leaks"
+40bc535 Revert "net: use lib/percpu_counter API for fragmentation mem accounting"
+611a98c tcp: initialize rcv_mss to TCP_MIN_MSS instead of 0
+081be8c Revert "net: phy: Correctly process PHY_HALTED in phy_stop_machine()"
+6d8c8fd qlge: avoid memcpy buffer overflow
+354d36b ipv6: fix sparse warning on rt6i_node
+e51bf99 ipv6: add rcu grace period before freeing fib6_node
+6eb7ae1 ipv6: accept 64k - 1 packet length in ip6_find_1stfragopt()
+
+====================
+     09-26-2017
+====================
+
+9076e03 build: add support for s8/n8 in one zip
+a750400 sensorhub: if dream is choosen, use dream brcm folder
+3ed1c50 drivers : sensorhub : add dream brcm drivers configs : add config for dream brcm drivers
+b9f7e70 dream: update defconfig
+e82b1cf ramdisk: update ramdisk for Greatlte
+9d220d7 kconfig: add MODEL_GREATLTE to generate DTB
+
+====================
+     09-25-2017
+====================
+
+
+====================
+     09-24-2017
+====================
+
+
+====================
+     09-23-2017
+====================
+
 
