@@ -116,8 +116,8 @@ endif;
         set_perm(0, 0, 0777, "/tmp/su/supersu.sh");
         run_program("/tmp/su/supersu.sh");
         ui_print("|-> SuperSU with suhide");
-        run_program("/sbin/busybox", "unzip", "/tmp/su/SR3-SuperSU-v2.82-SR3-20170813133244", "META-INF/com/google/android/*", "-d", "/tmp/su");
-        run_program("/sbin/busybox", "sh", "/tmp/su/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/su/SR3-SuperSU-v2.82-SR3-20170813133244");
+        run_program("/sbin/busybox", "unzip", "/tmp/su/SR4-SuperSU-v2.82-SR4.zip", "META-INF/com/google/android/*", "-d", "/tmp/su");
+        run_program("/sbin/busybox", "sh", "/tmp/su/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/su/SR4-SuperSU-v2.82-SR4.zip");
         ui_print("|-> You can now install suhide on next system reboot to pass SafetyNet");
 
     endif;
@@ -126,18 +126,25 @@ endif;
     if file_getprop("/tmp/aroma/ap_su.prop","selected.0") != "2" then
         ui_print("|-> Busybox");
     	package_extract_dir("su/busybox", "/tmp/bb");
-            run_program("/sbin/busybox", "unzip", "/tmp/bb/Busybox.v1.26.2.zip", "META-INF/com/google/android/*", "-d", "/tmp/bb");
-            run_program("/sbin/busybox", "sh", "/tmp/bb/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/bb/Busybox.v1.26.2.zip");
+            run_program("/sbin/busybox", "unzip", "/tmp/bb/Busybox.v1.27.2.zip", "META-INF/com/google/android/*", "-d", "/tmp/bb");
+            run_program("/sbin/busybox", "sh", "/tmp/bb/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/bb/Busybox.v1.27.2.zip");
     endif;
 
 set_progress(0.99);
 
     ui_print("|-> remove tmp folder ");
 	delete_recursive("/tmp");
+    ifelse(is_mounted("/system"), unmount("/system"));
+    ifelse(is_mounted("/cache"), unmount("/cache"));
 
 ###########################Finish############################
 
-ui_print("");
-ui_print("@installation complete!");
-
+ui_print(" ");
+ui_print(" ");
+ui_print(" ");
+ui_print("============================");
+ui_print(" Installation is completed! ");
+ui_print("   ENJOY  ZION959 KERNEL    ");
+ui_print("============================");
+ui_print(" ");
 set_progress(1);
