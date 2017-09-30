@@ -1,8 +1,22 @@
 ====================
+     09-29-2017
+====================
+
+146b138 build: update busybox & supersu
+2613476 defconfig: Sync and release v2.6
+69622a3 sensor: use full n8 source, this broke iris scanner
+040053d dts: enable abc feature from n8
+
+====================
+     09-28-2017
+====================
+
+
+====================
      09-27-2017
 ====================
 
-c5d6a9f defconfig: update kernel version to AQI8
+1001a82 defconfig: update kernel version to AQI8
 81c574a ramdisk: drop AQI8
 eca3295 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
 35ad2e8 f2fs: fixed compilation error and enable it
@@ -86,16 +100,6 @@ e82b1cf ramdisk: update ramdisk for Greatlte
 
 ====================
      09-25-2017
-====================
-
-
-====================
-     09-24-2017
-====================
-
-
-====================
-     09-23-2017
 ====================
 
 
