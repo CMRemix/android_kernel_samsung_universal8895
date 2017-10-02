@@ -34,7 +34,7 @@ mkdir /system/etc/ZION_LOGs
 mkdir /system/etc/init.d
 mv -f files/fstrim /system/xbin
 mv -f files/00ZION_test /system/etc/init.d
-mv -f files/UPDATE-suhide-v1.08-20170815171034.zip /data/media/0/
+mv -f files/UPDATE-suhide-v1.09.zip /data/media/0/
 chmod 0777 /system/xbin/fstrim
 chmod 0755 /system/etc/init.d/*
 
