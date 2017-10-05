@@ -1,105 +1,108 @@
 ====================
-     09-29-2017
+     10-05-2017
 ====================
 
-146b138 build: update busybox & supersu
-2613476 defconfig: Sync and release v2.6
-69622a3 sensor: use full n8 source, this broke iris scanner
-040053d dts: enable abc feature from n8
+ffa2a00 makefile: lets use -Ofast again
+69db454 build: update supersu to SR5-SuperSU-v2.82 & suhide-v1.09
+45abffc linux: add missing earlysuspend.h
+c6b817c Makefile: enable NEON vectorize
+9143cc0 lib/lzo: huge LZO decompression speedup on ARM by using unaligned access
+c704074 fs: dcache.c: Fix the too small buffer for dname
+4b83fa3 net: combat buffer bloat
+a06dda0 int_sqrt: Improve 3x faster integer sqrt.
+93565e7 int_sqrt.c: Correction square root algo with naming
+7ef4b56 block: disable add_random
+a65d685 net: tcp_output: set initial TCP window size to 64K (speed improvement)
+a1bab28 binfmt_elf.c: use get_random_int() to fix entropy depleting
+1c0d56b mmc/core: disable crc to improve performance
+e5c7602 fs: proc: cmdline remove more flags
+438da87 proc: Set of two patches
+2b94d8f Remove '+' symbol & -dirty from kernel version strings
+ac16f65 mm: port z3fold from XZP
+bc89f65 thermal: IPA: add new divvy-up algorithm
+1b5992d arm64/vdso: Fix nsec handling for CLOCK_MONOTONIC_RAW
+5cacc31 arm64: Add support for CLOCK_MONOTONIC_RAW in clock_gettime() vDSO
+ee0d6ea arm64: Refactor vDSO time functions
+bf317cc mm: swap: don't delay swap free for fast swap devices
+622062f zswap: set z3fold as default zpool
+1cc173b lib/lz4: remove back-compat wrappers
+bf17afa BACKPORT: crypto: change LZ4 modules to work with new LZ4 module version
+231c373 BACKPORT: crypto: update LZ4 compression test cases
+2fa5ca0 lib/decompress_unlz4: change module to work with new LZ4 module version
+8ebecab lib: update LZ4 compressor module
+f34d3e6 lib: lz4: cleanup unaligned access efficiency detection
+f9dd47f lz4: fix wrong compress buffer size for 64-bits
+f80de9f zram: increase number of compressions streams
+5eeb1be cifs: enable mounting cifs drives visible to all apps
+a1d4ac5 fs: mount partitions NOATIME and NODIRATIME by default
+e2ba6d4 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+37c2d0d Linux 4.4.90
+228969b fix xen_swiotlb_dma_mmap prototype
+079c03f swiotlb-xen: implement xen_swiotlb_dma_mmap callback
+27323cb video: fbdev: aty: do not leak uninitialized padding in clk to userspace
+150cd84b KVM: VMX: use cmpxchg64
+90df2da ARM: pxa: fix the number of DMA requestor lines
+c575be9 ARM: pxa: add the number of DMA requestor lines
+a85f176 dmaengine: mmp-pdma: add number of requestors
+6124ed1 cxl: Fix driver use count
+9037837 KVM: VMX: remove WARN_ON_ONCE in kvm_vcpu_trigger_posted_interrupt
+fc39e56 KVM: VMX: do not change SN bit in vmx_update_pi_irte()
+5e9b526 timer/sysclt: Restrict timer migration sysctl values to 0 and 1
+ddf25ae gfs2: Fix debugfs glocks dump
+d25fea0 x86/fpu: Don't let userspace set bogus xcomp_bv
+4c16afa btrfs: prevent to set invalid default subvolid
+0efde43 btrfs: propagate error to btrfs_cmp_data_prepare caller
+9a7d93d btrfs: fix NULL pointer dereference from free_reloc_roots()
+b08dc7d PCI: Fix race condition with driver_override
+21a638c kvm: nVMX: Don't allow L2 to access the hardware CR8
+7520be6 KVM: VMX: Do not BUG() on out-of-bounds guest IRQ
+e726c30 arm64: fault: Route pte translation faults via do_translation_fault
+638e787 arm64: Make sure SPsel is always set
+9237605 seccomp: fix the usage of get/put_seccomp_filter() in seccomp_get_filter()
+668cee8 bsg-lib: don't free job in bsg_prepare_job
+9d74367 nl80211: check for the required netlink attributes presence
+3393445 vfs: Return -ENXIO for negative SEEK_HOLE / SEEK_DATA offsets
+3bb7084 SMB3: Don't ignore O_SYNC/O_DSYNC and O_DIRECT flags
+02ef29f SMB: Validate negotiate (to protect against downgrade) even if signing off
+c096b31 Fix SMB3.1.1 guest authentication to Samba
+fe37a44 powerpc/pseries: Fix parent_dn reference leak in add_dt_node()
+638b385 KEYS: prevent KEYCTL_READ on negative key
+539255a KEYS: prevent creating a different user's keyrings
+af24e9d KEYS: fix writing past end of user-supplied buffer in keyring_read()
+362711d crypto: talitos - fix sha224
+231c4f6 crypto: talitos - Don't provide setkey for non hmac hashing algs.
+9d25349 scsi: scsi_transport_iscsi: fix the issue that iscsi_if_rx doesn't parse nlmsg properly
+29854a7 md/raid5: preserve STRIPE_ON_UNPLUG_LIST in break_stripe_batch_list
+d03d156 md/raid5: fix a race condition in stripe batch
+68a4a52 tracing: Erase irqsoff trace with empty write
+9c5afa7 tracing: Fix trace_pipe behavior for instance traces
+f75c004 KVM: PPC: Book3S: Fix race and leak in kvm_vm_ioctl_create_spapr_tce()
+7d8fbf3 mac80211: flush hw_roc_start work before cancelling the ROC
+fcc949a cifs: release auth_key.response for reconnect.
+7fc5d54 ramdisk: fixed white space and update fstab
+df25a7f drean2lte: use note8 touch screen driver so we can take advantage of sec abc
+b7adc0a zram: set lz0 to lz4 as default
+789d83b dts/dreamlte: use stock net speed
 
 ====================
-     09-28-2017
+     10-04-2017
 ====================
 
 
 ====================
-     09-27-2017
+     10-03-2017
 ====================
 
-1001a82 defconfig: update kernel version to AQI8
-81c574a ramdisk: drop AQI8
-eca3295 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
-35ad2e8 f2fs: fixed compilation error and enable it
-10def3a Linux 4.4.89
-ed1bf43 ftrace: Fix memleak when unregistering dynamic ops when tracing disabled
-a069d0a bcache: fix bch_hprint crash and improve output
-f522051 bcache: fix for gc and write-back race
-a6c5e7a bcache: Correct return value for sysfs attach errors
-d9c6a28 bcache: correct cache_dirty_target in __update_writeback_rate()
-0471f58 bcache: do not subtract sectors_to_gc for bypassed IO
-093457f bcache: Fix leak of bdev reference
-5025da3 bcache: initialize dirty stripes in flash_dev_run()
-4931578 media: uvcvideo: Prevent heap overflow when accessing mapped controls
-04affe4 media: v4l2-compat-ioctl32: Fix timespec conversion
-7498bd6 PCI: shpchp: Enable bridge bus mastering if MSI is enabled
-81306fc ARC: Re-enable MMU upon Machine Check exception
-d28e96b tracing: Apply trace_clock changes to instance max buffer
-753154f ftrace: Fix selftest goto location on error
-d8663aa scsi: qla2xxx: Fix an integer overflow in sysfs code
-72896ca scsi: sg: fixup infoleak when using SG_GET_REQUEST_TABLE
-c04996a scsi: sg: factor out sg_fill_request_table()
-f0cd701 scsi: sg: off by one in sg_ioctl()
-3682e0c scsi: sg: use standard lists for sg_requests
-6b498ad scsi: sg: remove 'save_scat_len'
-cf22210 scsi: storvsc: fix memory leak on ring buffer busy
-b4730f4 scsi: megaraid_sas: Return pended IOCTLs with cmd_status MFI_STAT_WRONG_STATE in case adapter is dead
-d9b8f1c scsi: megaraid_sas: Check valid aen class range to avoid kernel panic
-4dd6cbb scsi: zfcp: trace high part of "new" 64 bit SCSI LUN
-1e6c640 scsi: zfcp: trace HBA FSF response by default on dismiss or timedout late response
-7194822 scsi: zfcp: fix payload with full FCP_RSP IU in SCSI trace records
-d0fbe22 scsi: zfcp: fix missing trace records for early returns in TMF eh handlers
-1a84736 scsi: zfcp: fix passing fsf_req to SCSI trace on TMF to correlate with HBA
-5266171 scsi: zfcp: fix capping of unsuccessful GPN_FT SAN response trace records
-d0c02c6 scsi: zfcp: add handling for FCP_RESID_OVER to the fcp ingress path
-cfc4996 scsi: zfcp: fix queuecommand for scsi_eh commands when DIX enabled
-19978c5 skd: Submit requests to firmware before triggering the doorbell
-0bcaf51 skd: Avoid that module unloading triggers a use-after-free
-f05dafb md/bitmap: disable bitmap_resize for file-backed bitmaps.
-30e81e7 block: Relax a check in blk_start_queue()
-a918d32 powerpc: Fix DAR reporting when alignment handler faults
-c53f016 ext4: fix quota inconsistency during orphan cleanup for read-only mounts
-cd46241 ext4: fix incorrect quotaoff if the quota feature is enabled
-5e9d28b crypto: AF_ALG - remove SGL terminator indicator when chaining
-9354f4d MIPS: math-emu: MINA.<D|S>: Fix some cases of infinity and zero inputs
-f4d77fc MIPS: math-emu: <MAXA|MINA>.<D|S>: Fix cases of both infinite inputs
-322bf69 MIPS: math-emu: <MAXA|MINA>.<D|S>: Fix cases of input values with opposite signs
-a83ffb5 MIPS: math-emu: <MAX|MIN>.<D|S>: Fix cases of both inputs negative
-6acd1d2 MIPS: math-emu: <MAX|MAXA|MIN|MINA>.<D|S>: Fix cases of both inputs zero
-b6c818d MIPS: math-emu: <MAX|MAXA|MIN|MINA>.<D|S>: Fix quiet NaN propagation
-bf592dd Input: i8042 - add Gigabyte P57 to the keyboard reset table
-c13c5c7 tty: fix __tty_insert_flip_char regression
-077933d tty: improve tty_insert_flip_char() slow path
-e1e6620 tty: improve tty_insert_flip_char() fast path
-c576160 mm: prevent double decrease of nr_reserved_highatomic
-6ea627b nfsd: Fix general protection fault in release_lock_stateid()
-d5c59ee md/raid5: release/flush io in raid5_do_work()
-e21d660 x86/fsgsbase/64: Report FSBASE and GSBASE correctly in core dumps
-53e5f7b f2fs: check hot_data for roll-forward recovery
-be99948 ipv6: fix typo in fib6_net_exit()
-70479ea ipv6: fix memory leak with multiple tables during netns destruction
-9b5e5d8 gianfar: Fix Tx flow control deactivation
-5f529e0 Revert "net: fix percpu memory leaks"
-40bc535 Revert "net: use lib/percpu_counter API for fragmentation mem accounting"
-611a98c tcp: initialize rcv_mss to TCP_MIN_MSS instead of 0
-081be8c Revert "net: phy: Correctly process PHY_HALTED in phy_stop_machine()"
-6d8c8fd qlge: avoid memcpy buffer overflow
-354d36b ipv6: fix sparse warning on rt6i_node
-e51bf99 ipv6: add rcu grace period before freeing fib6_node
-6eb7ae1 ipv6: accept 64k - 1 packet length in ip6_find_1stfragopt()
 
 ====================
-     09-26-2017
+     10-02-2017
 ====================
 
-9076e03 build: add support for s8/n8 in one zip
-a750400 sensorhub: if dream is choosen, use dream brcm folder
-3ed1c50 drivers : sensorhub : add dream brcm drivers configs : add config for dream brcm drivers
-b9f7e70 dream: update defconfig
-e82b1cf ramdisk: update ramdisk for Greatlte
-9d220d7 kconfig: add MODEL_GREATLTE to generate DTB
 
 ====================
-     09-25-2017
+     10-01-2017
 ====================
 
+6a983c2 Merge remote-tracking branch 'bfq/bfq-v8-v4.4' into tw-7.1.1-mainline
+34113e3 Merge remote-tracking branch 'f2fs/linux-4.4.y' into tw-7.1.1-mainline
 
