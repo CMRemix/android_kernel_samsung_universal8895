@@ -29,7 +29,7 @@
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
    echo 741000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
-   echo 2002000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+   echo 1937000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
    echo 89 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
    chmod 644 /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
