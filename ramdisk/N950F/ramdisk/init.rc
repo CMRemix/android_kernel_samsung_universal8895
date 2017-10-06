@@ -551,7 +551,7 @@ on post-fs-data
     # mobicore
     export MC_AUTH_TOKEN_PATH /efs
     mkdir /efs/TEE  0770 radio system
-	  chmod 0660 /dev/t-base-tui
+    chmod 0660 /dev/t-base-tui
     chown system system /dev/t-base-tui
     start mobicore
 
@@ -616,7 +616,7 @@ on post-fs-data
     #lpnetConfig AppSync
     mkdir /data/misc/lpnet 0700 system system
 
-	# Professioanl Audio
+    # Professioanl Audio
     mkdir /data/misc/jack 0770 jack system
 
     mkdir /data/misc/profman 0770 system shell
@@ -641,11 +641,11 @@ on post-fs-data
     chown spay system /dev/mst_ctrl
     chmod 0660 /dev/mst_ctrl
 
-	#MST Factory Test
+    #MST Factory Test
     chown system system /sys/class/mstldo/mst_drv/transmit
     chmod 0770 /sys/class/mstldo/mst_drv/transmit
 
-	#MST-MFC Support
+    #MST-MFC Support
     chown system system /sys/class/mstldo/mst_drv/mfc
     chmod 0770 /sys/class/mstldo/mst_drv/mfc
 
@@ -720,7 +720,7 @@ on post-fs-data
     chmod 0775 /system/etc/security/.drm
 
     # Added for Playready DRM Support
-	cpyContent_rmdir /data/data/.drm
+    cpyContent_rmdir /data/data/.drm
     mkdir /data/.drm 0775
     chown drm system /data/.drm
     chmod 0775 /data/.drm
@@ -812,7 +812,7 @@ on post-fs-data
 
 on boot
 
-	# KNOX KAP
+    # KNOX KAP
     chown system system /dev/knox_kap
     chmod 0660 /dev/knox_kap
 
@@ -1444,7 +1444,7 @@ service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
 service sysmon /system/bin/sysmon
     class core
     user root
-	group root readproc
+    group root readproc
     oneshot
 
 service ueventd /sbin/ueventd
@@ -1519,14 +1519,14 @@ service bootchecker /system/bin/bootchecker
 
 # [ Professional audio
 service apaservice /system/bin/apaservice
-	class main
-	user jack
-	group inet sdcard_rw sdcard_r media_rw shell
+    class main
+    user jack
+    group inet sdcard_rw sdcard_r media_rw shell
 
 service jackservice /system/bin/jackservice
-	class main
-	user jack
-	group audio inet shell
+    class main
+    user jack
+    group audio inet shell
 # Professional audio ]
 
 # icd

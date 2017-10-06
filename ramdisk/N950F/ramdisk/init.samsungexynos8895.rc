@@ -562,12 +562,12 @@ on fs
     chown system system /sys/class/mdnie/mdnie/whiteRGB
     chown system system /sys/class/mdnie/mdnie/light_notification
 
-	mkdir /efs/etc 0700 system system
-	chmod 700 /efs/etc
-	mkdir /efs/etc/poc 0700 system system
-	chmod 700 /efs/etc/poc
-	mkdir /cache/poc 0700 system system
-	chmod 700 /cache/poc
+    mkdir /efs/etc 0700 system system
+    chmod 700 /efs/etc
+    mkdir /efs/etc/poc 0700 system system
+    chmod 700 /efs/etc/poc
+    mkdir /cache/poc 0700 system system
+    chmod 700 /cache/poc
 
 # Copy DRM Key
     copy /system/app/wv.keys /factory/wv.keys
@@ -819,7 +819,7 @@ on fs
     chown system radio /sys/class/sensors/ssp_sensor/mcu_update
     chown system radio /sys/class/sensors/ssp_sensor/mcu_sleep_test
     chown system radio /sys/class/sensors/ssp_sensor/ori_poll_delay
-	chown system radio /sys/class/sensors/ssp_sensor/reset_info
+    chown system radio /sys/class/sensors/ssp_sensor/reset_info
     chown root system /sys/class/sec/sensorhub/mcu_power
 
 # Sensorhub IIO
@@ -855,7 +855,7 @@ on fs
     chown system radio /sys/class/sensors/sensor_dev/flush
 
 # DATA_INJECTION
-	chown system radio /sys/class/sensors/ssp_sensor/data_injection_enable
+    chown system radio /sys/class/sensors/ssp_sensor/data_injection_enable
 
 #load ecd firmware
     write /proc/ecd/load_firmware 1
@@ -911,6 +911,7 @@ on property:ro.debuggable=1
 # LPM
 on property:ro.bootmode=charger
     mount ext4 /dev/block/platform/11120000.ufs/by-name/SYSTEM /system wait ro
+    mount f2fs /dev/block/platform/11120000.ufs/by-name/SYSTEM /system wait ro
     wait /dev/block/platform/11120000.ufs/by-name/EFS
     mount ext4 /dev/block/platform/11120000.ufs/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic
     class_start sec-charger
@@ -971,7 +972,7 @@ service sem_daemon /system/bin/sem_daemon
     disabled
 
 on property:sys.mobicoredaemon.enable=true
-	write /proc/iccc_ready 1
+    write /proc/iccc_ready 1
 
 on property:sys.boot_completed=1
     setprop security.semdaemonfinish 0
@@ -979,7 +980,7 @@ on property:sys.boot_completed=1
 
 on property:security.semdaemonfinish=1
     stop sem_daemon
-	
+
 service prepare_param /system/bin/prepare_param.sh /dev/block/platform/11120000.ufs/by-name/PARAM
     class core
     user root
@@ -1022,7 +1023,7 @@ service swapon /sbin/sswap -s -f 2560
 
 # ApexServer
 service apexserver /system/bin/apexserver
-	class main
-	user system
-	group system graphics drmrpc media media_rw m2mscaler
-	disabled
+    class main
+    user system
+    group system graphics drmrpc media media_rw m2mscaler
+    disabled
