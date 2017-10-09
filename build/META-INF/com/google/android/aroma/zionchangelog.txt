@@ -1,7 +1,79 @@
 ====================
+     10-08-2017
+====================
+
+ab96fc7 ramdisk: back to stock 2314000 GHz as default.
+0478a2b Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+c030c36 Linux 4.4.91
+2536c20 ttpci: address stringop overflow warning
+2b2bfb5 ALSA: au88x0: avoid theoretical uninitialized access
+d32ee70 ARM: remove duplicate 'const' annotations'
+7cad91f IB/qib: fix false-postive maybe-uninitialized warning
+13af23e drivers: firmware: psci: drop duplicate const from psci_of_match
+f6c8c71 libata: transport: Remove circular dependency at free time
+0185496 xfs: remove kmem_zalloc_greedy
+088b9a4 i2c: meson: fix wrong variable usage in meson_i2c_put_data
+cb07496 md/raid10: submit bio directly to replacement disk
+13099ee rds: ib: add error handle
+9bcd5ce iommu/io-pgtable-arm: Check for leaf entry before dereferencing it
+cadfa3a6 parisc: perf: Fix potential NULL pointer dereference
+4203f2a netfilter: nfnl_cthelper: fix incorrect helper->expect_class_max
+fa02902 exynos-gsc: Do not swap cb/cr for semi planar formats
+8bd7216 MIPS: IRQ Stack: Unwind IRQ stack onto task stack
+f7f46b3 netfilter: invoke synchronize_rcu after set the _hook_ to NULL
+e290667 bridge: netlink: register netdevice before executing changelink
+1b760fd mmc: sdio: fix alignment issue in struct sdio_func
+e1e99dc usb: plusb: Add support for PL-27A1
+4212115 team: fix memory leaks
+fa63895 net/packet: check length in getsockopt() called with PACKET_HDRLEN
+b9ff317 net: core: Prevent from dereferencing null pointer when releasing SKB
+4e6cdc0 MIPS: Lantiq: Fix another request_mem_region() return code check
+c571039 ASoC: dapm: fix some pointer error handling
+7b8c9e6 usb: chipidea: vbus event may exist before starting gadget
+093fe10 audit: log 32-bit socketcalls
+af3749456 ASoC: dapm: handle probe deferrals
+8e8c3d4 partitions/efi: Fix integer overflow in GPT size calculation
+abbccd8 USB: serial: mos7840: fix control-message error handling
+0d1b459 USB: serial: mos7720: fix control-message error handling
+8b2522e drm/amdkfd: fix improper return value on error
+bf184dd IB/ipoib: Replace list_del of the neigh->list with list_del_init
+f1d53c6 IB/ipoib: rtnl_unlock can not come after free_netdev
+9326a13 IB/ipoib: Fix deadlock over vlan_mutex
+01b3db2 tty: goldfish: Fix a parameter of a call to free_irq
+f97c79e ARM: 8635/1: nommu: allow enabling REMAP_VECTORS_TO_RAM
+89642710 iio: adc: hx711: Add DT binding for avia,hx711
+a1f7b8f iio: adc: axp288: Drop bogus AXP288_ADC_TS_PIN_CTRL register modifications
+297b8b0 hwmon: (gl520sm) Fix overflows and crash seen when writing into limit attributes
+d89f41c sh_eth: use correct name for ECMR_MPDE bit
+effdf2b extcon: axp288: Use vbus-valid instead of -present to determine cable presence
+5603b10 igb: re-assign hw address pointer on reset after PCI error
+1c3ef07 MIPS: ralink: Fix incorrect assignment on ralink_soc
+1e35a2a MIPS: Ensure bss section ends on a long-aligned address
+b00cfc0 ARM: dts: r8a7790: Use R-Car Gen 2 fallback binding for msiof nodes
+6a501bd RDS: RDMA: Fix the composite message user notification
+d4f9744 GFS2: Fix reference to ERR_PTR in gfs2_glock_iter_next
+11bf4a8 drm: bridge: add DT bindings for TI ths8135
+771dace drm_fourcc: Fix DRM_FORMAT_MOD_LINEAR #define
+
+====================
+     10-07-2017
+====================
+
+
+====================
+     10-06-2017
+====================
+
+202617c ramdisk: great: update fstab and fixed white space
+97dbab6 ramdisk: set 1937000 GHz as default frequency
+054c0c1 build: switch to ZION959 UBER-TOOLCHAINS linaro aarch64-linux-android-6.x
+
+====================
      10-05-2017
 ====================
 
+354a00e Enable Dex with any HDMI adapter
+3ee20d4 kernel: update defconfig, changelog, spectrum cpu profiles
 ffa2a00 makefile: lets use -Ofast again
 69db454 build: update supersu to SR5-SuperSU-v2.82 & suhide-v1.09
 45abffc linux: add missing earlysuspend.h
@@ -79,30 +151,13 @@ d03d156 md/raid5: fix a race condition in stripe batch
 f75c004 KVM: PPC: Book3S: Fix race and leak in kvm_vm_ioctl_create_spapr_tce()
 7d8fbf3 mac80211: flush hw_roc_start work before cancelling the ROC
 fcc949a cifs: release auth_key.response for reconnect.
-7fc5d54 ramdisk: fixed white space and update fstab
-df25a7f drean2lte: use note8 touch screen driver so we can take advantage of sec abc
-b7adc0a zram: set lz0 to lz4 as default
-789d83b dts/dreamlte: use stock net speed
 
 ====================
      10-04-2017
 ====================
 
-
-====================
-     10-03-2017
-====================
-
-
-====================
-     10-02-2017
-====================
-
-
-====================
-     10-01-2017
-====================
-
-6a983c2 Merge remote-tracking branch 'bfq/bfq-v8-v4.4' into tw-7.1.1-mainline
-34113e3 Merge remote-tracking branch 'f2fs/linux-4.4.y' into tw-7.1.1-mainline
+7fc5d54 ramdisk: fixed white space and update fstab
+df25a7f drean2lte: use note8 touch screen driver so we can take advantage of sec abc
+b7adc0a zram: set lz0 to lz4 as default
+789d83b dts/dreamlte: use stock net speed
 
