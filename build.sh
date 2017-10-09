@@ -24,8 +24,8 @@ else
 fi
 
 export ARCH=arm64
-export PATH=~/Toolchains/aarch64-cortex_a53-linux-gnueabi/bin:$PATH
-export CROSS_COMPILE=aarch64-cortex_a53-linux-gnueabi-
+export PATH=~/Toolchains/aarch64-linux-android-6.x/bin:$PATH
+export CROSS_COMPILE=aarch64-linux-android-
 
 THREAD=-j$(bc <<< $(grep -c ^processor /proc/cpuinfo)+2)
 KERNELDIR=`readlink -f .`;

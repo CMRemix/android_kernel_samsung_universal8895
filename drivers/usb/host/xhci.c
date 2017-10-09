@@ -688,6 +688,11 @@ void xhci_stop(struct usb_hcd *hcd)
 
 		xhci->xhc_state |= XHCI_STATE_HALTED;
 		xhci->cmd_ring_state = CMD_RING_STATE_STOPPED;
+
+		/*
+		* Make sure the xHC is halted for a USB3 roothub
+		* (xhci_stop() could be called as part of failed init).
+		*/
 		xhci_halt(xhci);
 		xhci_reset(xhci);
 
