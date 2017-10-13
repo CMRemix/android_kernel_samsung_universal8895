@@ -9,7 +9,6 @@ ro.adb.secure=1
 ro.allow.mock.location=0
 ro.debuggable=1
 persist.sys.usb.config=mtp,adb
-persist.service.adb.enable=1
 ro.zygote=zygote64_32
 pm.dexopt.first-boot=interpret-only
 pm.dexopt.boot=verify-profile
@@ -38,9 +37,9 @@ sys.config.spcm_enable=false
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Tue Aug 8 23:44:52 KST 2017
-ro.bootimage.build.date.utc=1502203492
-ro.bootimage.build.fingerprint=samsung/dream2ltexx/dream2lte:7.0/NRD90M/G955FXXU1AQH3:user/test-keys
+ro.bootimage.build.date=Tue Sep 19 18:23:54 KST 2017
+ro.bootimage.build.date.utc=1505813034
+ro.bootimage.build.fingerprint=samsung/dream2ltexx/dream2lte:7.0/NRD90M/G955FXXU1AQI7:user/test-keys
 
 # Security Properties
 ro.config.tima=0
