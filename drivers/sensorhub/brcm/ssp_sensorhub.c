@@ -15,6 +15,11 @@
 
 #include "ssp_sensorhub.h"
 
+#include <linux/moduleparam.h>
+
+static int wl_sensorhub = 10;
+module_param(wl_sensorhub, int, 0644);
+
 static void ssp_sensorhub_log(const char *func_name,
 				const char *data, int length)
 {
@@ -301,7 +306,7 @@ static void ssp_sensorhub_report_library(struct ssp_sensorhub_data *hub_data)
 {
 	input_report_rel(hub_data->sensorhub_input_dev, DATA, DATA);
 	input_sync(hub_data->sensorhub_input_dev);
-	wake_lock_timeout(&hub_data->sensorhub_wake_lock, WAKE_LOCK_TIMEOUT);
+	wake_lock_timeout(&hub_data->sensorhub_wake_lock, HZ/wl_sensorhub);
 }
 
 static void ssp_sensorhub_report_big_library(
@@ -309,7 +314,7 @@ static void ssp_sensorhub_report_big_library(
 {
 	input_report_rel(hub_data->sensorhub_input_dev, BIG_DATA, BIG_DATA);
 	input_sync(hub_data->sensorhub_input_dev);
-	wake_lock_timeout(&hub_data->sensorhub_wake_lock, WAKE_LOCK_TIMEOUT);
+	wake_lock_timeout(&hub_data->sensorhub_wake_lock, HZ/wl_sensorhub);
 }
 
 static int ssp_sensorhub_list(struct ssp_sensorhub_data *hub_data,
