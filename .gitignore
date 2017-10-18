@@ -117,3 +117,10 @@ all.config
 *.img
 /Image
 *.packed
+/builtime_bytes.bin
+/builtime_bytes.txt
+/fips_crypto_utils
+/fips_fmp_utils
+/kaslr_fips
+/offsets_sizes_crypto.txt
+/offsets_sizes_fmp.txt
