@@ -1,163 +1,67 @@
 ====================
-     10-08-2017
+     10-18-2017
 ====================
 
-ab96fc7 ramdisk: back to stock 2314000 GHz as default.
-0478a2b Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
-c030c36 Linux 4.4.91
-2536c20 ttpci: address stringop overflow warning
-2b2bfb5 ALSA: au88x0: avoid theoretical uninitialized access
-d32ee70 ARM: remove duplicate 'const' annotations'
-7cad91f IB/qib: fix false-postive maybe-uninitialized warning
-13af23e drivers: firmware: psci: drop duplicate const from psci_of_match
-f6c8c71 libata: transport: Remove circular dependency at free time
-0185496 xfs: remove kmem_zalloc_greedy
-088b9a4 i2c: meson: fix wrong variable usage in meson_i2c_put_data
-cb07496 md/raid10: submit bio directly to replacement disk
-13099ee rds: ib: add error handle
-9bcd5ce iommu/io-pgtable-arm: Check for leaf entry before dereferencing it
-cadfa3a6 parisc: perf: Fix potential NULL pointer dereference
-4203f2a netfilter: nfnl_cthelper: fix incorrect helper->expect_class_max
-fa02902 exynos-gsc: Do not swap cb/cr for semi planar formats
-8bd7216 MIPS: IRQ Stack: Unwind IRQ stack onto task stack
-f7f46b3 netfilter: invoke synchronize_rcu after set the _hook_ to NULL
-e290667 bridge: netlink: register netdevice before executing changelink
-1b760fd mmc: sdio: fix alignment issue in struct sdio_func
-e1e99dc usb: plusb: Add support for PL-27A1
-4212115 team: fix memory leaks
-fa63895 net/packet: check length in getsockopt() called with PACKET_HDRLEN
-b9ff317 net: core: Prevent from dereferencing null pointer when releasing SKB
-4e6cdc0 MIPS: Lantiq: Fix another request_mem_region() return code check
-c571039 ASoC: dapm: fix some pointer error handling
-7b8c9e6 usb: chipidea: vbus event may exist before starting gadget
-093fe10 audit: log 32-bit socketcalls
-af3749456 ASoC: dapm: handle probe deferrals
-8e8c3d4 partitions/efi: Fix integer overflow in GPT size calculation
-abbccd8 USB: serial: mos7840: fix control-message error handling
-0d1b459 USB: serial: mos7720: fix control-message error handling
-8b2522e drm/amdkfd: fix improper return value on error
-bf184dd IB/ipoib: Replace list_del of the neigh->list with list_del_init
-f1d53c6 IB/ipoib: rtnl_unlock can not come after free_netdev
-9326a13 IB/ipoib: Fix deadlock over vlan_mutex
-01b3db2 tty: goldfish: Fix a parameter of a call to free_irq
-f97c79e ARM: 8635/1: nommu: allow enabling REMAP_VECTORS_TO_RAM
-89642710 iio: adc: hx711: Add DT binding for avia,hx711
-a1f7b8f iio: adc: axp288: Drop bogus AXP288_ADC_TS_PIN_CTRL register modifications
-297b8b0 hwmon: (gl520sm) Fix overflows and crash seen when writing into limit attributes
-d89f41c sh_eth: use correct name for ECMR_MPDE bit
-effdf2b extcon: axp288: Use vbus-valid instead of -present to determine cable presence
-5603b10 igb: re-assign hw address pointer on reset after PCI error
-1c3ef07 MIPS: ralink: Fix incorrect assignment on ralink_soc
-1e35a2a MIPS: Ensure bss section ends on a long-aligned address
-b00cfc0 ARM: dts: r8a7790: Use R-Car Gen 2 fallback binding for msiof nodes
-6a501bd RDS: RDMA: Fix the composite message user notification
-d4f9744 GFS2: Fix reference to ERR_PTR in gfs2_glock_iter_next
-11bf4a8 drm: bridge: add DT bindings for TI ths8135
-771dace drm_fourcc: Fix DRM_FORMAT_MOD_LINEAR #define
+5b8e4ef ramdisk : drop AQIA kernel source
+a5e54a9 drop: N950FXXU1AQIA SM-N950F_LATIN_NN source
+c5efc300 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+4fb22f4 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+e1fe381 Linux 4.4.93
+ad505a7 x86/alternatives: Fix alt_max_short macro to really be a max()
+2085634 USB: serial: console: fix use-after-free after failed setup
+6c14436 USB: serial: qcserial: add Dell DW5818, DW5819
+34592e0 USB: serial: option: add support for TP-Link LTE module
+ac22f49 USB: serial: cp210x: add support for ELV TFD500
+b1f5a26 USB: serial: ftdi_sio: add id for Cypress WICED dev board
+399c460 fix unbalanced page refcounting in bio_map_user_iov
+f3b5384 direct-io: Prevent NULL pointer access in submit_page_section
+ac94abb usb: gadget: composite: Fix use-after-free in usb_composite_overwrite_options
+16c1ef6 ALSA: line6: Fix leftover URB at error-path during probe
+5b01343 ALSA: caiaq: Fix stray URB at probe error path
+ca2523c ALSA: seq: Fix copy_from_user() call inside lock
+23709ae ALSA: seq: Fix use-after-free at creating a port
+dc7c3bd ALSA: usb-audio: Kill stray URB at exiting
+050c4bb iommu/amd: Finish TLB flush in amd_iommu_unmap()
+eb7f316 usb: renesas_usbhs: Fix DMAC sequence for receiving zero-length packet
+6a92b99 KVM: nVMX: fix guest CR4 loading when emulating L2 to L1 exit
+03bd90f crypto: shash - Fix zero-length shash ahash digest crash
+2929cb9 HID: usbhid: fix out-of-bounds bug
+e7485f0 dmaengine: edma: Align the memcpy acnt array size with the transfer
+29b202eb MIPS: math-emu: Remove pr_err() calls from fpu_emu()
+2fff3c5 USB: dummy-hcd: Fix deadlock caused by disconnect detection
+5fd4551 rcu: Allow for page faults in NMI handlers
+45bd4e4 iwlwifi: mvm: use IWL_HCMD_NOCOPY for MCAST_FILTER_CMD
+6a6c61d nl80211: Define policy for packet pattern attributes
+f2bb4bc CIFS: Reconnect expired SMB sessions
+bd36826 ext4: in ext4_seek_{hole,data}, return -ENXIO for negative offsets
+6721969 brcmfmac: add length check in brcmf_cfg80211_escan_handler()
+67eb231 sweep2sleep: set screen size of S8 max 2960x1440
 
 ====================
-     10-07-2017
+     10-17-2017
+====================
+
+0bafb73 fs/dyn_sync_cntrl: dynamic sync control 2.0
+8399efc sweep2sleep: turn off screen by sweeping over navbar (showp1984 & dorimanx & UpInTheAir)
+
+====================
+     10-16-2017
+====================
+
+d72e0e9 cpuidle: don't disable cpuidle when entering suspend
+cec3bd5 dream: add wakelock blocker
+c62ba74 revert: boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
+5f3bd17 [squash] Revert: zswap: set z3fold as default zpool
+0a11948 build: update magisk to v14.3
+e0b3ade boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
+
+====================
+     10-15-2017
 ====================
 
 
 ====================
-     10-06-2017
+     10-14-2017
 ====================
 
-202617c ramdisk: great: update fstab and fixed white space
-97dbab6 ramdisk: set 1937000 GHz as default frequency
-054c0c1 build: switch to ZION959 UBER-TOOLCHAINS linaro aarch64-linux-android-6.x
-
-====================
-     10-05-2017
-====================
-
-354a00e Enable Dex with any HDMI adapter
-3ee20d4 kernel: update defconfig, changelog, spectrum cpu profiles
-ffa2a00 makefile: lets use -Ofast again
-69db454 build: update supersu to SR5-SuperSU-v2.82 & suhide-v1.09
-45abffc linux: add missing earlysuspend.h
-c6b817c Makefile: enable NEON vectorize
-9143cc0 lib/lzo: huge LZO decompression speedup on ARM by using unaligned access
-c704074 fs: dcache.c: Fix the too small buffer for dname
-4b83fa3 net: combat buffer bloat
-a06dda0 int_sqrt: Improve 3x faster integer sqrt.
-93565e7 int_sqrt.c: Correction square root algo with naming
-7ef4b56 block: disable add_random
-a65d685 net: tcp_output: set initial TCP window size to 64K (speed improvement)
-a1bab28 binfmt_elf.c: use get_random_int() to fix entropy depleting
-1c0d56b mmc/core: disable crc to improve performance
-e5c7602 fs: proc: cmdline remove more flags
-438da87 proc: Set of two patches
-2b94d8f Remove '+' symbol & -dirty from kernel version strings
-ac16f65 mm: port z3fold from XZP
-bc89f65 thermal: IPA: add new divvy-up algorithm
-1b5992d arm64/vdso: Fix nsec handling for CLOCK_MONOTONIC_RAW
-5cacc31 arm64: Add support for CLOCK_MONOTONIC_RAW in clock_gettime() vDSO
-ee0d6ea arm64: Refactor vDSO time functions
-bf317cc mm: swap: don't delay swap free for fast swap devices
-622062f zswap: set z3fold as default zpool
-1cc173b lib/lz4: remove back-compat wrappers
-bf17afa BACKPORT: crypto: change LZ4 modules to work with new LZ4 module version
-231c373 BACKPORT: crypto: update LZ4 compression test cases
-2fa5ca0 lib/decompress_unlz4: change module to work with new LZ4 module version
-8ebecab lib: update LZ4 compressor module
-f34d3e6 lib: lz4: cleanup unaligned access efficiency detection
-f9dd47f lz4: fix wrong compress buffer size for 64-bits
-f80de9f zram: increase number of compressions streams
-5eeb1be cifs: enable mounting cifs drives visible to all apps
-a1d4ac5 fs: mount partitions NOATIME and NODIRATIME by default
-e2ba6d4 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
-37c2d0d Linux 4.4.90
-228969b fix xen_swiotlb_dma_mmap prototype
-079c03f swiotlb-xen: implement xen_swiotlb_dma_mmap callback
-27323cb video: fbdev: aty: do not leak uninitialized padding in clk to userspace
-150cd84b KVM: VMX: use cmpxchg64
-90df2da ARM: pxa: fix the number of DMA requestor lines
-c575be9 ARM: pxa: add the number of DMA requestor lines
-a85f176 dmaengine: mmp-pdma: add number of requestors
-6124ed1 cxl: Fix driver use count
-9037837 KVM: VMX: remove WARN_ON_ONCE in kvm_vcpu_trigger_posted_interrupt
-fc39e56 KVM: VMX: do not change SN bit in vmx_update_pi_irte()
-5e9b526 timer/sysclt: Restrict timer migration sysctl values to 0 and 1
-ddf25ae gfs2: Fix debugfs glocks dump
-d25fea0 x86/fpu: Don't let userspace set bogus xcomp_bv
-4c16afa btrfs: prevent to set invalid default subvolid
-0efde43 btrfs: propagate error to btrfs_cmp_data_prepare caller
-9a7d93d btrfs: fix NULL pointer dereference from free_reloc_roots()
-b08dc7d PCI: Fix race condition with driver_override
-21a638c kvm: nVMX: Don't allow L2 to access the hardware CR8
-7520be6 KVM: VMX: Do not BUG() on out-of-bounds guest IRQ
-e726c30 arm64: fault: Route pte translation faults via do_translation_fault
-638e787 arm64: Make sure SPsel is always set
-9237605 seccomp: fix the usage of get/put_seccomp_filter() in seccomp_get_filter()
-668cee8 bsg-lib: don't free job in bsg_prepare_job
-9d74367 nl80211: check for the required netlink attributes presence
-3393445 vfs: Return -ENXIO for negative SEEK_HOLE / SEEK_DATA offsets
-3bb7084 SMB3: Don't ignore O_SYNC/O_DSYNC and O_DIRECT flags
-02ef29f SMB: Validate negotiate (to protect against downgrade) even if signing off
-c096b31 Fix SMB3.1.1 guest authentication to Samba
-fe37a44 powerpc/pseries: Fix parent_dn reference leak in add_dt_node()
-638b385 KEYS: prevent KEYCTL_READ on negative key
-539255a KEYS: prevent creating a different user's keyrings
-af24e9d KEYS: fix writing past end of user-supplied buffer in keyring_read()
-362711d crypto: talitos - fix sha224
-231c4f6 crypto: talitos - Don't provide setkey for non hmac hashing algs.
-9d25349 scsi: scsi_transport_iscsi: fix the issue that iscsi_if_rx doesn't parse nlmsg properly
-29854a7 md/raid5: preserve STRIPE_ON_UNPLUG_LIST in break_stripe_batch_list
-d03d156 md/raid5: fix a race condition in stripe batch
-68a4a52 tracing: Erase irqsoff trace with empty write
-9c5afa7 tracing: Fix trace_pipe behavior for instance traces
-f75c004 KVM: PPC: Book3S: Fix race and leak in kvm_vm_ioctl_create_spapr_tce()
-7d8fbf3 mac80211: flush hw_roc_start work before cancelling the ROC
-fcc949a cifs: release auth_key.response for reconnect.
-
-====================
-     10-04-2017
-====================
-
-7fc5d54 ramdisk: fixed white space and update fstab
-df25a7f drean2lte: use note8 touch screen driver so we can take advantage of sec abc
-b7adc0a zram: set lz0 to lz4 as default
-789d83b dts/dreamlte: use stock net speed
 

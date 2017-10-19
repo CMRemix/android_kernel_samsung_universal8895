@@ -134,8 +134,6 @@ set_progress(0.99);
 
     ui_print("|-> remove tmp folder ");
 	delete_recursive("/tmp");
-    ifelse(is_mounted("/system"), unmount("/system"));
-    ifelse(is_mounted("/cache"), unmount("/cache"));
 
 ###########################Finish############################
 
