@@ -97,8 +97,6 @@ endif
 	# DHD_LB_RXP - Perform RX Packet processing in parallel
 	# DHD_LB_STATS - To display the Load Blancing statistics
 	DHDCFLAGS += -DDHD_LB -DDHD_LB_RXP -DDHD_LB_TXP -DDHD_LB_STATS
-	# Enable wakelock for legacy scan
-	DHDCFLAGS += -DDHD_USE_SCAN_WAKELOCK
 	# Extended HANG event with reason codes
 	DHDCFLAGS += -DDHD_USE_EXTENDED_HANG_REASON
 	DHDCFLAGS += -DDHD_RECOVER_TIMEOUT
@@ -131,6 +129,8 @@ endif
 # Debug
 DHDCFLAGS += -DSIMPLE_MAC_PRINT
 DHDCFLAGS += -DDEBUGFS_CFG80211
+# Enable wakelock for legacy scan
+DHDCFLAGS += -DDHD_USE_SCAN_WAKELOCK
 # Enable wakelock debug function
 DHDCFLAGS += -DDHD_TRACE_WAKE_LOCK
 # Print out kernel panic point of file and line info when assertion happened
@@ -457,9 +457,8 @@ ifeq ($(filter y,$(CONFIG_WLAN_GREAT) $(CONFIG_SEC_GREATQLTE_PROJECT)),y)
   DHDCFLAGS += -DSTAT_REPORT
 #define temp static only when SDK doesn't support static memory for STAT REPORT
 #  DHDCFLAGS += -DSTAT_REPORT_TEMP_STATIC
-# Change DHD_COMMON_PATH only if GREAT
-  DHDCFLAGS += -DDHD_COMMON_DUMP_PATH="\"/data/log/wifi/\""
 endif
+  DHDCFLAGS += -DDHD_COMMON_DUMP_PATH="\"/data/log/wifi/\""
 
 ifeq ($(CONFIG_BCM4361),y)
   DHDCFLAGS += -DENABLE_INSMOD_NO_FW_LOAD
