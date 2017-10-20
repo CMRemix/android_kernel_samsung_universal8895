@@ -346,11 +346,11 @@ scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
 GRAPHITE := -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize
-KERNELFLAGS := -march=armv8-a -mtune=exynos-m1.cortex-a53 -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -Ofast -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare -fmodulo-sched -fmodulo-sched-allow-regmoves -fira-loop-pressure -ffast-math -ftree-vectorize
+KERNELFLAGS := -march=armv8-a -mtune=exynos-m1.cortex-a53 -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -Ofast -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare -fmodulo-sched -fmodulo-sched-allow-regmoves -fira-loop-pressure -ffast-math -ftree-vectorize -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -fpredictive-commoning -lgomp
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld -Ofast --sort-common --strip-debug
+LD		= $(CROSS_COMPILE)ld -Ofast --sort-common --strip-debug -flto -fuse-ld=gold
 CC		= $(CCACHE) $(CROSS_COMPILE)gcc $(GRAPHITE) $(KERNELFLAGS)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
@@ -370,7 +370,7 @@ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
 CFLAGS_MODULE   = $(GRAPHITE) $(KERNELFLAGS) -DMODULE -DNDEBUG
 AFLAGS_MODULE   = $(GRAPHITE) $(KERNELFLAGS) -DMODULE -DNDEBUG
-LDFLAGS_MODULE  = $(GRAPHITE) -DMODULE -DNDEBUG
+LDFLAGS_MODULE  = $(GRAPHITE) -DMODULE -DNDEBUG -flto -fuse-ld=gold
 CFLAGS_KERNEL	= $(GRAPHITE) -Ofast -DNDEBUG -fsingle-precision-constant
 AFLAGS_KERNEL	= $(GRAPHITE) $(KERNELFLAGS) -DNDEBUG
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
@@ -408,7 +408,7 @@ KBUILD_CFLAGS   := -DNDEBUG $(GRAPHITE) -w -Wstrict-prototypes -Wno-trigraphs \
 		   -fbranch-target-load-optimize -fsingle-precision-constant \
 		   -Werror -Wno-error=unused-variable -Wno-error=unused-function \
 		   -std=gnu89 -Wno-discarded-array-qualifiers -Wno-logical-not-parentheses -Wno-array-bounds -Wno-switch -Wno-unused-variable \
-		   -march=armv8-a+crc -mtune=cortex-a57.cortex-a53 \
+		   -march=armv8-a+crc -mtune=cortex-a57.cortex-a53 -lgomp \
            $(call cc-option,-fno-PIE)
 
 KBUILD_AFLAGS_KERNEL :=
