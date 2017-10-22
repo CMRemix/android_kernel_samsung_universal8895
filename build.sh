@@ -189,13 +189,13 @@ rm -f ${KERNELDIR}/out/$DEVICE/greatlte.img
 fi;
 
 cd ${KERNELDIR}/out/$DEVICE
-GET_VERSION=`grep 'S8_NN_*V' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
+GET_VERSION=`grep 'NN_*V' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
 
 cd ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 zip -r ../ZION.zip *
 rm -rf ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 cd ${KERNELDIR}/out/$DEVICE/
-zip -r ZION959-$DEVICE-Kernel-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
+zip -r ZION959-$DEVICE-MAINLINE-KERNEL-TW7.1.1_AQIA-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
 
 echo
 echo "Done"
