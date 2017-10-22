@@ -1,11 +1,80 @@
 ====================
-     10-18-2017
+     10-21-2017
 ====================
 
+4ecd988 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+af9a9a7 Linux 4.4.94
+401231d Revert "tty: goldfish: Fix a parameter of a call to free_irq"
+cdbbea7 cpufreq: CPPC: add ACPI_PROCESSOR dependency
+c2c6f43 nfsd/callback: Cleanup callback cred on shutdown
+429a4ac target/iscsi: Fix unsolicited data seq_end_offset calculation
+823ba64 uapi: fix linux/mroute6.h userspace compilation errors
+028a419 uapi: fix linux/rds.h userspace compilation errors
+c7a20ed ceph: clean up unsafe d_parent accesses in build_dentry_path
+c128baf i2c: at91: ensure state is restored after suspending
+d7ecae7 net: mvpp2: release reference to txq_cpu[] entry after unmapping
+693e651 scsi: scsi_dh_emc: return success in clariion_std_inquiry()
+9ac38e3 slub: do not merge cache if slub_debug contains a never-merge flag
+315689d ocfs2/dlmglue: prepare tracking logic to avoid recursive cluster lock
+d3335f5 crypto: xts - Add ECB dependency
+02744a5 net/mlx4_core: Fix VF overwrite of module param which disables DMFS on new probed PFs
+7bf94b9 sparc64: Migrate hvcons irq to panicked cpu
+d14591e md/linear: shutup lockdep warnning
+48ca88f f2fs: do not wait for writeback in write_begin
+3109615 Btrfs: send, fix failure to rename top level inode due to name collision
+4d134d8 iio: adc: xilinx: Fix error handling
+5c65ed5 netfilter: nf_ct_expect: Change __nf_ct_expect_check() return value.
+743a3ce net/mlx4_en: fix overflow in mlx4_en_init_timestamp()
+7ed668e mac80211: fix power saving clients handling in iwlwifi
+3e8c1a0 mac80211_hwsim: check HWSIM_ATTR_RADIO_NAME length
+4a464da irqchip/crossbar: Fix incorrect type of local variables
+7e53f03 watchdog: kempld: fix gcc-4.3 build
+28eab3d locking/lockdep: Add nest_lock integrity test
+d44e463 Revert "bsg-lib: don't free job in bsg_prepare_job"
+01e3e63 tipc: use only positive error codes in messages
+6856997 net: Set sk_prot_creator when cloning sockets to the right proto
+1299f7e packet: only test po->has_vnet_hdr once in packet_snd
+1b6c80e packet: in packet_do_bind, test fanout with bind_lock held
+ee53492 tun: bail out from tun_get_user() if the skb is empty
+b5f689d l2tp: fix race condition in l2tp_tunnel_delete
+110cf3d l2tp: Avoid schedule while atomic in exit_net
+93040aa1 vti: fix use after free in vti_tunnel_xmit/vti6_tnl_xmit
+d9cb4dc isdn/i4l: fetch the ppp_write buffer in one shot
+1a4f1ec bpf: one perf event close won't free bpf program attached by another perf event
+5be6824 packet: hold bind lock when rebinding to fanout hook
+aa90be3 net: emac: Fix napi poll list corruption
+3483c65 ip6_gre: skb_push ipv6hdr before packing the header in ip6gre_header
+5356f7e udpv6: Fix the checksum computation when HW checksum does not apply
+2ec54b2 bpf/verifier: reject BPF_ALU64|BPF_END
+dee4506 sctp: potential read out of bounds in sctp_ulpevent_type_enabled()
+9f5bbe6 MIPS: Fix minimum alignment requirement of IRQ stack
+c088f7b drm/dp/mst: save vcpi with payloads
+951ba9f percpu: make this_cpu_generic_read() atomic w.r.t. interrupts
+
+====================
+     10-20-2017
+====================
+
+891538d proc: much faster /proc/vmstat
+a5b39eb makefile: update optimization flags
+7e164df drivers: cpufreq_interactive: handle error for module load fail
+ef34d8f ANDROID: cpufreq-dt: Set sane defaults for schedutil rate limits
+a47df00 drivers: cpufreq: checks to avoid kernel crash in cpufreq_interactive
+
+====================
+     10-19-2017
+====================
+
+7004bb6 build: release mainline v2.9
 5b8e4ef ramdisk : drop AQIA kernel source
 a5e54a9 drop: N950FXXU1AQIA SM-N950F_LATIN_NN source
 c5efc300 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
 4fb22f4 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+
+====================
+     10-18-2017
+====================
+
 e1fe381 Linux 4.4.93
 ad505a7 x86/alternatives: Fix alt_max_short macro to really be a max()
 2085634 USB: serial: console: fix use-after-free after failed setup
@@ -36,32 +105,14 @@ f2bb4bc CIFS: Reconnect expired SMB sessions
 bd36826 ext4: in ext4_seek_{hole,data}, return -ENXIO for negative offsets
 6721969 brcmfmac: add length check in brcmf_cfg80211_escan_handler()
 67eb231 sweep2sleep: set screen size of S8 max 2960x1440
+0bafb73 fs/dyn_sync_cntrl: dynamic sync control 2.0
+8399efc sweep2sleep: turn off screen by sweeping over navbar (showp1984 & dorimanx & UpInTheAir)
 
 ====================
      10-17-2017
 ====================
 
-0bafb73 fs/dyn_sync_cntrl: dynamic sync control 2.0
-8399efc sweep2sleep: turn off screen by sweeping over navbar (showp1984 & dorimanx & UpInTheAir)
-
-====================
-     10-16-2017
-====================
-
 d72e0e9 cpuidle: don't disable cpuidle when entering suspend
 cec3bd5 dream: add wakelock blocker
 c62ba74 revert: boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
-5f3bd17 [squash] Revert: zswap: set z3fold as default zpool
-0a11948 build: update magisk to v14.3
-e0b3ade boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
-
-====================
-     10-15-2017
-====================
-
-
-====================
-     10-14-2017
-====================
-
 
