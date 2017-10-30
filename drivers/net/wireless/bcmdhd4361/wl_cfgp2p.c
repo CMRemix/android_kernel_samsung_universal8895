@@ -24,7 +24,7 @@
  *
  * <<Broadcom-WL-IPTag/Open:>>
  *
- * $Id: wl_cfgp2p.c 680286 2017-01-19 09:37:30Z $
+ * $Id: wl_cfgp2p.c 699163 2017-05-12 05:18:23Z $
  *
  */
 #include <typedefs.h>
@@ -392,7 +392,7 @@ wl_cfgp2p_set_firm_p2p(struct bcm_cfg80211 *cfg)
 	}
 	if (val == 0) {
 		val = 1;
-		ret = wldev_ioctl(ndev, WLC_DOWN, &val, sizeof(s32), true);
+		ret = wldev_ioctl_set(ndev, WLC_DOWN, &val, sizeof(s32));
 		if (ret < 0) {
 			CFGP2P_ERR(("WLC_DOWN error %d\n", ret));
 			return ret;
@@ -405,7 +405,7 @@ wl_cfgp2p_set_firm_p2p(struct bcm_cfg80211 *cfg)
 			return ret;
 		}
 
-		ret = wldev_ioctl(ndev, WLC_UP, &val, sizeof(s32), true);
+		ret = wldev_ioctl_set(ndev, WLC_UP, &val, sizeof(s32));
 		if (ret < 0) {
 			CFGP2P_ERR(("WLC_UP error %d\n", ret));
 			return ret;
@@ -1824,7 +1824,7 @@ wl_cfgp2p_set_p2p_noa(struct bcm_cfg80211 *cfg, struct net_device *ndev, char* b
 	s32 ret = -1;
 	int count, start, duration;
 	wl_p2p_sched_t dongle_noa;
-	s32 bssidx, type = WL_P2P_SCHED_TYPE_ABS;
+	s32 bssidx, type;
 	int iovar_len = sizeof(dongle_noa);
 	CFGP2P_DBG((" Enter\n"));
 
@@ -1953,7 +1953,7 @@ wl_cfgp2p_set_p2p_ps(struct bcm_cfg80211 *cfg, struct net_device *ndev, char* bu
 	int ps, ctw;
 	int ret = -1;
 	s32 legacy_ps;
-	s32 conn_idx = 0;
+	s32 conn_idx;
 	s32 bssidx;
 	struct net_device *dev;
 
@@ -1981,8 +1981,8 @@ wl_cfgp2p_set_p2p_ps(struct bcm_cfg80211 *cfg, struct net_device *ndev, char* bu
 		}
 
 		if ((legacy_ps != -1) && ((legacy_ps == PM_MAX) || (legacy_ps == PM_OFF))) {
-			ret = wldev_ioctl(dev,
-				WLC_SET_PM, &legacy_ps, sizeof(legacy_ps), true);
+			ret = wldev_ioctl_set(dev,
+				WLC_SET_PM, &legacy_ps, sizeof(legacy_ps));
 			if (unlikely(ret))
 				CFGP2P_ERR(("error (%d)\n", ret));
 			wl_cfg80211_update_power_mode(dev);
@@ -2001,7 +2001,7 @@ s32
 wl_cfgp2p_set_p2p_ecsa(struct bcm_cfg80211 *cfg, struct net_device *ndev, char* buf, int len)
 {
 	int ch, bw;
-	s32 conn_idx = 0;
+	s32 conn_idx;
 	s32 bssidx;
 	struct net_device *dev;
 	char smbuf[WLC_IOCTL_SMLEN];
