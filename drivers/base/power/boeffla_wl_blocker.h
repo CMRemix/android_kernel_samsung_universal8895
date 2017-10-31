@@ -14,10 +14,10 @@
  *
  */
 
-#define BOEFFLA_WL_BLOCKER_VERSION	"1.1.0"
+#define BOEFFLA_WL_BLOCKER_VERSION  "1.1.0"
 
-#define LIST_WL_DEFAULT				"sensorhub_wl;ssp_wl;lli_pm_wl;radio_interface_wl;umts_ipc0_wl;power_manager_service_wl;wlan_rx_wake_ws;wlan_ctrl_wake_ws;wlan_wake_ws;bluedroid_timer_ws;wl_sysovlo;wl_divide_bt;wl_divide;wl_nfc;wl_motion;wl_prox;wl_tilt;wl_grip;wl_pickup;wl_humi;wl_sensorhub;wl_ssp;dwc3-otg;usb_notify;mmc0_detect;bbd_wake_lock;NETLINK"
+#define LIST_WL_DEFAULT             "sensorhub_wl;ssp_wl;lli_pm_wl;radio_interface_wl;umts_ipc0_wl;power_manager_service_wl;wlan_rx_wake_ws;wlan_ctrl_wake_ws;wlan_wake_ws;bluedroid_timer_ws;wl_sysovlo;wl_divide_bt;wl_divide;wl_nfc;wl_motion;wl_prox;wl_tilt;wl_grip;wl_pickup;wl_humi;wl_sensorhub;wl_ssp;dwc3-otg;usb_notify;mmc0_detect;bbd_wake_lock,alarmtimer,ssp_wake_lock,wlan_ctrl_wake,wlan_txfl_wake,wlan_pm_wake,alarm,rmnet1,ssp_comm_wake_lock,wlan_oob_irq_wake,SUPL,umts_boot0,rmnet2,otg_default,s2mm005-intr,ss310,KeyEvents,umts_rfs0,12ce000.firmc_is;NETLINK"
 
-#define LENGTH_LIST_WL				255
-#define LENGTH_LIST_WL_DEFAULT		100
-#define LENGTH_LIST_WL_SEARCH		LENGTH_LIST_WL + LENGTH_LIST_WL_DEFAULT + 5
+#define LENGTH_LIST_WL              255
+#define LENGTH_LIST_WL_DEFAULT      100
+#define LENGTH_LIST_WL_SEARCH       LENGTH_LIST_WL + LENGTH_LIST_WL_DEFAULT + 5
