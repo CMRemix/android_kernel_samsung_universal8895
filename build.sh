@@ -34,7 +34,7 @@ BK=build
 
 # Make clean source
 echo
-read -t 30 -p "${bldred}***Make clean source, 10sec timeout (y/n)?***${txtrst}";
+read -t 10 -p "${bldred}***Make clean source, 10sec timeout (y/n)?***${txtrst}";
 if [ "$REPLY" == "y" ]; then
 make distclean;
 make mrproper;
@@ -42,7 +42,7 @@ fi;
 
 # clear ccache
 echo
-read -t 30 -p "${bldred}***Clear ccache but keeping the config file, 10sec timeout (y/n)?***${txtrst}";
+read -t 10 -p "${bldred}***Clear ccache but keeping the config file, 10sec timeout (y/n)?***${txtrst}";
 if [ "$REPLY" == "y" ]; then
 ccache -C;
 fi;
@@ -162,7 +162,7 @@ fi;
 
 # Generate Changelog
 echo
-read -t 30 -p "${bldred}**Generate Changelog, 30 sec timeout (y/n)?***${txtrst}";
+read -t 10 -p "${bldred}**Generate Changelog, 10 sec timeout (y/n)?***${txtrst}";
 if [ "$REPLY" == "y" ]; then
 bash changelog.sh
 fi;
@@ -189,13 +189,13 @@ rm -f ${KERNELDIR}/out/$DEVICE/greatlte.img
 fi;
 
 cd ${KERNELDIR}/out/$DEVICE
-GET_VERSION=`grep 'NN_*V' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
+GET_VERSION=`grep 'NN-*V' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
 
 cd ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 zip -r ../ZION.zip *
 rm -rf ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 cd ${KERNELDIR}/out/$DEVICE/
-zip -r ZION959-$DEVICE-MAINLINE-KERNEL-TW7.1.1_AQIA-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
+zip -r ZION959-$DEVICE-MAINLINE-KERNEL-TW7.1.1-AQIA-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
 
 echo
 echo "Done"

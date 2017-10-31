@@ -1,118 +1,63 @@
 ====================
-     10-21-2017
+     10-29-2017
 ====================
 
-4ecd988 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
-af9a9a7 Linux 4.4.94
-401231d Revert "tty: goldfish: Fix a parameter of a call to free_irq"
-cdbbea7 cpufreq: CPPC: add ACPI_PROCESSOR dependency
-c2c6f43 nfsd/callback: Cleanup callback cred on shutdown
-429a4ac target/iscsi: Fix unsolicited data seq_end_offset calculation
-823ba64 uapi: fix linux/mroute6.h userspace compilation errors
-028a419 uapi: fix linux/rds.h userspace compilation errors
-c7a20ed ceph: clean up unsafe d_parent accesses in build_dentry_path
-c128baf i2c: at91: ensure state is restored after suspending
-d7ecae7 net: mvpp2: release reference to txq_cpu[] entry after unmapping
-693e651 scsi: scsi_dh_emc: return success in clariion_std_inquiry()
-9ac38e3 slub: do not merge cache if slub_debug contains a never-merge flag
-315689d ocfs2/dlmglue: prepare tracking logic to avoid recursive cluster lock
-d3335f5 crypto: xts - Add ECB dependency
-02744a5 net/mlx4_core: Fix VF overwrite of module param which disables DMFS on new probed PFs
-7bf94b9 sparc64: Migrate hvcons irq to panicked cpu
-d14591e md/linear: shutup lockdep warnning
-48ca88f f2fs: do not wait for writeback in write_begin
-3109615 Btrfs: send, fix failure to rename top level inode due to name collision
-4d134d8 iio: adc: xilinx: Fix error handling
-5c65ed5 netfilter: nf_ct_expect: Change __nf_ct_expect_check() return value.
-743a3ce net/mlx4_en: fix overflow in mlx4_en_init_timestamp()
-7ed668e mac80211: fix power saving clients handling in iwlwifi
-3e8c1a0 mac80211_hwsim: check HWSIM_ATTR_RADIO_NAME length
-4a464da irqchip/crossbar: Fix incorrect type of local variables
-7e53f03 watchdog: kempld: fix gcc-4.3 build
-28eab3d locking/lockdep: Add nest_lock integrity test
-d44e463 Revert "bsg-lib: don't free job in bsg_prepare_job"
-01e3e63 tipc: use only positive error codes in messages
-6856997 net: Set sk_prot_creator when cloning sockets to the right proto
-1299f7e packet: only test po->has_vnet_hdr once in packet_snd
-1b6c80e packet: in packet_do_bind, test fanout with bind_lock held
-ee53492 tun: bail out from tun_get_user() if the skb is empty
-b5f689d l2tp: fix race condition in l2tp_tunnel_delete
-110cf3d l2tp: Avoid schedule while atomic in exit_net
-93040aa1 vti: fix use after free in vti_tunnel_xmit/vti6_tnl_xmit
-d9cb4dc isdn/i4l: fetch the ppp_write buffer in one shot
-1a4f1ec bpf: one perf event close won't free bpf program attached by another perf event
-5be6824 packet: hold bind lock when rebinding to fanout hook
-aa90be3 net: emac: Fix napi poll list corruption
-3483c65 ip6_gre: skb_push ipv6hdr before packing the header in ip6gre_header
-5356f7e udpv6: Fix the checksum computation when HW checksum does not apply
-2ec54b2 bpf/verifier: reject BPF_ALU64|BPF_END
-dee4506 sctp: potential read out of bounds in sctp_ulpevent_type_enabled()
-9f5bbe6 MIPS: Fix minimum alignment requirement of IRQ stack
-c088f7b drm/dp/mst: save vcpi with payloads
-951ba9f percpu: make this_cpu_generic_read() atomic w.r.t. interrupts
+7036576 revert: revert: boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
+d653931 revert: dream: add wakelock blocker
 
 ====================
-     10-20-2017
+     10-28-2017
 ====================
 
-891538d proc: much faster /proc/vmstat
-a5b39eb makefile: update optimization flags
-7e164df drivers: cpufreq_interactive: handle error for module load fail
-ef34d8f ANDROID: cpufreq-dt: Set sane defaults for schedutil rate limits
-a47df00 drivers: cpufreq: checks to avoid kernel crash in cpufreq_interactive
+d76c249 defconfig: release mainline v3.1
+7c4d23b Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
 
 ====================
-     10-19-2017
+     10-27-2017
 ====================
 
-7004bb6 build: release mainline v2.9
-5b8e4ef ramdisk : drop AQIA kernel source
-a5e54a9 drop: N950FXXU1AQIA SM-N950F_LATIN_NN source
-c5efc300 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
-4fb22f4 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+9b36699 Linux 4.4.95
+aa3a0a7 FS-Cache: fix dereference of NULL user_key_payload
+1bb1d42 fscrypto: require write access to mount to set encryption policy
+8a004ca KEYS: Fix race between updating and finding a negative key
+1dda04c7 fscrypt: fix dereference of NULL user_key_payload
+7d9e13d f2fs crypto: add missing locking for keyring_key access
+4db9f11 f2fs crypto: replace some BUG_ON()'s with error checks
+0f85c09 sched/autogroup: Fix autogroup_move_group() to never skip sched_move_task()
+fcc65ab parisc: Fix double-word compare and exchange in LWS code on 32-bit kernels
+558ca24 parisc: Avoid trashing sr2 and sr3 in LWS code
+6f0dee7 pkcs7: Prevent NULL pointer dereference, since sinfo is not always set.
+33dea30 KEYS: don't let add_key() update an uninstantiated key
+503ef5c lib/digsig: fix dereference of NULL user_key_payload
+2b7e022 KEYS: encrypted: fix dereference of NULL user_key_payload
+51ba40f rtlwifi: rtl8821ae: Fix connection lost problem
+cffdaa6 clockevents/drivers/cs5535: Improve resilience to spurious interrupts
+b178c94 bus: mbus: fix window size calculation for 4GB windows
+260b673 brcmsmac: make some local variables 'static const' to reduce stack size
+efdcbff i2c: ismt: Separate I2C block read from SMBus block read
+68c6107 ALSA: hda: Remove superfluous '-' added by printk conversion
+f9e9371 ALSA: seq: Enable 'use' locking in all configurations
+4516069 drm/nouveau/mmu: flush tlbs before deleting page tables
+195674a drm/nouveau/bsp/g92: disable by default
+4d56587 can: esd_usb2: Fix can_dlc value for received RTR, frames
+aa62936 usb: musb: Check for host-mode using is_host_active() on reset interrupt
+583a421 usb: musb: sunxi: Explicitly release USB PHY on exit
+d68b07a can: gs_usb: fix busy loop if no more TX context is available
+f7d8b2e1 ALSA: usb-audio: Add native DSD support for Pro-Ject Pre Box S2 Digital
+67e2580 usb: hub: Allow reset retry for USB2 devices on connect bounce
+d012ab2 usb: quirks: add quirk for WORLDE MINI MIDI keyboard
+d729f29 usb: cdc_acm: Add quirk for Elatec TWN3
+4512d65 USB: serial: metro-usb: add MS7820 device id
+9dff499 USB: core: fix out-of-bounds access bug in usb_get_bos_descriptor()
+abe43c9 USB: devio: Revert "USB: devio: Don't corrupt user memory"
 
 ====================
-     10-18-2017
+     10-26-2017
 ====================
 
-e1fe381 Linux 4.4.93
-ad505a7 x86/alternatives: Fix alt_max_short macro to really be a max()
-2085634 USB: serial: console: fix use-after-free after failed setup
-6c14436 USB: serial: qcserial: add Dell DW5818, DW5819
-34592e0 USB: serial: option: add support for TP-Link LTE module
-ac22f49 USB: serial: cp210x: add support for ELV TFD500
-b1f5a26 USB: serial: ftdi_sio: add id for Cypress WICED dev board
-399c460 fix unbalanced page refcounting in bio_map_user_iov
-f3b5384 direct-io: Prevent NULL pointer access in submit_page_section
-ac94abb usb: gadget: composite: Fix use-after-free in usb_composite_overwrite_options
-16c1ef6 ALSA: line6: Fix leftover URB at error-path during probe
-5b01343 ALSA: caiaq: Fix stray URB at probe error path
-ca2523c ALSA: seq: Fix copy_from_user() call inside lock
-23709ae ALSA: seq: Fix use-after-free at creating a port
-dc7c3bd ALSA: usb-audio: Kill stray URB at exiting
-050c4bb iommu/amd: Finish TLB flush in amd_iommu_unmap()
-eb7f316 usb: renesas_usbhs: Fix DMAC sequence for receiving zero-length packet
-6a92b99 KVM: nVMX: fix guest CR4 loading when emulating L2 to L1 exit
-03bd90f crypto: shash - Fix zero-length shash ahash digest crash
-2929cb9 HID: usbhid: fix out-of-bounds bug
-e7485f0 dmaengine: edma: Align the memcpy acnt array size with the transfer
-29b202eb MIPS: math-emu: Remove pr_err() calls from fpu_emu()
-2fff3c5 USB: dummy-hcd: Fix deadlock caused by disconnect detection
-5fd4551 rcu: Allow for page faults in NMI handlers
-45bd4e4 iwlwifi: mvm: use IWL_HCMD_NOCOPY for MCAST_FILTER_CMD
-6a6c61d nl80211: Define policy for packet pattern attributes
-f2bb4bc CIFS: Reconnect expired SMB sessions
-bd36826 ext4: in ext4_seek_{hole,data}, return -ENXIO for negative offsets
-6721969 brcmfmac: add length check in brcmf_cfg80211_escan_handler()
-67eb231 sweep2sleep: set screen size of S8 max 2960x1440
-0bafb73 fs/dyn_sync_cntrl: dynamic sync control 2.0
-8399efc sweep2sleep: turn off screen by sweeping over navbar (showp1984 & dorimanx & UpInTheAir)
 
 ====================
-     10-17-2017
+     10-25-2017
 ====================
 
-d72e0e9 cpuidle: don't disable cpuidle when entering suspend
-cec3bd5 dream: add wakelock blocker
-c62ba74 revert: boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
 
