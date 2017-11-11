@@ -1,63 +1,69 @@
 ====================
-     10-29-2017
+     11-10-2017
 ====================
 
-7036576 revert: revert: boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
-d653931 revert: dream: add wakelock blocker
+8afa087 dts: fixed slow charge issue
 
 ====================
-     10-28-2017
-====================
-
-d76c249 defconfig: release mainline v3.1
-7c4d23b Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
-
-====================
-     10-27-2017
-====================
-
-9b36699 Linux 4.4.95
-aa3a0a7 FS-Cache: fix dereference of NULL user_key_payload
-1bb1d42 fscrypto: require write access to mount to set encryption policy
-8a004ca KEYS: Fix race between updating and finding a negative key
-1dda04c7 fscrypt: fix dereference of NULL user_key_payload
-7d9e13d f2fs crypto: add missing locking for keyring_key access
-4db9f11 f2fs crypto: replace some BUG_ON()'s with error checks
-0f85c09 sched/autogroup: Fix autogroup_move_group() to never skip sched_move_task()
-fcc65ab parisc: Fix double-word compare and exchange in LWS code on 32-bit kernels
-558ca24 parisc: Avoid trashing sr2 and sr3 in LWS code
-6f0dee7 pkcs7: Prevent NULL pointer dereference, since sinfo is not always set.
-33dea30 KEYS: don't let add_key() update an uninstantiated key
-503ef5c lib/digsig: fix dereference of NULL user_key_payload
-2b7e022 KEYS: encrypted: fix dereference of NULL user_key_payload
-51ba40f rtlwifi: rtl8821ae: Fix connection lost problem
-cffdaa6 clockevents/drivers/cs5535: Improve resilience to spurious interrupts
-b178c94 bus: mbus: fix window size calculation for 4GB windows
-260b673 brcmsmac: make some local variables 'static const' to reduce stack size
-efdcbff i2c: ismt: Separate I2C block read from SMBus block read
-68c6107 ALSA: hda: Remove superfluous '-' added by printk conversion
-f9e9371 ALSA: seq: Enable 'use' locking in all configurations
-4516069 drm/nouveau/mmu: flush tlbs before deleting page tables
-195674a drm/nouveau/bsp/g92: disable by default
-4d56587 can: esd_usb2: Fix can_dlc value for received RTR, frames
-aa62936 usb: musb: Check for host-mode using is_host_active() on reset interrupt
-583a421 usb: musb: sunxi: Explicitly release USB PHY on exit
-d68b07a can: gs_usb: fix busy loop if no more TX context is available
-f7d8b2e1 ALSA: usb-audio: Add native DSD support for Pro-Ject Pre Box S2 Digital
-67e2580 usb: hub: Allow reset retry for USB2 devices on connect bounce
-d012ab2 usb: quirks: add quirk for WORLDE MINI MIDI keyboard
-d729f29 usb: cdc_acm: Add quirk for Elatec TWN3
-4512d65 USB: serial: metro-usb: add MS7820 device id
-9dff499 USB: core: fix out-of-bounds access bug in usb_get_bos_descriptor()
-abe43c9 USB: devio: Revert "USB: devio: Don't corrupt user memory"
-
-====================
-     10-26-2017
+     11-09-2017
 ====================
 
 
 ====================
-     10-25-2017
+     11-08-2017
 ====================
 
+65463d2 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
+c54d070 Linux 4.4.97
+2ed81e6 staging: r8712u: Fix Sparse warning in rtl871x_xmit.c
+883706d xen: don't print error message in case of missing Xenstore entry
+298455f bt8xx: fix memory leak
+4b7a358 s390/dasd: check for device error pointer within state change interrupts
+45a012a mei: return error on notification request to a disconnected client
+0e97077 exynos4-is: fimc-is: Unmap region obtained by of_iomap()
+2d097e5 staging: lustre: ptlrpc: skip lock if export failed
+efa8f1b staging: lustre: hsm: stack overrun in hai_dump_data_field
+2d1d453 staging: lustre: llite: don't invoke direct_IO for the EOF case
+28a8fc6 platform/x86: intel_mid_thermal: Fix module autoload
+d1f96c3 scsi: aacraid: Process Error for response I/O
+fff544c xen/manage: correct return value check on xenbus_scanf()
+762d076 cx231xx: Fix I2C on Internal Master 3 Bus
+0806eaf perf tools: Only increase index if perf_evsel__new_idx() succeeds
+3b7d9a9 drm/amdgpu: when dpm disabled, also need to stop/start vce.
+dec5fcf i2c: riic: correctly finish transfers
+3580080 ext4: do not use stripe_width if it is not set
+5624ea1 ext4: fix stripe-unaligned allocations
+a76eb0e staging: rtl8712u: Fix endian settings for structs describing network packets
+f9776d7 mfd: axp20x: Fix axp288 PEK_DBR and PEK_DBF irqs being swapped
+8800aba mfd: ab8500-sysctrl: Handle probe deferral
+ed414ae ARM: pxa: Don't rely on public mmc header to include leds.h
+a3e0215 mmc: s3cmci: include linux/interrupt.h for tasklet_struct
+ba28f16 PM / wakeirq: report a wakeup_event on dedicated wekup irq
+b83c288 Fix tracing sample code warning.
+a48fce6 tracing/samples: Fix creation and deletion of simple_thread_fn creation
+ded34f9 drm/msm: fix an integer overflow test
+031b02b drm/msm: Fix potential buffer overflow issue
+6e6eba5 perf tools: Fix build failure on perl script context
+fa312b4 ocfs2: fstrim: Fix start offset of first cluster group during fstrim
+cc7d993 ARM: 8715/1: add a private asm/unaligned.h
+4e351b8 ARM: dts: mvebu: pl310-cache disable double-linefill
+581ac5f arm64: ensure __dump_instr() checks addr_limit
+97d64b7f ASoC: adau17x1: Workaround for noise bug in ADC
+618b930 KEYS: fix out-of-bounds read during ASN.1 parsing
+97c5668 KEYS: return full count in keyring_read() if buffer is too small
+d304c91 cifs: check MaxPathNameComponentLength != 0 before using it
+8142e95 ALSA: seq: Fix nested rwsem annotation for lockdep splat
+7035878 ALSA: timer: Add missing mutex lock for compat ioctls
+
+====================
+     11-07-2017
+====================
+
+
+====================
+     11-06-2017
+====================
+
+f52c686 revert: revert: boeffla_wl_blocker: update to wakelock blocker driver v1.1.0
+694ef28 revert: dream: add wakelock blocker
 
