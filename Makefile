@@ -303,8 +303,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
-HOSTCFLAGS   = -Ofast -fomit-frame-pointer -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11
-HOSTCXXFLAGS = -Ofast -fgcse-las -fgraphite -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize -pipe -w -std=gnu++11
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast -fomit-frame-pointer -std=gnu89 $(GRAPHITE)
+HOSTCXXFLAGS = -Ofast $(GRAPHITE)
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -346,12 +346,11 @@ scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
 GRAPHITE := -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize
-KERNELFLAGS := -march=armv8-a -mtune=exynos-m1.cortex-a53 -mtune=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53 -mcpu=cortex-a57.cortex-a53+crypto -mlow-precision-recip-sqrt -mpc-relative-literal-loads -Ofast -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare -fmodulo-sched -fmodulo-sched-allow-regmoves -fira-loop-pressure -ffast-math -ftree-vectorize -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -fpredictive-commoning -lgomp
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld -Ofast --sort-common --strip-debug -flto -fuse-ld=gold
-CC		= $(CCACHE) $(CROSS_COMPILE)gcc $(GRAPHITE) $(KERNELFLAGS)
+LD		= $(CROSS_COMPILE)ld
+CC		= $(CCACHE) $(CROSS_COMPILE)gcc -Ofast $(GRAPHITE)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -368,11 +367,11 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   = $(GRAPHITE) $(KERNELFLAGS) -DMODULE -DNDEBUG
-AFLAGS_MODULE   = $(GRAPHITE) $(KERNELFLAGS) -DMODULE -DNDEBUG
-LDFLAGS_MODULE  = $(GRAPHITE) -DMODULE -DNDEBUG -flto -fuse-ld=gold
-CFLAGS_KERNEL	= $(GRAPHITE) -Ofast -DNDEBUG -fsingle-precision-constant
-AFLAGS_KERNEL	= $(GRAPHITE) $(KERNELFLAGS) -DNDEBUG
+CFLAGS_MODULE   =
+AFLAGS_MODULE   =
+LDFLAGS_MODULE  =
+CFLAGS_KERNEL	=
+AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 
 
@@ -396,20 +395,13 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -DNDEBUG $(GRAPHITE) -w -Wstrict-prototypes -Wno-trigraphs \
-		   -fno-strict-aliasing -finline-functions -fno-common \
-		   -Werror-implicit-function-declaration -fno-pic \
-		   -Wno-format-security -ffast-math -ftree-vectorize \
-		   -fno-delete-null-pointer-checks \
-		   -fdiagnostics-show-option \
-		   -pipe  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
-		   -ftree-loop-distribution -ftree-loop-if-convert -fivopts -fipa-pta -fira-hoist-pressure \
-		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
-		   -fbranch-target-load-optimize -fsingle-precision-constant \
-		   -Werror -Wno-error=unused-variable -Wno-error=unused-function \
-		   -std=gnu89 -Wno-discarded-array-qualifiers -Wno-logical-not-parentheses -Wno-array-bounds -Wno-switch -Wno-unused-variable \
-		   -march=armv8-a+crc -mtune=cortex-a57.cortex-a53 -lgomp \
-           $(call cc-option,-fno-PIE)
+KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+		   -fno-strict-aliasing -fno-common \
+		   -Werror-implicit-function-declaration \
+		   -Wno-format-security \
+		   -std=gnu89 $(call cc-option,-fno-PIE) \
+		   $(GRAPHITE)
+
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -637,18 +629,12 @@ KBUILD_CFLAGS	+= $(call cc-disable-warning, format-overflow)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, int-in-bool-context)
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
-KBUILD_CFLAGS	+= -Ofast $(call cc-disable-warning,maybe-uninitialized,)
-KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
-KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
+KBUILD_CFLAGS	+= -Os
 else
 ifdef CONFIG_PROFILE_ALL_BRANCHES
-KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
-KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
-KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
+KBUILD_CFLAGS	+= -Ofast
 else
-KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
-KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
-KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
+KBUILD_CFLAGS   += -Ofast
 endif
 endif
 
@@ -1650,3 +1636,4 @@ FORCE:
 # Declare the contents of the .PHONY variable as phony.  We keep that
 # information in a variable so we can use it in if_changed and friends.
 .PHONY: $(PHONY)
+
