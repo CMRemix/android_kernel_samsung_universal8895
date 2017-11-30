@@ -1,57 +1,129 @@
 ====================
-     11-21-2017
+     11-30-2017
 ====================
 
-848714a defconfig: release mainline v3.3
+cfb688b8 UKSM:  The Ultra Kernel Samepage Merging feature (Nai Xia)
+229d09b build: release v3.4
+7148284 Merge remote-tracking branch 'android.googlesource/upstream-linux-4.4.y' into tw-7.1.1-mainline
+b92223d Merge remote-tracking branch 'android.googlesource/upstream-f2fs-stable-linux-4.4.y' into tw-7.1.1-mainline
+12ca415 add back dream camera drivers for more testing
+08c15ad Linux 4.4.103
+3d7214a Revert "sctp: do not peel off an assoc from one netns to another one"
+c73eb1e xen: xenbus driver must not accept invalid transaction ids
+eedd29f s390/kbuild: enable modversions for symbols exported from asm
+681b223 ASoC: wm_adsp: Don't overrun firmware file buffer when reading region data
+b63209c btrfs: return the actual error value from from btrfs_uuid_tree_iterate
+e88f3fb ASoC: rsnd: don't double free kctrl
+47b99a3 netfilter: nf_tables: fix oob access
+a1e4f6a netfilter: nft_queue: use raw_smp_processor_id()
+85f286d spi: SPI_FSL_DSPI should depend on HAS_DMA
+8537e96 staging: iio: cdc: fix improper return value
+266913b iio: light: fix improper return value
+7e92774 mac80211: Suppress NEW_PEER_CANDIDATE event if no room
+9825826 mac80211: Remove invalid flag operations in mesh TSF synchronization
+f0d8fb7 drm: Apply range restriction after color adjustment when allocation
+31447eb ALSA: hda - Apply ALC269_FIXUP_NO_SHUTUP on HDA_FIXUP_ACT_PROBE
+7e92056 ath10k: set CTS protection VDEV param only if VDEV is up
+ef751ca ath10k: fix potential memory leak in ath10k_wmi_tlv_op_pull_fw_stats()
+b247693 ath10k: ignore configuring the incorrect board_id
+64b22ee ath10k: fix incorrect txpower set by P2P_DEVICE interface
+c4cf731 drm/armada: Fix compile fail
+7f69dc1 net: 3com: typhoon: typhoon_init_one: fix incorrect return values
+6097976 net: 3com: typhoon: typhoon_init_one: make return values more specific
+d7c3d53 net: Allow IP_MULTICAST_IF to set index to L3 slave
+7783955 dmaengine: zx: set DMA_CYCLIC cap_mask bit
+37a48e6 PCI: Apply _HPX settings only to relevant devices
+57d2ce1 RDS: RDMA: return appropriate error on rdma map failures
+bbb1fc7 e1000e: Separate signaling for link check/link up
+5df4097 e1000e: Fix return value test
+fbb2d80 e1000e: Fix error path in link detection
+d6968bc PM / OPP: Add missing of_node_put(np)
+fd3c395 net/9p: Switch to wait_event_killable()
+91bd72d fscrypt: lock mutex before checking for bounce page pool
+cb1831a sched/rt: Simplify the IPI based RT balancing logic
+5a11b84 media: v4l2-ctrl: Fix flags field on Control events
+0870fb4 cx231xx-cards: fix NULL-deref on missing association descriptor
+d758f4d media: rc: check for integer overflow
+878c0f9 media: Don't do DMA on stack for firmware upload in the AS102 driver
+a2943ce powerpc/signal: Properly handle return value from uprobe_deny_signal()
+937a91c parisc: Fix validity check of pointer size argument in new CAS implementation
+aef7cdb ixgbe: Fix skb list corruption on Power systems
+bb923a8 fm10k: Use smp_rmb rather than read_barrier_depends
+b4ca98b i40evf: Use smp_rmb rather than read_barrier_depends
+a8e699d ixgbevf: Use smp_rmb rather than read_barrier_depends
+2f7de4d igbvf: Use smp_rmb rather than read_barrier_depends
+391cdaa igb: Use smp_rmb rather than read_barrier_depends
+146d533 i40e: Use smp_rmb rather than read_barrier_depends
+76c389c NFC: fix device-allocation error return
+ecc5e89 IB/srp: Avoid that a cable pull can trigger a kernel crash
+3e32b40 IB/srpt: Do not accept invalid initiator port names
+54a8d93 libnvdimm, namespace: make 'resource' attribute only readable by root
+4dae2f7 libnvdimm, namespace: fix label initialization to use valid seq numbers
+0376463 clk: ti: dra7-atl-clock: fix child-node lookups
+eca460c clk: ti: dra7-atl-clock: Fix of_node reference counting
+36d2f19 SUNRPC: Fix tracepoint storage issues with svc_recv and svc_rqst_status
+a694b1f KVM: SVM: obey guest PAT
+8293dc7 KVM: nVMX: set IDTR and GDTR limits when loading L1 host state
+4e426ed target: Fix QUEUE_FULL + SCSI task attribute handling
+63bfc4c iscsi-target: Fix non-immediate TMR reference leak
+8709c53 fs/9p: Compare qid.path in v9fs_test_inode
+1b11593 fix a page leak in vhost_scsi_iov_to_sgl() error recovery
+509ab50 ALSA: hda/realtek - Fix ALC700 family no sound issue
+ef67455 ALSA: timer: Remove kernel warning at compat ioctl error paths
+3532750 ALSA: usb-audio: Add sanity checks in v2 clock parsers
+0b6cede ALSA: usb-audio: Fix potential out-of-bound access at parsing SU
+d1316b9 ALSA: usb-audio: Add sanity checks to FE parser
+b71cf75 ALSA: pcm: update tstamp only if audio_tstamp changed
+db12d9b ext4: fix interaction between i_size, fallocate, and delalloc after a crash
+189bc68 ata: fixes kernel crash while tracing ata_eh_link_autopsy event
+f1be210 rtlwifi: fix uninitialized rtlhal->last_suspend_sec time
+3c260c6 rtlwifi: rtl8192ee: Fix memory leak when loading firmware
+a8b8ab7 nfsd: deal with revoked delegations appropriately
+2a2d4b4 nfs: Fix ugly referral attributes
+ab33df4 NFS: Fix typo in nomigration mount option
+4e23be6 isofs: fix timestamps beyond 2027
+85c7904 bcache: check ca->alloc_thread initialized before wake up it
+9c093a2 eCryptfs: use after free in ecryptfs_release_messaging()
+7d7b05e nilfs2: fix race condition that causes file system corruption
+9a4e08c autofs: don't fail mount for transient error
+1531429 MIPS: BCM47XX: Fix LED inversion for WRT54GSv1
+00fd53b MIPS: Fix an n32 core file generation regset support regression
+4e82464 dm: fix race between dm_get_from_kobject() and __dm_destroy()
+36c4819 dm bufio: fix integer overflow when limiting maximum cache size
+a9f0664 ALSA: hda: Add Raven PCI ID
+0c1faf9 MIPS: ralink: Fix typo in mt7628 pinmux function
+84c785e MIPS: ralink: Fix MT7628 pinmux
+36a082c ARM: 8721/1: mm: dump: check hardware RO bit for LPAE
+5f8046f ARM: 8722/1: mm: make STRICT_KERNEL_RWX effective for LPAE
+29c4b6b x86/decoder: Add new TEST instruction pattern
+4fdb163 lib/mpi: call cond_resched() from mpi_powm() loop
+8ff3471 sched: Make resched_cpu() unconditional
+3223ea1 vsock: use new wait API for vsock_stream_sendmsg()
+df24d6c AF_VSOCK: Shrink the area influenced by prepare_to_wait
+2417da3 ipv6: only call ip6_route_dev_notify() once for NETDEV_UNREGISTER
+5c2607d s390/disassembler: increase show_code buffer size
+4337fa2 s390/disassembler: add missing end marker for e7 table
+04bc7a2 s390/runtime instrumention: fix possible memory corruption
+7ddbe70 s390: fix transactional execution control register handling
 
 ====================
-     11-20-2017
+     11-29-2017
 ====================
 
-dc0893b8 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
 
 ====================
-     11-19-2017
+     11-28-2017
 ====================
 
-0cbac00 Linux 4.4.99
-e8d6505 misc: panel: properly restore atomic counter on error path
-01000c5 target: Fix node_acl demo-mode + uncached dynamic shutdown regression
-4063c20 target/iscsi: Fix iSCSI task reassignment handling
-7ecc076 brcmfmac: remove setting IBSS mode when stopping AP
-d27383f tipc: fix link attribute propagation bug
-c8f1391 security/keys: add CONFIG_KEYS_COMPAT to Kconfig
-11fa335 tcp/dccp: fix other lockdep splats accessing ireq_opt
-6f8048c tcp/dccp: fix lockdep splat in inet_csk_route_req()
-13eddc6 tcp/dccp: fix ireq->opt races
-b9b0c99 ipip: only increase err_count for some certain type icmp in ipip_err
-9bae2ff ppp: fix race in ppp device destruction
-4b5bb77 sctp: reset owner sk for data chunks on out queues when migrating a sock
-bcb3b90 tun: allow positive return values on dev_get_valid_name() call
-5c8a085 ip6_gre: only increase err_count for some certain type icmpv6 in ip6gre_err
-93b12f2 net/unix: don't show information about sockets from other namespaces
-84237c5 ipv6: flowlabel: do not leave opt->tot_len with garbage
-d552c8c packet: avoid panic in packet_getsockopt()
-ef3a12f sctp: add the missing sock_owned_by_user check in sctp_icmp_redirect
-4b27fe3 tun: call dev_get_valid_name() before register_netdevice()
-196f475 l2tp: check ps->sock before running pppol2tp_session_ioctl()
-71c4a0f tcp: fix tcp_mtu_probe() vs highest_sack
-735818a tun/tap: sanitize TUNSETSNDBUF input
-1e98fd5 ALSA: seq: Cancel pending autoload work at unbinding device
-b7c625c Input: ims-psu - check if CDC union descriptor is sane
-de46c1ad usb: usbtest: fix NULL pointer dereference
-c93df40f mac80211: don't compare TKIP TX MIC key in reinstall prevention
-cdac202 mac80211: use constant time comparison with keys
-6440f0e mac80211: accept key reinstall without changing anything
 
 ====================
-     11-18-2017
+     11-27-2017
 ====================
 
-02d925d makefile: update flags
+5e6e3ee Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
 
 ====================
-     11-17-2017
+     11-26-2017
 ====================
 
 
