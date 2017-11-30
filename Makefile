@@ -350,7 +350,7 @@ KERNELFLAGS :=  -Ofast -mlow-precision-recip-sqrt -mpc-relative-literal-loads -W
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld --sort-common --strip-debug
+LD		= $(CROSS_COMPILE)ld
 CC		= $(CCACHE) $(CROSS_COMPILE)gcc $(GRAPHITE) $(KERNELFLAGS)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
