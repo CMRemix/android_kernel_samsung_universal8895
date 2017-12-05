@@ -346,12 +346,11 @@ scripts/Kbuild.include: ;
 include scripts/Kbuild.include
 
 GRAPHITE := -fgraphite -fgraphite-identity -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -floop-nest-optimize
-KERNELFLAGS :=  -Ofast -mlow-precision-recip-sqrt -mpc-relative-literal-loads -Wno-maybe-uninitialized -Wno-misleading-indentation -Wno-array-bounds -Wno-shift-overflow -Wno-error=bool-compare -fmodulo-sched -fmodulo-sched-allow-regmoves -fira-loop-pressure
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
-CC		= $(CCACHE) $(CROSS_COMPILE)gcc $(GRAPHITE) $(KERNELFLAGS)
+CC		= $(CCACHE) $(CROSS_COMPILE)gcc -Ofast $(GRAPHITE)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -396,19 +395,17 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -DNDEBUG -w -Wstrict-prototypes -Wno-trigraphs \
-		   -fno-strict-aliasing -finline-functions -fno-common \
-		   -Werror-implicit-function-declaration -fno-pic \
-		   -Wno-format-security -ffast-math \
-		   -fno-delete-null-pointer-checks \
-		   -fdiagnostics-show-option -ftree-vectorize \
-		   -pipe  -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
-		   -ftree-loop-distribution -ftree-loop-if-convert -fivopts -fipa-pta -fira-hoist-pressure \
-		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
-		   -fbranch-target-load-optimize -fsingle-precision-constant \
-		   -Werror -Wno-error=unused-variable -Wno-error=unused-function \
-		   -std=gnu89 -Wno-discarded-array-qualifiers -Wno-logical-not-parentheses -Wno-array-bounds -Wno-switch -Wno-unused-variable \
-		   $(call cc-option,-fno-PIE) $(GRAPHITE)
+KBUILD_CFLAGS   := -DNDEBUG -w -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+		   -fno-strict-aliasing -fno-common \
+		   -Werror-implicit-function-declaration \
+		   -Wno-format-security \
+		   -std=gnu89 \
+		   -mcpu=cortex-a73.cortex-a53 -mtune=cortex-a73.cortex-a53 \
+		   -Wno-memset-transposed-args -Wno-bool-compare -Wno-logical-not-parentheses -Wno-discarded-array-qualifiers \
+		   -Wno-unused-const-variable -Wno-array-bounds -Wno-incompatible-pointer-types -Wno-misleading-indentation -Wno-tautological-compare -Wno-error=misleading-indentation \
+		   -Wno-format-truncation -Wno-duplicate-decl-specifier -Wno-memset-elt-size -Wno-bool-operation -Wno-int-in-bool-context -Wno-parentheses -Wno-switch-unreachable -Wno-stringop-overflow -Wno-format-overflow -fno-store-merging \
+		   -std=gnu89 $(call cc-option,-fno-PIE) $(GRAPHITE)
+
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -636,23 +633,17 @@ KBUILD_CFLAGS	+= $(call cc-disable-warning, format-overflow)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, int-in-bool-context)
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
-KBUILD_CFLAGS	+= -O3 $(call cc-disable-warning,maybe-uninitialized,)
-KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
-KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
+KBUILD_CFLAGS	+= -Os
 else
 ifdef CONFIG_PROFILE_ALL_BRANCHES
-KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
-KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
-KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
+KBUILD_CFLAGS	+= -O2
 else
-KBUILD_CFLAGS	+= -Ofast -Wno-maybe-uninitialized
-KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
-KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
+KBUILD_CFLAGS   += -O2
 endif
 endif
 
-# -O3 optimization
-KBUILD_CFLAGS	+= -O3
+# -Ofast optimization
+KBUILD_CFLAGS	+= -Ofast
 
 # Processor-specific tunes for Exynos 8895
 KBUILD_CFLAGS	+= $(call cc-option,-mtune=exynos-m1.cortex-a53)
