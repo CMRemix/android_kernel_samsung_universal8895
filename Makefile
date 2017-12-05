@@ -303,8 +303,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = $(CCACHE) gcc
 HOSTCXX      = $(CCACHE) g++
-HOSTCFLAGS   = -Ofast -Wall -Wmissing-prototypes -Wstrict-prototypes -fomit-frame-pointer -fgcse-las -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11 $(GRAPHITE)
-HOSTCXXFLAGS = -Ofast -fgcse-las -pipe -w -std=gnu++11 $(GRAPHITE)
+HOSTCFLAGS   = -O3 -Wall -Wmissing-prototypes -Wstrict-prototypes -fomit-frame-pointer -fgcse-las -pipe -std=gnu89 -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value -w -std=gnu11 $(GRAPHITE)
+HOSTCXXFLAGS = -O3 -fgcse-las -pipe -w -std=gnu++11 $(GRAPHITE)
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -350,7 +350,7 @@ GRAPHITE := -fgraphite -fgraphite-identity -floop-flatten -floop-parallelize-all
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
-CC		= $(CCACHE) $(CROSS_COMPILE)gcc -Ofast $(GRAPHITE)
+CC		= $(CCACHE) $(CROSS_COMPILE)gcc -O3 $(GRAPHITE)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -642,8 +642,8 @@ KBUILD_CFLAGS   += -O2
 endif
 endif
 
-# -Ofast optimization
-KBUILD_CFLAGS	+= -Ofast
+# -O3 optimization
+KBUILD_CFLAGS	+= -O3
 
 # Processor-specific tunes for Exynos 8895
 KBUILD_CFLAGS	+= $(call cc-option,-mtune=exynos-m1.cortex-a53)
