@@ -5088,8 +5088,9 @@ static int abox_disable(struct device *dev)
 
 	abox_ima_reclaim(data->ima_client, dev, data);
 
-	flush_work(&data->change_cpu_gear_work);
 	abox_cpu_pm_ipc(dev, false);
+
+	flush_work(&data->change_cpu_gear_work);
 
 	spin_lock_irqsave(&data->ipc_spinlock, flag);
 	data->calliope_state = CALLIOPE_DISABLED;
