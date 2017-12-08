@@ -21,6 +21,10 @@
  * LDI : S6E3HA6
  * PANEL : DREAM2_A2_SA
  */
+#ifdef CONFIG_PANEL_SMART_DIMMING
+static s32 rtbl420nit[11] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+static s32 ctbl420nit[33] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+#else
 /* gray scale offset values */
 static s32 dream2_a2_sa_rtbl2nit[11] = { 0, 0, 25, 24, 21, 17, 14, 11, 5, 4, 0 };
 static s32 dream2_a2_sa_rtbl3nit[11] = { 0, 0, 24, 23, 19, 15, 13, 11, 5, 4, 0 };
@@ -172,7 +176,86 @@ static s32 dream2_a2_sa_ctbl395nit[33] = { 0, 0, 0, 0, 0, 0, 3, 0, 2, 2, 0, 1, -
 static s32 dream2_a2_sa_ctbl403nit[33] = { 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
 static s32 dream2_a2_sa_ctbl412nit[33] = { 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
 static s32 dream2_a2_sa_ctbl420nit[33] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+#endif
 
+#ifdef CONFIG_PANEL_SMART_DIMMING
+static struct dimming_lut dream2_a2_sa_dimming_lut[] = {
+	DIM_LUT_V0_INIT(2, 8, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(3, 9, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(4, 10, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(5, 11, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(6, 12, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(7, 13, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(8, 14, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(9, 15, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(10, 16, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(11, 17, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(12, 18, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(13, 19, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(14, 20, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(15, 21, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(16, 22, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(17, 23, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(19, 24, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(20, 25, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(21, 26, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(22, 27, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(24, 28, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(25, 29, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(27, 30, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(29, 31, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(30, 32, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(32, 33, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(34, 34, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(37, 37, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(39, 39, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(41, 41, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(44, 44, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(47, 47, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(50, 50, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(53, 53, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(56, 56, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(60, 60, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(64, 64, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(68, 68, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(72, 72, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(77, 77, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(82, 82, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(87, 87, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(93, 93, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(98, 98, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(105, 105, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(111, 111, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(119, 119, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(126, 126, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(134, 134, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(143, 143, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(152, 152, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(162, 162, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(172, 172, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(183, 183, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(195, 195, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(207, 207, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(220, 220, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(234, 234, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(249, 249, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(265, 265, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(282, 282, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(300, 300, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(316, 316, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(333, 333, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(350, 350, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(357, 357, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(365, 365, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(372, 372, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(380, 380, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(387, 387, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(395, 395, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(403, 403, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(412, 412, GAMMA_2_20, rtbl420nit, ctbl420nit),
+	DIM_LUT_V0_INIT(420, 420, GAMMA_2_20, rtbl420nit, ctbl420nit),
+};
+#else
 static struct dimming_lut dream2_a2_sa_dimming_lut[] = {
 	DIM_LUT_V0_INIT(2, 109, GAMMA_2_15, dream2_a2_sa_rtbl2nit, dream2_a2_sa_ctbl2nit),
 	DIM_LUT_V0_INIT(3, 109, GAMMA_2_15, dream2_a2_sa_rtbl3nit, dream2_a2_sa_ctbl3nit),
@@ -249,6 +332,7 @@ static struct dimming_lut dream2_a2_sa_dimming_lut[] = {
 	DIM_LUT_V0_INIT(412, 416, GAMMA_2_15, dream2_a2_sa_rtbl412nit, dream2_a2_sa_ctbl412nit),
 	DIM_LUT_V0_INIT(420, 420, GAMMA_2_20, dream2_a2_sa_rtbl420nit, dream2_a2_sa_ctbl420nit),
 };
+#endif
 
 #if PANEL_BACKLIGHT_PAC_STEPS == 512
 static unsigned int dream2_a2_sa_brt_to_step_tbl[S6E3HA6_TOTAL_PAC_STEPS] = {
