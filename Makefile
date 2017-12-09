@@ -349,7 +349,7 @@ GRAPHITE := -fgraphite -fgraphite-identity -floop-flatten -floop-parallelize-all
 
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld
+LD		= $(CROSS_COMPILE)ld --strip-debug
 CC		= $(CCACHE) $(CROSS_COMPILE)gcc -O3 $(GRAPHITE)
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
