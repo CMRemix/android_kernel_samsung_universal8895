@@ -160,11 +160,17 @@ obj-$(CONFIG_VIRT_DRIVERS)	+= virt/
 obj-$(CONFIG_HYPERV)		+= hv/
 
 obj-$(CONFIG_PM_DEVFREQ)	+= devfreq/
+
 ifeq ($(CONFIG_BATTERY_SAMSUNG_V2), y)
+ ifeq ($(CONFIG_MODEL_GREATLTE),y)
   obj-$(CONFIG_BATTERY_SAMSUNG)   += battery_v2/
+else
+  obj-$(CONFIG_BATTERY_SAMSUNG)   += battery_v2_dream/
+endif
 else
   obj-$(CONFIG_BATTERY_SAMSUNG)   += battery/
 endif
+
 obj-$(CONFIG_EXTCON)		+= extcon/
 obj-$(CONFIG_MEMORY)		+= memory/
 obj-$(CONFIG_IIO)		+= iio/
