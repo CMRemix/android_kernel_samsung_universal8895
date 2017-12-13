@@ -49,6 +49,7 @@ enum power_supply_ext_property {
 	POWER_SUPPLY_EXT_PROP_WIRELESS_OP_FREQ,
 	POWER_SUPPLY_EXT_PROP_WIRELESS_TX_CMD,
 	POWER_SUPPLY_EXT_PROP_WIRELESS_TX_VAL,
+	POWER_SUPPLY_EXT_PROP_WIRELESS_TX_ID,
 	POWER_SUPPLY_EXT_PROP_AICL_CURRENT,
 	POWER_SUPPLY_EXT_PROP_CHECK_MULTI_CHARGE,
 	POWER_SUPPLY_EXT_PROP_CHIP_ID,
@@ -61,7 +62,6 @@ enum power_supply_ext_property {
 	POWER_SUPPLY_EXT_PROP_WATER_DETECT,
 	POWER_SUPPLY_EXT_PROP_SURGE,
 	POWER_SUPPLY_EXT_PROP_SUB_PBA_TEMP_REC,
-	POWER_SUPPLY_EXT_PROP_HV_DISABLE,
 };
 
 enum sec_battery_usb_conf {
@@ -74,6 +74,12 @@ enum sec_battery_rp_curr {
 	RP_CURRENT_RP1 = 500,
 	RP_CURRENT_RP2 = 1500,
 	RP_CURRENT_RP3 = 3000,
+	RP_CURRENT_DEFAULT_IN = 1800,
+#if defined(CONFIG_SEC_FACTORY)	
+	RP_CURRENT_DEFAULT_OUT = 1500,
+#else
+	RP_CURRENT_DEFAULT_OUT = 2100,
+#endif
 };
 
 enum power_supply_ext_health {
@@ -113,7 +119,9 @@ enum sec_battery_cable {
 	SEC_BATTERY_CABLE_WIRELESS_HV_VEHICLE,	/* 28 */
 	SEC_BATTERY_CABLE_PREPARE_WIRELESS_HV,	/* 29 */
 	SEC_BATTERY_CABLE_TIMEOUT,	        /* 30 */
-	SEC_BATTERY_CABLE_MAX,                	/* 31 */
+	SEC_BATTERY_CABLE_SMART_OTG,            /* 31 */
+	SEC_BATTERY_CABLE_SMART_NOTG,           /* 32 */
+	SEC_BATTERY_CABLE_MAX,                	/* 33 */
 };
 
 enum sec_battery_voltage_mode {
@@ -228,6 +236,25 @@ enum sec_wireless_pad_mode {
 	SEC_WIRELESS_PAD_VEHICLE_HV,
 	SEC_WIRELESS_PAD_PREPARE_HV,
 	SEC_WIRELESS_PAD_A4WP,
+};
+
+enum sec_wireless_pad_id {
+	WC_PAD_ID_UNKNOWN	= 0x00,
+	/* 0x01~1F : Single Port */
+	WC_PAD_ID_SNGL_NOBLE = 0x10,
+	WC_PAD_ID_SNGL_VEHICLE,
+	WC_PAD_ID_SNGL_MINI,
+	WC_PAD_ID_SNGL_ZERO,
+	WC_PAD_ID_SNGL_DREAM,
+	/* 0x20~2F : Multi Port */
+	/* 0x30~3F : Stand Type */
+	WC_PAD_ID_STAND_HERO = 0x30,
+	WC_PAD_ID_STAND_DREAM,
+	/* 0x40~4F : External Battery Pack */
+	WC_PAD_ID_EXT_BATT_PACK = 0x40,
+	WC_PAD_ID_EXT_BATT_PACK_TA,
+	/* 0x50~6F : Reserved */
+	WC_PAD_ID_MAX = 0x6F,
 };
 
 enum sec_battery_temp_control_source {
@@ -864,8 +891,6 @@ struct sec_battery_platform_data {
 	int wc_hero_stand_cv_current;
 	int wc_hero_stand_hv_cv_current;
 
-	int default_input_current;
-	int default_charging_current;
 	int max_input_voltage;
 	int max_input_current;
 	int pre_afc_work_delay;
@@ -891,7 +916,6 @@ struct sec_battery_platform_data {
 	unsigned int full_check_current_2nd;
 
 	unsigned int pd_charging_charge_power;
-	unsigned int nv_charge_power;
 
 	unsigned int expired_time;
 	unsigned int recharging_expired_time;

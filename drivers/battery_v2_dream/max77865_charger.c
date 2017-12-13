@@ -1036,8 +1036,7 @@ static int max77865_chg_set_property(struct power_supply *psy,
 						  MAX77865_CHG_REG_INT_MASK, &reg_data);
 				pr_info("%s : enable aicl : 0x%x\n", __func__, reg_data);
 			}
-		} else if (is_hv_wire_type(charger->cable_type) ||
-			(charger->cable_type == SEC_BATTERY_CABLE_HV_TA_CHG_LIMIT)) {
+		} else if (is_hv_wire_type(charger->cable_type)) {
 			/* Disable AICL IRQ */
 			if (charger->irq_aicl_enabled == 1) {
 				u8 reg_data;
@@ -1047,6 +1046,8 @@ static int max77865_chg_set_property(struct power_supply *psy,
 				max77865_read_reg(charger->i2c,
 						  MAX77865_CHG_REG_INT_MASK, &reg_data);
 				pr_info("%s : disable aicl : 0x%x\n", __func__, reg_data);
+				charger->aicl_on = false;
+				charger->slow_charging = false;
 			}
 		}
 		break;
@@ -1495,10 +1496,10 @@ static void max77865_aicl_isr_work(struct work_struct *work)
 		value.intval = max77865_get_input_current(charger);
 		psy_do_property("battery", set,
 				POWER_SUPPLY_EXT_PROP_AICL_CURRENT, value);
-	}
 
-	if (is_not_wireless_type(charger->cable_type))
-		max77865_check_slow_charging(charger, charger->input_current);
+		if (is_not_wireless_type(charger->cable_type))
+			max77865_check_slow_charging(charger, charger->input_current);
+	}
 
 	max77865_update_reg(charger->i2c,
 			    MAX77865_CHG_REG_INT_MASK, 0, MAX77865_AICL_IM);
