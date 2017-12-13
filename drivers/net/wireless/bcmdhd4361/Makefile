@@ -32,7 +32,7 @@ DHDCFLAGS += -Wall -Wstrict-prototypes -Dlinux -DLINUX -DBCMDRIVER      \
         -DDHDTHREAD -DDHD_BCMEVENTS -DSHOW_EVENTS -DBCMDBG -DWLP2P      \
         -DWIFI_ACT_FRAME -DARP_OFFLOAD_SUPPORT -DKEEP_ALIVE -DCSCAN     \
         -DPKT_FILTER_SUPPORT -DEMBEDDED_PLATFORM -DPNO_SUPPORT          \
-        -DSEC_ENHANCEMENT
+        -DSEC_ENHANCEMENT -Wno-tautological-compare
 
 #####################
 # Bus Interface Type
@@ -292,12 +292,6 @@ DHDCFLAGS += -DSUPPORT_RANDOM_MAC_SCAN
 # WLC_E_SET_SSID fail
 DHDCFLAGS += -DSET_SSID_FAIL_CUSTOM_RC=100
 
-# Android Version Check from Platform source
-ifneq ($(PLATFORM_VERSION),)
-MAJOR_VERSION := $(shell echo $(PLATFORM_VERSION) | cut -d "." -f 1)
-DHDCFLAGS += -DANDROID_PLATFORM_VERSION=$(MAJOR_VERSION)
-endif
-
 ##############################
 # Android Platform Definition
 ##############################
@@ -384,7 +378,7 @@ ifneq ($(CONFIG_BCM4361),)
 # Customer ocl disabe
  DHDCFLAGS += -DCUSTOM_SET_OCLOFF
 # Use single nvram file
-  DHDCFLAGS += -DDHD_USE_SINGLE_NVRAM_FILE
+# DHDCFLAGS += -DDHD_USE_SINGLE_NVRAM_FILE
 # tput enhancement for PCIE
 ifeq ($(BUS_IFACE_PCIE),y)
   DHDCFLAGS += -DCUSTOM_TCPACK_SUPP_RATIO=15
@@ -446,7 +440,7 @@ ifeq ($(filter y,$(CONFIG_ARCH_MSM8996) $(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EXYN
 # Enable LQCM
   DHDCFLAGS += -DSUPPORT_LQCM
 endif
-ifeq ($(filter y,$(CONFIG_ARCH_MSM8996) $(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EXYNOS8890) $(CONFIG_SOC_EXYNOS8895)), y)
+ifeq ($(filter y,$(CONFIG_SOC_EXYNOS8895)), y)
 # DHD_LB_IRQSET - CPU migration by IRQ Affinity Set
   DHDCFLAGS += -DDHD_LB_IRQSET
 endif
@@ -474,7 +468,7 @@ ifneq ($(DREAM_NOS_DISCARD_FEATURES),y)
 # LAST ROAM EVENT LOG
   DHDCFLAGS += -DWL_LASTEVT
 # Use single nvram file
-  DHDCFLAGS += -DDHD_USE_SINGLE_NVRAM_FILE
+# DHDCFLAGS += -DDHD_USE_SINGLE_NVRAM_FILE
 #STAT REPORT
 #stat report shall be defined only if LINK STAT is defined
   DHDCFLAGS += -DSTAT_REPORT

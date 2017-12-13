@@ -621,7 +621,7 @@ int fimc_is_lib_vra_set_orientation(struct fimc_is_lib_vra *lib_vra,
 	u32 scaler_orientation, u32 instance)
 {
 	enum api_vra_type status = VRA_NO_ERROR;
-	enum api_vra_orientation vra_orientation;
+	enum api_vra_orientation vra_orientation = VRA_ORIENT_TOP_LEFT_TO_RIGHT;
 	enum fimc_is_lib_vra_dir dir;
 	unsigned long flag;
 
@@ -648,7 +648,6 @@ int fimc_is_lib_vra_set_orientation(struct fimc_is_lib_vra *lib_vra,
 			break;
 		default:
 			warn_lib("REAR: unknown scaler_orientation(%d)", scaler_orientation);
-			vra_orientation = VRA_ORIENT_TOP_LEFT_TO_RIGHT;
 			break;
 		}
 	} else if (dir == VRA_FRONT_ORIENTATION) {
@@ -667,7 +666,6 @@ int fimc_is_lib_vra_set_orientation(struct fimc_is_lib_vra *lib_vra,
 			break;
 		default:
 			warn_lib("REAR: unknown scaler_orientation(%d)", scaler_orientation);
-			vra_orientation = VRA_ORIENT_TOP_LEFT_TO_RIGHT;
 			break;
 		}
 	}

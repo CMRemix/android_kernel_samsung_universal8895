@@ -805,8 +805,7 @@ static ssize_t show_sysfs_bbd_pl(struct device *dev, struct device_attribute *at
 static ssize_t store_sysfs_lk_timeout(struct device *dev, struct device_attribute *attr, const char *buf, size_t len)
 {
 	int status = kstrtol(buf, 0, &bbd.lk.timeout_sec);
-
-	if (bbd.lk.timeout_sec < 10)
+	if(bbd.lk.timeout_sec < 10)
 		bbd.lk.timeout_sec = 10; //base timeout 10sec
 	return status ? : len;
 }
@@ -826,8 +825,8 @@ static ssize_t show_sysfs_lk_enable(struct device *dev, struct device_attribute 
 	return sprintf(buf, "lhd killer %s\n", bbd.lk.enabled ? "enabled" : "disabled");
 }
 
-static DEVICE_ATTR(bbd, 0220, NULL,				store_sysfs_bbd_control);
-static DEVICE_ATTR(pl, 0440, show_sysfs_bbd_pl,	   NULL);
+static DEVICE_ATTR(bbd, 0220, NULL,                store_sysfs_bbd_control);
+static DEVICE_ATTR(pl, 0440, show_sysfs_bbd_pl,       NULL);
 static DEVICE_ATTR(lk_timeout, 0660, show_sysfs_lk_timeout, store_sysfs_lk_timeout);
 static DEVICE_ATTR(lk_enable, 0660, show_sysfs_lk_enable, store_sysfs_lk_enable);
 
