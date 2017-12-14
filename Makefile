@@ -399,7 +399,7 @@ KBUILD_CFLAGS   := -DNDEBUG -w -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security -Werror \
-		   -std=gnu89 \
+		   -std=gnu89  -march=armv8-a+crc -mcpu=exynos-m1 -mtune=exynos-m1 \
 		   -mcpu=cortex-a73.cortex-a53 -mtune=cortex-a73.cortex-a53 \
 		   -Wno-memset-transposed-args -Wno-bool-compare -Wno-logical-not-parentheses -Wno-discarded-array-qualifiers \
 		   -Wno-unused-const-variable -Wno-array-bounds -Wno-incompatible-pointer-types -Wno-misleading-indentation -Wno-tautological-compare -Wno-error=misleading-indentation \
