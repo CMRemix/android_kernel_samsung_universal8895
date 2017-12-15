@@ -25,6 +25,11 @@
 #include <linux/usb_notify.h>
 #endif
 
+#include <linux/moduleparam.h>
+
+static int wl_sysovlo = 1;
+module_param(wl_sysovlo, int, 0644);
+
 #define ENABLE 1
 #define DISABLE 0
 
@@ -1719,7 +1724,7 @@ static irqreturn_t max77865_sysovlo_irq(int irq, void *data)
 	union power_supply_propval value;
 
 	pr_info("%s \n", __func__);
-	wake_lock_timeout(&charger->sysovlo_wake_lock, HZ * 5);
+	wake_lock_timeout(&charger->sysovlo_wake_lock, HZ * wl_sysovlo);
 
 	psy_do_property("battery", set,
 		POWER_SUPPLY_EXT_PROP_SYSOVLO, value);

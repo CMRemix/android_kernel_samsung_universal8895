@@ -27,6 +27,7 @@
 #include <linux/interrupt.h>
 #include <linux/irq.h>
 #include <linux/module.h>
+#include <linux/moduleparam.h>
 #include <linux/platform_device.h>
 #include <linux/rfkill.h>
 #include <linux/serial_core.h>
@@ -35,6 +36,11 @@
 #include <linux/of.h>
 #include <linux/serial_s3c.h>
 #include <soc/samsung/exynos-powermode.h>
+
+#include <linux/moduleparam.h>
+
+static int wl_divide_bt = 1;
+module_param(wl_divide_bt, int, 0644);
 
 //#include <../../arch/arm/include/asm/mach-types.h>
 
@@ -159,7 +165,7 @@ static enum hrtimer_restart enter_lpm(struct hrtimer *timer)
     if (bt_lpm.host_wake == 0)
 	    exynos_update_ip_idle_status(idle_ip_index, STATUS_IDLE);
 
-	wake_lock_timeout(&bt_lpm.bt_wake_lock, HZ/2);
+	wake_lock_timeout(&bt_lpm.bt_wake_lock, HZ / wl_divide_bt);
 
 	return HRTIMER_NORESTART;
 }
