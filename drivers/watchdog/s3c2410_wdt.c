@@ -627,10 +627,6 @@ static int s3c2410wdt_panic_handler(struct notifier_block *nb,
 	return 0;
 }
 
-static struct notifier_block nb_panic_block = {
-	.notifier_call = s3c2410wdt_panic_handler,
-};
-#endif
 inline int s3c2410wdt_set_emergency_reset(unsigned int timeout_cnt)
 {
 	struct s3c2410_wdt *wdt = s3c_wdt;
@@ -651,6 +647,10 @@ inline int s3c2410wdt_set_emergency_reset(unsigned int timeout_cnt)
 
 	return 0;
 }
+static struct notifier_block nb_panic_block = {
+	.notifier_call = s3c2410wdt_panic_handler,
+};
+#endif
 
 #ifdef CONFIG_PM
 static int s3c2410wdt_suspend(void)

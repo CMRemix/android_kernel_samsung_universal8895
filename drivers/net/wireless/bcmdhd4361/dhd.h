@@ -2027,13 +2027,26 @@ extern uint dhd_pktgen_len;
 extern char fw_path2[MOD_PARAM_PATHLEN];
 #endif
 
+#if defined(ANDROID_PLATFORM_VERSION)
+#if (ANDROID_PLATFORM_VERSION < 7)
+#define DHD_LEGACY_FILE_PATH
 #define VENDOR_PATH "/system"
+#elif (ANDROID_PLATFORM_VERSION == 7)
+#define VENDOR_PATH "/system"
+#elif (ANDROID_PLATFORM_VERSION >= 8)
+#define VENDOR_PATH "/vendor"
+#endif /* ANDROID_PLATFORM_VERSION < 7 */
+#else
+#define VENDOR_PATH ""
+#endif /* ANDROID_PLATFORM_VERSION */
 
-#ifdef PLATFORM_SLP
+#ifdef DHD_LEGACY_FILE_PATH
+#define PLATFORM_PATH	"/data/"
+#elif defined(PLATFORM_SLP)
 #define PLATFORM_PATH	"/opt/etc/"
 #else
 #define PLATFORM_PATH	"/data/misc/conn/"
-#endif
+#endif /* DHD_LEGACY_FILE_PATH */
 
 /* Flag to indicate if we should download firmware on driver load */
 extern uint dhd_download_fw_on_driverload;

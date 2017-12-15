@@ -943,7 +943,7 @@ static int mfc_reg_multi_write_verify(struct i2c_client *client, u16 reg, const 
 static int mfc_reg_multi_write(struct i2c_client *client, u16 reg, const u8 * val, int size)
 {
 	struct mfc_charger_data *charger = i2c_get_clientdata(client);
-	int ret = 0;
+	int ret;
 	const int sendsz = 16;
 	unsigned char data[sendsz+2];
 	int cnt = 0;

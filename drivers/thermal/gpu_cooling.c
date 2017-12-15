@@ -616,7 +616,7 @@ static int gpufreq_set_cur_state(struct thermal_cooling_device *cdev,
 {
 	struct gpufreq_cooling_device *gpufreq_device = cdev->devdata;
 #if defined(CONFIG_SEC_DEBUG_HW_PARAM)
-	unsigned long max_level = 0;
+	unsigned long max_level;
 	gpufreq_get_max_state(cdev, &max_level);
 	if (WARN_ON(state > max_level))
 		return -EINVAL;

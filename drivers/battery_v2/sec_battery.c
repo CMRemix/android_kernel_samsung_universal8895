@@ -7246,8 +7246,7 @@ static int make_pd_list(struct sec_battery_info *battery)
 	for (i = 0; i < pd_list_index - 1; i++) {
 		min = i;
 		for (j = i + 1; j < pd_list_index; j++) {
-			if (j < ARRAY_SIZE(battery->pd_list.pd_info) &&
-				battery->pd_list.pd_info[j].input_voltage <
+			if (battery->pd_list.pd_info[j].input_voltage <
 				battery->pd_list.pd_info[min].input_voltage)
 				min = j;
 		}

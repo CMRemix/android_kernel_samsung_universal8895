@@ -563,7 +563,6 @@ static irqreturn_t gpio_keys_gpio_isr(int irq, void *dev_id)
 	int state = (gpio_get_value(bdata->button->gpio) ? 1 : 0) ^ bdata->button->active_low;
 	call_gpio_keys_notifier(bdata->button->code, state);
 
-
 	BUG_ON(irq != bdata->irq);
 
 	if (bdata->button->wakeup)

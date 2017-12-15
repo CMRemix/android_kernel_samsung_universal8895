@@ -303,50 +303,38 @@ endif
 ##############################
 
 
-# bcmdhd
-#######################
-# Android N features
-#######################
-
+###########
+# Lollipop
+###########
 # Definitions are filtered by Kernel version
 DHDCFLAGS += -DWL_ENABLE_P2P_IF
 DHDCFLAGS += -DWL_SUPPORT_BACKPORTED_KPATCHES
-
 # Default definitions for KitKat, Lollipop
 DHDCFLAGS += -DWL_CFG80211_STA_EVENT
 DHDCFLAGS += -DWL_IFACE_COMB_NUM_CHANNELS
-
 # To support p2p private command on kernel 3.8 or above
 DHDCFLAGS += -DWL_NEWCFG_PRIVCMD_SUPPORT
-
 # Link Statistics feature
 DHDCFLAGS += -DLINKSTAT_SUPPORT
+
+# To support GSCAN
+DHDCFLAGS += -DGSCAN_SUPPORT
+
+# To support RTT
+DHDCFLAGS += -DRTT_SUPPORT
 
 # To support WL_VENDOR_EXT_SUPPORT
 DHDCFLAGS += -DWL_VENDOR_EXT_SUPPORT
 
 # Extra file list for Lollipop
-DHD_ANDROID_OFILES := wl_cfgvendor.o bcmxtlv.o bcm_app_utils.o
-
-#PNO Scan Result Version
-DHDCFLAGS += -DPFN_SCANRESULT_2
-
-#RSSI Monitor
-DHDCFLAGS += -DRSSI_MONITOR_SUPPORT
-
-#APF
-DHDCFLAGS += -DAPF
-
-#Get valid channels on SoftAP
-DHDCFLAGS += -DDHD_GET_VALID_CHANNELS
-
-#Debugaility
-DHDCFLAGS += -DDNGL_EVENT_SUPPORT
+DHD_ANDROID_OFILES := wl_cfgvendor.o dhd_rtt.o bcmxtlv.o bcm_app_utils.o
 
 # GN4 platform still disabled Lollipop features
 ifeq ($(filter y,$(CONFIG_MACH_UNIVERSAL5433) $(CONFIG_ARCH_APQ8084)),y)
-DHD_ANDROID_OFILES :=$(filter-out wl_cfgvendor.o,$(DHD_ANDROID_OFILES))
+DHD_ANDROID_OFILES :=$(filter-out wl_cfgvendor.o dhd_rtt.o,$(DHD_ANDROID_OFILES))
 DHDCFLAGS :=$(filter-out -DLINKSTAT_SUPPORT,$(DHDCFLAGS))
+DHDCFLAGS :=$(filter-out -DGSCAN_SUPPORT,$(DHDCFLAGS))
+DHDCFLAGS :=$(filter-out -DRTT_SUPPORT,$(DHDCFLAGS))
 DHDCFLAGS :=$(filter-out -DWL_VENDOR_EXT_SUPPORT,$(DHDCFLAGS))
 endif
 
@@ -383,8 +371,6 @@ ifneq ($(CONFIG_BCM4361),)
  DHDCFLAGS += -DCUSTOM_BLOCK_DEAUTH_AT_EAP_FAILURE
 # Customer ocl disabe
  DHDCFLAGS += -DCUSTOM_SET_OCLOFF
-# Use single nvram file
-  DHDCFLAGS += -DDHD_USE_SINGLE_NVRAM_FILE
 # tput enhancement for PCIE
 ifeq ($(BUS_IFACE_PCIE),y)
   DHDCFLAGS += -DCUSTOM_TCPACK_SUPP_RATIO=15

@@ -61,7 +61,7 @@
 #include <linux/usb/composite.h>
 
 /* platform specific definitions */
-#define __ANDROID__
+/* ex) #define __ANDROID__ */
 
 /* platform specific pre-processing */
 #define CONN_GADGET_SHORTNAME "android_ssusbcon"
@@ -1266,8 +1266,8 @@ static void conn_gadget_cleanup(void)
 
 	misc_deregister(&conn_gadget_device);
 
-	if (_conn_gadget_dev->rd_queue_buf)
-		vfree(_conn_gadget_dev->rd_queue_buf);
+    if (_conn_gadget_dev->rd_queue_buf)
+        vfree(_conn_gadget_dev->rd_queue_buf);
 
 	kfree(_conn_gadget_dev);
 	_conn_gadget_dev = NULL;

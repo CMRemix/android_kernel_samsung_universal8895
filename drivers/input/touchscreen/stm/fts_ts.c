@@ -123,10 +123,8 @@ static void fts_reset(struct fts_ts_info *info, unsigned int ms);
 static void fts_reset_work(struct work_struct *work);
 static void fts_read_info_work(struct work_struct *work);
 
-#ifdef CONFIG_TOUCHSCREEN_DUMP_MODE
 static void dump_tsp_rawdata(struct work_struct *work);
 struct delayed_work *p_debug_work;
-#endif
 
 #if (!defined(CONFIG_PM)) && !defined(USE_OPEN_CLOSE)
 static int fts_suspend(struct i2c_client *client, pm_message_t mesg);
@@ -3376,7 +3374,6 @@ void trustedui_mode_stm_on(void)
 EXPORT_SYMBOL(trustedui_mode_stm_on);
 #endif
 
-#ifdef CONFIG_TOUCHSCREEN_DUMP_MODE
 static void dump_tsp_rawdata(struct work_struct *work)
 {
 	struct fts_ts_info *info = container_of(work, struct fts_ts_info,
@@ -3415,7 +3412,6 @@ void tsp_dump(void)
 	pr_err("%s: %s %s: start\n", FTS_TS_DRV_NAME, SECLOG, __func__);
 	schedule_delayed_work(p_debug_work, msecs_to_jiffies(100));
 }
-#endif
 
 static void fts_reset(struct fts_ts_info *info, unsigned int ms)
 {
