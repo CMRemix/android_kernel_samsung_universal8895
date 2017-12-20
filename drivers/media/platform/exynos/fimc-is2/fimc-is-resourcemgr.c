@@ -633,7 +633,7 @@ static int fimc_is_kernel_log_dump(bool overwrite)
 		return -ENOSPC;
 	}
 
-	log_kernel = (void *)exynos_ss_get_item_vaddr("log_kernel");
+	//log_kernel = (void *)exynos_ss_get_item_vaddr("log_kernel");
 	if (!log_kernel)
 		return -EINVAL;
 

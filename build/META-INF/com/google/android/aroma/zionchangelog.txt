@@ -1,85 +1,138 @@
 ====================
-     12-12-2017
+     12-19-2017
 ====================
 
-5deede6 driver: battery: try to fixed fast charge again
-b08d47b drivers: fix all compilation error, add back -werror
-df87ef7 drivers: panel: initial smart dimming brightness control
+e6088bb3 greatlte: fixed warning
 
 ====================
-     12-11-2017
+     12-18-2017
 ====================
 
-d6684ee mm/ksm: engage deferred timer by default
-51c7969 ksm: Provide support to use deferred timers for scanner thread
-01ac4c1 mm: optimize Kernel Samepage Merging (KSM)
-5f3e60f power: quickwakeup: initial driver
-a8d6435 revert: revert: dts: convert great to dream (Tkkg1994)
-37901fa driver: add dream AQK7 battery_v2 driver to fixed fast charge issue
-78a6ba6 Merge remote-tracking branch 'android.googlesource/upstream-linux-4.4.y' into tw-7.1.1-mainline
 
 ====================
-     12-10-2017
+     12-17-2017
 ====================
 
-28f5002 makefile: strip-debug
 
 ====================
-     12-09-2017
+     12-16-2017
 ====================
 
-69b0bf9 Linux 4.4.105
-da57b1f xen-netfront: avoid crashing on resume after a failure in talk_to_netback()
-e1cadf7 usb: host: fix incorrect updating of offset
-4313510 USB: usbfs: Filter flags passed in from user space
-c0493eb USB: devio: Prevent integer overflow in proc_do_submiturb()
-2ee8d2a USB: Increase usbfs transfer limit
-9d812f7 USB: core: Add type-specific length check of BOS descriptors
-f044af8 usb: ch9: Add size macro for SSP dev cap descriptor
-ddaa1ae usb: Add USB 3.1 Precision time measurement capability descriptor support
-a1f03a9 usb: xhci: fix panic in xhci_free_virt_devices_depth_first
-6a85ba4 usb: hub: Cycle HUB power when initialization fails
-4001216 Revert "ocfs2: should wait dio before inode lock in ocfs2_setattr()"
-33621da net: fec: fix multicast filtering hardware setup
-5d036cc xen-netfront: Improve error handling during initialization
-cc4add3 mm: avoid returning VM_FAULT_RETRY from ->page_mkwrite handlers
-1b7dbab tcp: correct memory barrier usage in tcp_check_space()
-bc42f67 dmaengine: pl330: fix double lock
-ca08360 tipc: fix cleanup at module unload
-e5afc84 net: sctp: fix array overrun read on sctp_timer_tbl
-7e9236c drm/exynos/decon5433: set STANDALONE_UPDATE_F on output enablement
-e26d58f NFSv4: Fix client recovery when server reboots multiple times
-48222dd KVM: arm/arm64: Fix occasional warning from the timer work function
-f2fb416 nfs: Don't take a reference on fl->fl_file for LOCK operation
-7228df81 ravb: Remove Rx overflow log messages
-1bb50d0 net/appletalk: Fix kernel memory disclosure
-c73b58c vti6: fix device register to report IFLA_INFO_KIND
-e653324 ARM: OMAP1: DMA: Correct the number of logical channels
-e6f1055 net: systemport: Pad packet before inserting TSB
-3a44ade net: systemport: Utilize skb_put_padto()
-8633eec kprobes/x86: Disable preemption in ftrace-based jprobes
-7317cb1 perf test attr: Fix ignored test case result
-1c4d760 sysrq : fix Show Regs call trace on ARM
-c86fa9e EDAC, sb_edac: Fix missing break in switch
-c2e1be1 x86/entry: Use SYSCALL_DEFINE() macros for sys_modify_ldt()
-ecd996c serial: 8250: Preserve DLD[7:4] for PORT_XR17V35X
-86b9d66 usb: phy: tahvo: fix error handling in tahvo_usb_probe()
-b6ca48b spi: sh-msiof: Fix DMA transfer size check
-a96c19f serial: 8250_fintek: Fix rs485 disablement on invalid ioctl()
-429feb5 selftests/x86/ldt_get: Add a few additional tests for limits
-93f45d8 s390/pci: do not require AIS facility
-80f93e2 ima: fix hash algorithm initialization
-71ce1ca USB: serial: option: add Quectel BG96 id
-9e51ee1 s390/runtime instrumentation: simplify task exit handling
-ef3567c serial: 8250_pci: Add Amazon PCI serial device ID
-a8293de usb: quirks: Add no-lpm quirk for KY-688 USB 3.1 Type-C Hub
-636b080 uas: Always apply US_FL_NO_ATA_1X quirk to Seagate devices
-3f7477e bcache: recover data from backing when data is clean
-f80f34d bcache: only permit to recovery read error when cache device is clean
+d9532fb Merge remote-tracking branch 'github/upstream-linux-4.4.y' into tw-7.1.1
+4231b6a Linux 4.4.106
+5c6db4a usb: gadget: ffs: Forbid usb_ep_alloc_request from sleeping
+a5fa9ef arm: KVM: Fix VTTBR_BADDR_MASK BUG_ON off-by-one
+9f5a8d6 Revert "x86/mm/pat: Ensure cpa->pfn only contains page frame numbers"
+34933c2 Revert "x86/efi: Hoist page table switching code into efi_call_virt()"
+1dfe268 Revert "x86/efi: Build our own page table structures"
+b90f87c net/packet: fix a race in packet_bind() and packet_notifier()
+f50e9c8 packet: fix crash in fanout_demux_rollover()
+d6189fa sit: update frag_off info
+6c154d5 rds: Fix NULL pointer dereference in __rds_rdma_map
+827fd89 tipc: fix memory leak in tipc_accept_from_sock()
+047a7bb more bio_map_user_iov() leak fixes
+3a62040 s390: always save and restore all registers on context switch
+99962af ipmi: Stop timers before cleaning up the module
+b349571 audit: ensure that 'audit=1' actually enables audit for PID 1
+1b9baf3 ipvlan: fix ipv6 outbound device
+cdfe2d0 afs: Connect up the CB.ProbeUuid
+452ae09 IB/mlx5: Assign send CQ and recv CQ of UMR QP
+3d1d464 IB/mlx4: Increase maximal message size under UD QP
+8bfafc9 xfrm: Copy policy family in clone_policy
+5c15c5c jump_label: Invoke jump_label_test() via early_initcall()
+1b85cd5 atm: horizon: Fix irq release error
+dde5bbd sctp: use the right sk after waking up from wait_buf sleep
+1ad6212 sctp: do not free asoc when it is already dead in sctp_sendmsg
+59e5205 sparc64/mm: set fields in deferred pages
+7b99b00c block: wake up all tasks blocked in get_request()
+5a54dcc sunrpc: Fix rpc_task_begin trace point
+c026081 NFS: Fix a typo in nfs_rename()
+6401924 dynamic-debug-howto: fix optional/omitted ending line number to be LARGE instead of 0
+24c98ec lib/genalloc.c: make the avail variable an atomic_long_t
+90ec232 route: update fnhe_expires for redirect when the fnhe exists
+41dee81 route: also update fnhe_genid when updating a route cache
+32f8870 mac80211_hwsim: Fix memory leak in hwsim_new_radio_nl()
+0aab426 kbuild: pkg: use --transform option to prefix paths in tar
+8f72d29 EDAC, i5000, i5400: Fix definition of NRECMEMB register
+222de15 EDAC, i5000, i5400: Fix use of MTR_DRAM_WIDTH macro
+f1ff979 powerpc/powernv/ioda2: Gracefully fail if too many TCE levels requested
+d42ebf5 drm/amd/amdgpu: fix console deadlock if late init failed
+40b2b64 axonram: Fix gendisk handling
+f2396d6 netfilter: don't track fragmented packets
+ca6d40b zram: set physical queue limits to avoid array out of bounds accesses
+39c626c i2c: riic: fix restart condition
+a836e19 crypto: s5p-sss - Fix completing crypto request in IRQ handler
+7c5deec ipv6: reorder icmpv6_init() and ip6_mr_init()
+84bc40c bnx2x: do not rollback VF MAC/VLAN filters we did not configure
+871e4b1 bnx2x: fix possible overrun of VFPF multicast addresses array
+1aead05 bnx2x: prevent crash when accessing PTP with interface down
+6bbc908 spi_ks8995: fix "BUG: key accdaa28 not in .data!"
+6871214 arm64: KVM: Survive unknown traps from guests
+5dc5c8e arm: KVM: Survive unknown traps from guests
+ccf72fe KVM: nVMX: reset nested_run_pending if the vCPU is going to be reset
+0a12875 irqchip/crossbar: Fix incorrect type of register size
+8a15c62 scsi: lpfc: Fix crash during Hardware error recovery on SLI3 adapters
+d9d47a6 workqueue: trigger WARN if queue_delayed_work() is called with NULL @wq
+14a7aa2 libata: drop WARN from protocol error in ata_sff_qc_issue()
+f9b291a kvm: nVMX: VMCLEAR should not cause the vCPU to shut down
+ef21f3a USB: gadgetfs: Fix a potential memory leak in 'dev_config()'
+4036947 usb: gadget: configs: plug memory leak
+24e9fc7 HID: chicony: Add support for another ASUS Zen AiO keyboard
+3aec56b8 gpio: altera: Use handle_level_irq when configured as a level_high
+c52017d ARM: OMAP2+: Release device node after it is no longer needed.
+14c3961 ARM: OMAP2+: Fix device node reference counts
+d180639 module: set __jump_table alignment to 8
+23f9e84 selftest/powerpc: Fix false failures for skipped tests
+3bf3fc6 x86/hpet: Prevent might sleep splat on resume
+0500c6d ARM: OMAP2+: gpmc-onenand: propagate error on initialization failure
+572b639 vti6: Don't report path MTU below IPV6_MIN_MTU.
+3771241 Revert "s390/kbuild: enable modversions for symbols exported from asm"
+e891a29 Revert "spi: SPI_FSL_DSPI should depend on HAS_DMA"
+f854e20 Revert "drm/armada: Fix compile fail"
+5327f9b mm: drop unused pmdp_huge_get_and_clear_notify()
+47c53cc thp: fix MADV_DONTNEED vs. numa balancing race
+d4443b5 thp: reduce indentation level in change_huge_pmd()
+696fbe1 scsi: storvsc: Workaround for virtual DVD SCSI version
+dd8c78e ARM: avoid faulting on qemu
+af1d172 ARM: BUG if jumping to usermode address in kernel mode
+750f60e arm64: fpsimd: Prevent registers leaking from dead tasks
+477b837 KVM: VMX: remove I/O port 0x80 bypass on Intel hosts
+1103065 arm64: KVM: fix VTTBR_BADDR_MASK BUG_ON off-by-one
+a0b9954 media: dvb: i2c transfers over usb cannot be done from stack
+81bf294 drm/exynos: gem: Drop NONCONTIG flag for buffers allocated without IOMMU
+74b6030 drm: extra printk() wrapper macros
+d6ff4cc kdb: Fix handling of kallsyms_symbol_next() return value
+bb47cf7 s390: fix compat system call table
+dc41b6e iommu/vt-d: Fix scatterlist offset handling
+90a20a8 ALSA: usb-audio: Add check return value for usb_string()
+9f5c6b1 ALSA: usb-audio: Fix out-of-bound error
+e1d3b7d ALSA: seq: Remove spurious WARN_ON() at timer check
+659e7d2 ALSA: pcm: prevent UAF in snd_pcm_info
+5986c968 x86/PCI: Make broadcom_postcore_init() check acpi_disabled
+2c2e4b7 X.509: reject invalid BIT STRING for subjectPublicKey
+1471d12 ASN.1: check for error from ASN1_OP_END__ACT actions
+621dac1d ASN.1: fix out-of-bounds read when parsing indefinite length item
+481efb4 efi: Move some sysfs files to be read-only by root
+7e0091c scsi: libsas: align sata_device's rps_resp on a cacheline
+9844833 isa: Prevent NULL dereference in isa_bus driver callbacks
+90e2ea6 hv: kvp: Avoid reading past allocated blocks from KVP file
+94739dd virtio: release virtio index when fail to device_register
+d73fcef can: usb_8dev: cancel urb on -EPIPE and -EPROTO
+191b419 can: esd_usb2: cancel urb on -EPIPE and -EPROTO
+af11f3a can: ems_usb: cancel urb on -EPIPE and -EPROTO
+bd424bd can: kvaser_usb: cancel urb on -EPIPE and -EPROTO
+3e3dabd can: kvaser_usb: ratelimit errors if incomplete messages are received
+816bc7d can: kvaser_usb: Fix comparison bug in kvaser_usb_read_bulk_callback()
+b6fa54c can: kvaser_usb: free buf in error paths
+a68e3c9 can: ti_hecc: Fix napi poll return value for repoll
 
 ====================
-     12-08-2017
+     12-15-2017
 ====================
 
-ca1e53a revert: dts: convert great to dream (Tkkg1994)
+9b751b8 exynos-acme: ensure startup is according to default frequencies (no overclocking/underclocking)
+40a4142 oc cpu and gpu to 2.6 ghz & 683 mhz
+ae5f4c5 revert: battery: Add sec charger controls
+bd0e95e add led settings for max77865
+c4599ff gpu: r3p0: mali voltage and freq control (AndreiLux)
 
