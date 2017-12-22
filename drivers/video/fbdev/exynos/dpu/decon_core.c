@@ -54,6 +54,7 @@
 #include <linux/state_notifier.h>
 #endif
 #include <linux/display_state.h>
+#include <linux/lcd_notify.h>
 
 bool display_on = true;
 
@@ -947,6 +948,7 @@ static int decon_blank(int blank_mode, struct fb_info *info)
 	case FB_BLANK_POWERDOWN:
 	case FB_BLANK_NORMAL:
 		DPU_EVENT_LOG(DPU_EVT_BLANK, &decon->sd, ktime_set(0, 0));
+        lcd_notifier_call_chain(LCD_EVENT_OFF_START, NULL);
 		ret = decon_disable(decon);
 #ifdef CONFIG_POWERSUSPEND
 		set_power_suspend_state_panel_hook(POWER_SUSPEND_ACTIVE);
@@ -959,9 +961,11 @@ static int decon_blank(int blank_mode, struct fb_info *info)
 			goto blank_exit;
 		}
         display_on = false;
+        lcd_notifier_call_chain(LCD_EVENT_OFF_END, NULL);
 		break;
 	case FB_BLANK_UNBLANK:
 		DPU_EVENT_LOG(DPU_EVT_UNBLANK, &decon->sd, ktime_set(0, 0));
+        lcd_notifier_call_chain(LCD_EVENT_ON_START, NULL);
 		ret = decon_enable(decon);
 #ifdef CONFIG_POWERSUSPEND
 		set_power_suspend_state_panel_hook(POWER_SUSPEND_INACTIVE);
@@ -974,6 +978,7 @@ static int decon_blank(int blank_mode, struct fb_info *info)
 			goto blank_exit;
 		}
         display_on = true;
+        lcd_notifier_call_chain(LCD_EVENT_ON_END, NULL);
 		break;
 	case FB_BLANK_VSYNC_SUSPEND:
 	case FB_BLANK_HSYNC_SUSPEND:
