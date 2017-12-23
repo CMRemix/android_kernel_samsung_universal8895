@@ -1,105 +1,143 @@
 ====================
-     09-29-2017
+     12-22-2017
 ====================
 
-146b138 build: update busybox & supersu
-2613476 defconfig: Sync and release v2.6
-69622a3 sensor: use full n8 source, this broke iris scanner
-040053d dts: enable abc feature from n8
+70321b6 Merge remote-tracking branch 'AOSP/upstream-linux-4.4.y' into tw-7.1.1-Stock
 
 ====================
-     09-28-2017
+     12-21-2017
 ====================
 
 
 ====================
-     09-27-2017
+     12-20-2017
 ====================
 
-1001a82 defconfig: update kernel version to AQI8
-81c574a ramdisk: drop AQI8
-eca3295 Merge remote-tracking branch 'kernel.googlesource/linux-4.4.y' into tw-7.1.1-mainline
-35ad2e8 f2fs: fixed compilation error and enable it
-10def3a Linux 4.4.89
-ed1bf43 ftrace: Fix memleak when unregistering dynamic ops when tracing disabled
-a069d0a bcache: fix bch_hprint crash and improve output
-f522051 bcache: fix for gc and write-back race
-a6c5e7a bcache: Correct return value for sysfs attach errors
-d9c6a28 bcache: correct cache_dirty_target in __update_writeback_rate()
-0471f58 bcache: do not subtract sectors_to_gc for bypassed IO
-093457f bcache: Fix leak of bdev reference
-5025da3 bcache: initialize dirty stripes in flash_dev_run()
-4931578 media: uvcvideo: Prevent heap overflow when accessing mapped controls
-04affe4 media: v4l2-compat-ioctl32: Fix timespec conversion
-7498bd6 PCI: shpchp: Enable bridge bus mastering if MSI is enabled
-81306fc ARC: Re-enable MMU upon Machine Check exception
-d28e96b tracing: Apply trace_clock changes to instance max buffer
-753154f ftrace: Fix selftest goto location on error
-d8663aa scsi: qla2xxx: Fix an integer overflow in sysfs code
-72896ca scsi: sg: fixup infoleak when using SG_GET_REQUEST_TABLE
-c04996a scsi: sg: factor out sg_fill_request_table()
-f0cd701 scsi: sg: off by one in sg_ioctl()
-3682e0c scsi: sg: use standard lists for sg_requests
-6b498ad scsi: sg: remove 'save_scat_len'
-cf22210 scsi: storvsc: fix memory leak on ring buffer busy
-b4730f4 scsi: megaraid_sas: Return pended IOCTLs with cmd_status MFI_STAT_WRONG_STATE in case adapter is dead
-d9b8f1c scsi: megaraid_sas: Check valid aen class range to avoid kernel panic
-4dd6cbb scsi: zfcp: trace high part of "new" 64 bit SCSI LUN
-1e6c640 scsi: zfcp: trace HBA FSF response by default on dismiss or timedout late response
-7194822 scsi: zfcp: fix payload with full FCP_RSP IU in SCSI trace records
-d0fbe22 scsi: zfcp: fix missing trace records for early returns in TMF eh handlers
-1a84736 scsi: zfcp: fix passing fsf_req to SCSI trace on TMF to correlate with HBA
-5266171 scsi: zfcp: fix capping of unsuccessful GPN_FT SAN response trace records
-d0c02c6 scsi: zfcp: add handling for FCP_RESID_OVER to the fcp ingress path
-cfc4996 scsi: zfcp: fix queuecommand for scsi_eh commands when DIX enabled
-19978c5 skd: Submit requests to firmware before triggering the doorbell
-0bcaf51 skd: Avoid that module unloading triggers a use-after-free
-f05dafb md/bitmap: disable bitmap_resize for file-backed bitmaps.
-30e81e7 block: Relax a check in blk_start_queue()
-a918d32 powerpc: Fix DAR reporting when alignment handler faults
-c53f016 ext4: fix quota inconsistency during orphan cleanup for read-only mounts
-cd46241 ext4: fix incorrect quotaoff if the quota feature is enabled
-5e9d28b crypto: AF_ALG - remove SGL terminator indicator when chaining
-9354f4d MIPS: math-emu: MINA.<D|S>: Fix some cases of infinity and zero inputs
-f4d77fc MIPS: math-emu: <MAXA|MINA>.<D|S>: Fix cases of both infinite inputs
-322bf69 MIPS: math-emu: <MAXA|MINA>.<D|S>: Fix cases of input values with opposite signs
-a83ffb5 MIPS: math-emu: <MAX|MIN>.<D|S>: Fix cases of both inputs negative
-6acd1d2 MIPS: math-emu: <MAX|MAXA|MIN|MINA>.<D|S>: Fix cases of both inputs zero
-b6c818d MIPS: math-emu: <MAX|MAXA|MIN|MINA>.<D|S>: Fix quiet NaN propagation
-bf592dd Input: i8042 - add Gigabyte P57 to the keyboard reset table
-c13c5c7 tty: fix __tty_insert_flip_char regression
-077933d tty: improve tty_insert_flip_char() slow path
-e1e6620 tty: improve tty_insert_flip_char() fast path
-c576160 mm: prevent double decrease of nr_reserved_highatomic
-6ea627b nfsd: Fix general protection fault in release_lock_stateid()
-d5c59ee md/raid5: release/flush io in raid5_do_work()
-e21d660 x86/fsgsbase/64: Report FSBASE and GSBASE correctly in core dumps
-53e5f7b f2fs: check hot_data for roll-forward recovery
-be99948 ipv6: fix typo in fib6_net_exit()
-70479ea ipv6: fix memory leak with multiple tables during netns destruction
-9b5e5d8 gianfar: Fix Tx flow control deactivation
-5f529e0 Revert "net: fix percpu memory leaks"
-40bc535 Revert "net: use lib/percpu_counter API for fragmentation mem accounting"
-611a98c tcp: initialize rcv_mss to TCP_MIN_MSS instead of 0
-081be8c Revert "net: phy: Correctly process PHY_HALTED in phy_stop_machine()"
-6d8c8fd qlge: avoid memcpy buffer overflow
-354d36b ipv6: fix sparse warning on rt6i_node
-e51bf99 ipv6: add rcu grace period before freeing fib6_node
-6eb7ae1 ipv6: accept 64k - 1 packet length in ip6_find_1stfragopt()
+96c00ec Linux 4.4.107
+a815c0a ath9k: fix tx99 potential info leak
+26c6655 IB/ipoib: Grab rtnl lock on heavy flush when calling ndo_open/stop
+112814d RDMA/cma: Avoid triggering undefined behavior
+4bbb491 macvlan: Only deliver one copy of the frame to the macvlan interface
+b8d510f udf: Avoid overflow when session starts at large offset
+a114af8 scsi: bfa: integer overflow in debugfs
+798f085 scsi: sd: change allow_restart to bool in sysfs interface
+c387c02 scsi: sd: change manage_start_stop to bool in sysfs interface
+2e03af2 vt6655: Fix a possible sleep-in-atomic bug in vt6655_suspend
+930fb06 scsi: scsi_devinfo: Add REPORTLUN2 to EMC SYMMETRIX blacklist entry
+24bc48a raid5: Set R5_Expanded on parity devices as well as data.
+0937949 pinctrl: adi2: Fix Kconfig build problem
+5f2dbdf usb: musb: da8xx: fix babble condition handling
+68d3bc4 tty fix oops when rmmod 8250
+afa8f0a powerpc/perf/hv-24x7: Fix incorrect comparison in memord
+28a5b0e scsi: hpsa: destroy sas transport properties before scsi_host
+942eb7d scsi: hpsa: cleanup sas_phy structures in sysfs when unloading
+ec662d6 PCI: Detach driver before procfs & sysfs teardown on device remove
+02922f3 xfs: fix incorrect extent state in xfs_bmap_add_extent_unwritten_real
+f267a13 xfs: fix log block underflow during recovery cycle verification
+92eff81 l2tp: cleanup l2tp_tunnel_delete calls
+230c4ba bcache: fix wrong cache_misses statistics
+2712523 bcache: explicitly destroy mutex while exiting
+ab9b3db GFS2: Take inode off order_write list when setting jdata flag
+2a5bb12 thermal/drivers/step_wise: Fix temperature regulation misbehavior
+561b9d9 ppp: Destroy the mutex when cleanup
+083dd68 clk: tegra: Fix cclk_lp divisor register
+f56be2c clk: imx6: refine hdmi_isfr's parent to make HDMI work on i.MX6 SoCs w/o VPU
+22a1e33 clk: mediatek: add the option for determining PLL source clock
+b59614c mm: Handle 0 flags in _calc_vm_trans() macro
+44de70e crypto: tcrypt - fix buffer lengths in test_aead_speed()
+b397507 arm-ccn: perf: Prevent module unload while PMU is in use
+75ee360 target/file: Do not return error for UNMAP if length is zero
+6461914 target:fix condition return in core_pr_dump_initiator_port()
+e14086b iscsi-target: fix memory leak in lio_target_tiqn_addtpg()
+7d93603 target/iscsi: Fix a race condition in iscsit_add_reject_from_cmd()
+09f29c7 powerpc/ipic: Fix status get and status clear
+c6c3637 powerpc/opal: Fix EBUSY bug in acquiring tokens
+5972046 netfilter: ipvs: Fix inappropriate output of procfs
+f46b4ba powerpc/powernv/cpufreq: Fix the frequency read by /proc/cpuinfo
+ef476a7 PCI/PME: Handle invalid data when reading Root Status
+e6d8207 dmaengine: ti-dma-crossbar: Correct am335x/am43xx mux value type
+600b973 rtc: pcf8563: fix output clock rate
+ac0468e video: fbdev: au1200fb: Return an error code if a memory allocation fails
+033d20b video: fbdev: au1200fb: Release some resources if a memory allocation fails
+314ce05 video: udlfb: Fix read EDID timeout
+2f54274 fbdev: controlfb: Add missing modes to fix out of bounds access
+57fa76a sfc: don't warn on successful change of MAC
+c9b7973 target: fix race during implicit transition work flushes
+dfd6dee target: fix ALUA transition timeout handling
+7f5084b target: Use system workqueue for ALUA transitions
+f9b4a2e btrfs: add missing memset while reading compressed inline extents
+248aa3a NFSv4.1 respect server's max size in CREATE_SESSION
+a49aa7a efi/esrt: Cleanup bad memory map log messages
+dc81417 perf symbols: Fix symbols__fixup_end heuristic for corner cases
+acc7d1b net/mlx4_core: Avoid delays during VF driver device shutdown
+5e469e4 afs: Fix afs_kill_pages()
+80f74ce afs: Fix page leak in afs_write_begin()
+c58d779 afs: Populate and use client modification time
+fa03453 afs: Fix the maths in afs_fs_store_data()
+1efae6c afs: Prevent callback expiry timer overflow
+43e68e3 afs: Migrate vlocation fields to 64-bit
+9d8d205 afs: Flush outstanding writes when an fd is closed
+549d7b9 afs: Adjust mode bits processing
+bb7a7cd afs: Populate group ID from vnode status
+1c277e9 afs: Fix missing put_page()
+fec8348 drm/radeon: reinstate oland workaround for sclk
+6a51e93 mmc: mediatek: Fixed bug where clock frequency could be set wrong
+51b3eac sched/deadline: Use deadline instead of period when calculating overflow
+ca91884 sched/deadline: Throttle a constrained deadline task activated after the deadline
+cd0e18d sched/deadline: Make sure the replenishment timer fires in the next period
+4c6567f drm/radeon/si: add dpm quirk for Oland
+c383ebf fjes: Fix wrong netdevice feature flags
+a33a9d0 scsi: hpsa: limit outstanding rescans
+0a60929 scsi: hpsa: update check for logical volume status
+b0def6f1 openrisc: fix issue handling 8 byte get_user calls
+1236cc36 intel_th: pci: Add Gemini Lake support
+d270d24 mlxsw: reg: Fix SPVMLR max record count
+e934e13 mlxsw: reg: Fix SPVM max record count
+677a7aac net: Resend IGMP memberships upon peer notification.
+26af6a8 dmaengine: Fix array index out of bounds warning in __get_unmap_pool()
+9cd4b86 net: wimax/i2400m: fix NULL-deref at probe
+b424289 writeback: fix memory leak in wb_queue_work()
+fbdf477 netfilter: bridge: honor frag_max_size when refragmenting
+7edb2d2 drm/omap: fix dmabuf mmap for dma_alloc'ed buffers
+dbfba339 Input: i8042 - add TUXEDO BU1406 (N24_25BU) to the nomux list
+df56784 NFSD: fix nfsd_reset_versions for NFSv4.
+5b03345 NFSD: fix nfsd_minorversion(.., NFSD_AVAIL)
+067cb6b net: bcmgenet: Power up the internal PHY before probing the MII
+a33e082 net: bcmgenet: power down internal phy if open or resume fails
+8aaed87 net: bcmgenet: reserved phy revisions must be checked first
+c25da69 net: bcmgenet: correct MIB access of UniMAC RUNT counters
+296b584 net: bcmgenet: correct the RBUF_OVFL_CNT and RBUF_ERR_CNT MIB values
+accbd99 net: initialize msg.msg_flags in recvfrom
+b5213e1 userfaultfd: selftest: vm: allow to build in vm/ directory
+ee9be9963 userfaultfd: shmem: __do_fault requires VM_FAULT_NOPAGE
+0d0456e md-cluster: free md_cluster_info if node leave cluster
+a1d72bc usb: phy: isp1301: Add OF device ID table
+75252bf mac80211: Fix addition of mesh configuration element
+13e86ef KEYS: add missing permission check for request_key() destination
+ef7ce82 ext4: fix crash when a directory's i_size is too small
+2c367ed ext4: fix fdatasync(2) after fallocate(2) operation
+52425e0 dmaengine: dmatest: move callback wait queue to thread context
+af36d95 sched/rt: Do not pull from current CPU if only one CPU to pull
+f98ee9c xhci: Don't add a virt_dev to the devs array before it's fully allocated
+ffc7565 Bluetooth: btusb: driver to enable the usb-wakeup feature
+8c7c3d5 ceph: drop negative child dentries before try pruning inode's alias
+2862cfc usbip: fix stub_send_ret_submit() vulnerability to null transfer_buffer
+dfdf5fa USB: core: prevent malicious bNumInterfaces overflow
+05de6fa USB: uas and storage: Add US_FL_BROKEN_FUA for another JMicron JMS567 ID
+a34419b tracing: Allocate mask_str buffer dynamically
+c60db4f autofs: fix careless error in recent commit
+8a311b0 crypto: salsa20 - fix blkcipher_walk API usage
+43cd7f3 crypto: hmac - require that the underlying hash algorithm is unkeyed
+3ca710ea ramdisk: drop BQK6 update
+adfa469 build: update stock to v3.5
 
 ====================
-     09-26-2017
+     12-19-2017
 ====================
 
-9076e03 build: add support for s8/n8 in one zip
-a750400 sensorhub: if dream is choosen, use dream brcm folder
-3ed1c50 drivers : sensorhub : add dream brcm drivers configs : add config for dream brcm drivers
-b9f7e70 dream: update defconfig
-e82b1cf ramdisk: update ramdisk for Greatlte
-9d220d7 kconfig: add MODEL_GREATLTE to generate DTB
 
 ====================
-     09-25-2017
+     12-18-2017
 ====================
 
 
