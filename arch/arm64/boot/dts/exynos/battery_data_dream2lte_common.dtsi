@@ -190,7 +190,7 @@
 		battery,chg_high_temp = <490>;
 		battery,chg_high_temp_recovery = <470>;
 		battery,chg_input_limit_current = <1000>;
-		battery,chg_charging_limit_current = <1500>; 
+		battery,chg_charging_limit_current = <1500>;
 
 		battery,wpc_high_temp = <460>;
 		battery,wpc_high_temp_recovery = <450>;
@@ -454,7 +454,7 @@
  *  28	WIRELESS_HV_VEHICLE,
  *  29	PREPARE_WIRELESS_HV,
  *  30	TIMEOUT,
- *  31	CABLE_MAX,
+ *  31  CABLE_MAX,
 */
 	cable-info {
 		   default_input_current = <1800>;

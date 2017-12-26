@@ -75,6 +75,12 @@ enum sec_battery_rp_curr {
 	RP_CURRENT_RP1 = 500,
 	RP_CURRENT_RP2 = 1500,
 	RP_CURRENT_RP3 = 3000,
+	RP_CURRENT_DEFAULT_IN = 1800,
+#if defined(CONFIG_SEC_FACTORY)
+	RP_CURRENT_DEFAULT_OUT = 1500,
+#else
+	RP_CURRENT_DEFAULT_OUT = 2100,
+#endif
 };
 
 enum power_supply_ext_health {
@@ -886,8 +892,6 @@ struct sec_battery_platform_data {
 	int wc_hero_stand_cv_current;
 	int wc_hero_stand_hv_cv_current;
 
-	int default_input_current;
-	int default_charging_current;
 	int max_input_voltage;
 	int max_input_current;
 	int pre_afc_work_delay;
@@ -913,7 +917,6 @@ struct sec_battery_platform_data {
 	unsigned int full_check_current_2nd;
 
 	unsigned int pd_charging_charge_power;
-	unsigned int nv_charge_power;
 
 	unsigned int expired_time;
 	unsigned int recharging_expired_time;
