@@ -1,109 +1,49 @@
 ====================
-     12-26-2017
+     01-12-2018
 ====================
 
-5a5ab55 Merge remote-tracking branch 'AOSP/upstream-linux-4.4.y' into tw-7.1.1
+c866075 Merge remote-tracking branch 'AOSP/upstream-linux-4.4.y' into tw-7.1.1
 
 ====================
-     12-25-2017
-====================
-
-03028e0 Linux 4.4.108
-1cfeaad alpha: fix build failures
-d126c47 ALSA: hda - Fix yet another i915 pointer leftover in error path
-3b67b56 ALSA: hda - Degrade i915 binding failure message
-ef24d64 ALSA: hda - Clear the leftover component assignment at snd_hdac_i915_exit()
-7f3e85d Revert "Bluetooth: btusb: driver to enable the usb-wakeup feature"
-9c63127 MIPS: math-emu: Fix final emulation phase for certain instructions
-69dd89a thermal: hisilicon: Handle return value of clk_prepare_enable
-c0303e4 cpuidle: fix broadcast control when broadcast can not be entered
-8e6e8ec rtc: set the alarm to the next expiring timer
-1e52ede tcp: fix under-evaluated ssthresh in TCP Vegas
-ab8e096 fm10k: ensure we process SM mbx when processing VF mbx
-0705d3b scsi: lpfc: PLOGI failures during NPIV testing
-e4dff87 scsi: lpfc: Fix secure firmware updates
-eb7b86e PCI/AER: Report non-fatal errors only to the affected endpoint
-aa6d09c ixgbe: fix use of uninitialized padding
-cffbf0f igb: check memory allocation failure
-1e91b0d PCI: Create SR-IOV virtfn/physfn links before attaching driver
-a916c41 scsi: mpt3sas: Fix IO error occurs on pulling out a drive from RAID1 volume created on two SATA drive
-e9151f9 scsi: cxgb4i: fix Tx skb leak
-8f37633 PCI: Avoid bus reset if bridge itself is broken
-3190a06 net: phy: at803x: Change error to EINVAL for invalid MAC
-a0ca85d rtc: pl031: make interrupt optional
-d7ae992 crypto: crypto4xx - increase context and scatter ring buffer elements
-78ffab9 backlight: pwm_bl: Fix overflow condition
-0ec5f7a bnxt_en: Fix NULL pointer dereference in reopen failure path
-7432a60 cpuidle: powernv: Pass correct drv->cpumask for registration
-1779b33 ARM: dma-mapping: disallow dma_get_sgtable() for non-kernel managed memory
-bec60b4 netfilter: nfnetlink_queue: fix secctx memory leak
-ff1ddbb xhci: plat: Register shutdown for xhci_plat
-ea9e1ca isdn: kcapi: avoid uninitialized data
-f153940 KVM: pci-assign: do not map smm memory slot pages in vt-d page tables
-27c2fa1 ARM: dts: am335x-evmsk: adjust mmc2 param to allow suspend
-17b1ff1 netfilter: nf_nat_snmp: Fix panic when snmp_trap_helper fails to register
-7c9316d netfilter: nfnl_cthelper: fix a race when walk the nf_ct_helper_hash table
-3af5473 irda: vlsi_ir: fix check for DMA mapping errors
-52cd792 RDMA/iser: Fix possible mr leak on device removal event
-85e54ef i40e: Do not enable NAPI on q_vectors that have no rings
-6a04a77 net: Do not allow negative values for busy_read and busy_poll sysctl interfaces
-359f702 bna: avoid writing uninitialized data into hw registers
-8acee49 s390/qeth: no ETH header for outbound AF_IUCV
-8ce4313 r8152: prevent the driver from transmitting packets with carrier off
-19b1ad3 HID: xinmo: fix for out of range for THT 2P arcade controller.
-ebfb083 hwmon: (asus_atk0110) fix uninitialized data access
-2e114c7 ARM: dts: ti: fix PCI bus dtc warnings
-f1fdf68 KVM: VMX: Fix enable VPID conditions
-caa4cfd KVM: x86: correct async page present tracepoint
-2849ef5 scsi: lpfc: Fix PT2PT PRLI reject
-bc9aec2 pinctrl: st: add irq_request/release_resources callbacks
-1d75c21 inet: frag: release spinlock before calling icmp_send()
-aba55cb netfilter: nfnl_cthelper: Fix memory leak
-b9fd330 netfilter: nfnl_cthelper: fix runtime expectation policy updates
-e598cdd usb: gadget: udc: remove pointer dereference after free
-0c8496b usb: gadget: f_uvc: Sanity check wMaxPacketSize for SuperSpeed
-d6c0e23 net: qmi_wwan: Add USB IDs for MDM6600 modem on Motorola Droid 4
-b9a4a18 bna: integer overflow bug in debugfs
-ffde339 sch_dsmark: fix invalid skb_cow() usage
-4bf8a4f crypto: deadlock between crypto_alg_sem/rtnl_mutex/genl_mutex
-a88b064 r8152: fix the list rx_done may be used without initialization
-125325f cpuidle: Validate cpu_dev in cpuidle_add_sysfs()
-a23a447 arm: kprobes: Align stack to 8-bytes in test code
-3f7855a arm: kprobes: Fix the return address of multiple kretprobes
-779214d ALSA: hda - add support for docking station for HP 840 G3
-9a66598 ALSA: hda - add support for docking station for HP 820 G2
-3b9d9ec x86/irq: Do not substract irq_tlb_count from irq_call_count
-18a5348 sched/core: Idle_task_exit() shouldn't use switch_mm_irqs_off()
-c22d4b4 ARM: Hide finish_arch_post_lock_switch() from modules
-4ead44f x86/mm, sched/core: Turn off IRQs in switch_mm()
-70a39c7 x86/mm, sched/core: Uninline switch_mm()
-83cc4b5 x86/mm: Build arch/x86/mm/tlb.c even on !SMP
-425f13a sched/core: Add switch_mm_irqs_off() and use it in the scheduler
-dfe513a mm/mmu_context, sched/core: Fix mmu_context.h assumption
-8d5ee51 mm/rmap: batched invalidations should use existing api
-85d3700 x86/mm: If INVPCID is available, use it to flush global mappings
-791a0f3 x86/mm: Add a 'noinvpcid' boot option to turn off INVPCID
-04ec428 x86/mm: Fix INVPCID asm constraint
-becf292 x86/mm: Add INVPCID helpers
-5fc8d62 cxl: Check if vphb exists before iterating over AFU devices
-9e1485b1 arm64: Initialise high_memory global variable earlier
-
-====================
-     12-24-2017
-====================
-
-6d8556e battery: remove battery_v2_dream.
-
-====================
-     12-23-2017
+     01-11-2018
 ====================
 
 
 ====================
-     12-22-2017
+     01-10-2018
 ====================
 
-617dd79 decon_core: add lcd notifier
-de3231e build: release v3.6 Linux 4.4.107
-7b3fd69 Merge remote-tracking branch 'github/upstream-linux-4.4.y' into tw-7.1.1-2
+c5ae3a6 Linux 4.4.111
+516fa79 Fix build error in vma.c
+6dcf549 Map the vsyscall page with _PAGE_USER
+90191f7 proc: much faster /proc/vmstat
+c819a67 module: Issue warnings when tainting kernel
+7e35bc6 module: keep percpu symbols in module's symtab
+104fd57 genksyms: Handle string literals with spaces in reference files
+a4c1c75 x86/tlb: Drop the _GPL from the cpu_tlbstate export
+d5bbffc parisc: Fix alignment of pa_tlb_lock in assembly on 32-bit SMP kernel
+3db597f x86/microcode/AMD: Add support for fam17h microcode loading
+0a99730 Input: elantech - add new icbody type 15
+30ce9c8 ARC: uaccess: dont use "l" gcc inline asm constraint modifier
+5f1aa83 kernel/signal.c: remove the no longer needed SIGNAL_UNKILLABLE check in complete_signal()
+7a7f54f kernel/signal.c: protect the SIGNAL_UNKILLABLE tasks from !sig_kernel_only() signals
+be95f13 kernel/signal.c: protect the traced SIGNAL_UNKILLABLE tasks from SIGKILL
+58330ec kernel: make groups_sort calling a responsibility group_info allocators
+d1698dc fscache: Fix the default for fscache_maybe_release_page()
+7cbb4a2 sunxi-rsb: Include OF based modalias in device uevent
+3ad8517 crypto: pcrypt - fix freeing pcrypt instances
+869994e crypto: chacha20poly1305 - validate the digest size
+0b72e17 crypto: n2 - cure use after free
+83875f5 kernel/acct.c: fix the acct->needcheck check in check_free_space()
+b17b901 x86/kasan: Write protect kasan zero shadow
+
+====================
+     01-09-2018
+====================
+
+
+====================
+     01-08-2018
+====================
+
 
