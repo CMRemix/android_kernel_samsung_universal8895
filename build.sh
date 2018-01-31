@@ -195,7 +195,7 @@ cd ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 zip -r ../ZION.zip *
 rm -rf ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 cd ${KERNELDIR}/out/$DEVICE/
-zip -r ZION959-$DEVICE-MAINLINE-KERNEL-TW7.1.1-BQKG-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
+zip -r ZION959-$DEVICE-MAINLINE-KERNEL-TW7.1.1-BRA2-${GET_VERSION}-`date +[%d-%m-%y]`.zip .
 
 echo
 echo "Done"

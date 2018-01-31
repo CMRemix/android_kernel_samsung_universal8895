@@ -1,49 +1,27 @@
 ====================
-     01-12-2018
+     01-31-2018
 ====================
 
-c866075 Merge remote-tracking branch 'AOSP/upstream-linux-4.4.y' into tw-7.1.1
+d611e4d Merge remote-tracking branch 'AOSP/upstream-linux-4.4.y' into tw-7.1.1
+ed253ae Drop N950FXXU3BRA2 kernel source
 
 ====================
-     01-11-2018
-====================
-
-
-====================
-     01-10-2018
-====================
-
-c5ae3a6 Linux 4.4.111
-516fa79 Fix build error in vma.c
-6dcf549 Map the vsyscall page with _PAGE_USER
-90191f7 proc: much faster /proc/vmstat
-c819a67 module: Issue warnings when tainting kernel
-7e35bc6 module: keep percpu symbols in module's symtab
-104fd57 genksyms: Handle string literals with spaces in reference files
-a4c1c75 x86/tlb: Drop the _GPL from the cpu_tlbstate export
-d5bbffc parisc: Fix alignment of pa_tlb_lock in assembly on 32-bit SMP kernel
-3db597f x86/microcode/AMD: Add support for fam17h microcode loading
-0a99730 Input: elantech - add new icbody type 15
-30ce9c8 ARC: uaccess: dont use "l" gcc inline asm constraint modifier
-5f1aa83 kernel/signal.c: remove the no longer needed SIGNAL_UNKILLABLE check in complete_signal()
-7a7f54f kernel/signal.c: protect the SIGNAL_UNKILLABLE tasks from !sig_kernel_only() signals
-be95f13 kernel/signal.c: protect the traced SIGNAL_UNKILLABLE tasks from SIGKILL
-58330ec kernel: make groups_sort calling a responsibility group_info allocators
-d1698dc fscache: Fix the default for fscache_maybe_release_page()
-7cbb4a2 sunxi-rsb: Include OF based modalias in device uevent
-3ad8517 crypto: pcrypt - fix freeing pcrypt instances
-869994e crypto: chacha20poly1305 - validate the digest size
-0b72e17 crypto: n2 - cure use after free
-83875f5 kernel/acct.c: fix the acct->needcheck check in check_free_space()
-b17b901 x86/kasan: Write protect kasan zero shadow
-
-====================
-     01-09-2018
+     01-30-2018
 ====================
 
 
 ====================
-     01-08-2018
+     01-29-2018
+====================
+
+
+====================
+     01-28-2018
+====================
+
+
+====================
+     01-27-2018
 ====================
 
 
