@@ -43,9 +43,9 @@ sys.config.spcm_enable=false
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Sat Nov 18 14:48:39 KST 2017
-ro.bootimage.build.date.utc=1510984119
-ro.bootimage.build.fingerprint=samsung/greatltexx/greatlte:7.1.1/NMF26X/N950FXXU1BQK6:user/test-keys
+ro.bootimage.build.date=Mon Jan 8 20:09:36 KST 2018
+ro.bootimage.build.date.utc=1515409776
+ro.bootimage.build.fingerprint=samsung/greatltexx/greatlte:7.1.1/NMF26X/N950FXXU3BRA2:user/test-keys
 
 # Security Properties
 ro.config.tima=0
