@@ -3548,9 +3548,6 @@
 		reg = <0x0 0x14020000 0x10000>, <0x0 0x14100000 0x59800>,
 			 <0x0 0x14070000 0x8>, <0x0 0x141F0000 0x50>;
 		reg-names = "sfr", "sram", "dmic", "gpr";
-		#address-cells = <2>;
-		#size-cells = <1>;
-		ranges;
 		pinctrl-names = "dmic_default", "amic_default", "idle";
 		pinctrl-0 = <&dmic_bus_clk &dmic_pdm>;
 		pinctrl-1 = <&amic_bus_clk &amic_pdm>;
@@ -3563,21 +3560,20 @@
 		interrupt-parent = <&mailbox_vts>;
 		interrupts = <0>, <1>, <2>, <3>, <4>, <5>;
 		interrupt-names = "error", "boot_completed", "ipc_received", "voice_triggered", "trigger_period_elapsed", "record_period_elapsed";
-		vts_dma0: vts_dma@0x0 {
-			compatible = "samsung,vts-dma";
-			reg = <0x0 0x0 0x0>;
-			vts = <&vts>;
-			id = <0>;
-			type = "vts-trigger";
-		};
+	};
 
-		vts_dma1: vts_dma@0x1 {
-			compatible = "samsung,vts-dma";
-			reg = <0x0 0x1 0x0>;
-			vts = <&vts>;
-			id = <1>;
-			type = "vts-record";
-		};
+	vts_dma0: vts_dma0 {
+		compatible = "samsung,vts-dma";
+		vts = <&vts>;
+		id = <0>;
+		type = "vts-trigger";
+	};
+
+	vts_dma1: vts_dma1 {
+		compatible = "samsung,vts-dma";
+		vts = <&vts>;
+		id = <1>;
+		type = "vts-record";
 	};
 
 	pcie0@116A0000 {
