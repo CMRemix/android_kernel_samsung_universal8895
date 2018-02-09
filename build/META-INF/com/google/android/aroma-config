@@ -1,9 +1,9 @@
 ini_set("force_colorspace", "rgba");
-ini_set("rom_name",             "<#a92914><b>ZION959-EXYNOS-8895-Mainline-Kernel</b>");
-ini_set("rom_version",          "<#a92914><b>V3.6-Linux/arm64 4.4.107</b>");
+ini_set("rom_name",             "<#a92914><b>EXYNOS-8895-Stock-Kernel</b>");
+ini_set("rom_version",          "<#a92914><b>V3.9-Linux/arm64 4.4.115</b>");
 ini_set("rom_author",           "<#a92914><b>ZION959</b>");
 ini_set("rom_device",           "<#a92914><b>Samsung SM-G95XF/FD/N</b>");
-ini_set("rom_date",             "<#a92914><b>December-22-2017</b>");
+ini_set("rom_date",             "<#a92914><b>FEB-08-2018</b>");
 
 splash(2500, "zion");
 
