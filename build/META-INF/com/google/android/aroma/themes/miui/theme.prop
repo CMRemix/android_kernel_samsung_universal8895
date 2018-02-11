@@ -1,0 +1,68 @@
+img.background        = 
+img.titlebar          = titlebar.9
+img.navbar            = nav.9
+img.dialog            = dialog.9
+img.dialog.titlebar   = dialog_titlebar.9
+img.progress          = button.9
+img.prograss.fill     = button_focus.9
+img.selection         = select.9
+img.selection.push    = select_push.9
+img.button            = button.9
+img.button.focus      = button_focus.9
+img.button.push       = button_press.9
+img.checkbox          = cb
+img.checkbox.focus    = cb_sel
+img.checkbox.push     = cb
+img.checkbox.on       = cb_on
+img.checkbox.on.focus = cb_on_sel
+img.checkbox.on.push  = cb_on
+img.radio             = radio
+img.radio.focus       = radio_sel
+img.radio.push        = radio
+img.radio.on          = radio_on
+img.radio.on.focus    = radio_on_sel
+img.radio.on.push     = radio_on
+
+
+color.winbg           = #222224
+color.winbg_g         = #222224
+color.winfg           = #ffffff
+color.winfg_gray      = #a92914
+color.dialogbg        = #a92914
+color.dialogbg_g      = #a92914
+color.dialogfg        = #ffffff
+color.textbg          = #222224
+color.textfg          = #ffffff
+color.textfg_gray     = #ffffff
+color.controlbg       = #ffffff
+color.controlbg_g     = #ffffff
+color.controlfg       = #ffffff
+color.selectbg        = #ffffff
+color.selectbg_g      = #ffffff
+color.selectfg        = #ffffff
+color.titlebg         = #ffffff
+color.titlebg_g       = #ffffff
+color.titlefg         = #ffffff
+color.dlgtitlebg      = #222224
+color.dlgtitlebg_g    = #ffffff
+color.dlgtitlefg      = #ffffff
+color.scrollbar       = #a92914
+color.navbg           = #222224
+color.navbg_g         = #222224
+color.border          = #a92914
+color.border_g        = #222224
+color.progressglow    = #a92914
+
+
+config.roundsize             = 2
+config.button_roundsize      = 2
+config.window_roundsize      = 2
+config.transition_frame      = 6
+
+font.small            = font.roboto.small
+font.big              = font.roboto.big
+
+
+info.themename        = MIUI
+info.description      = MIUI Theme for AROMA Installer
+info.author           = mickey-r & amarullz

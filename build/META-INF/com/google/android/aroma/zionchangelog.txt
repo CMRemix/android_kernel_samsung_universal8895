@@ -1,0 +1,30 @@
+====================
+     02-08-2018
+====================
+
+1aa3af8 build: release stock v3.9
+26e3acc drivers: panel: initial smart dimming brightness control
+dd36fe3 ramdisk: update to BRA2
+66511d3 Drop N950FXXU3BRA2 kernel source
+ee4e836 Merge remote-tracking branch 'AOSP/upstream-linux-4.4.y' into tw-7.1.1-Stock
+
+====================
+     02-07-2018
+====================
+
+
+====================
+     02-06-2018
+====================
+
+
+====================
+     02-05-2018
+====================
+
+
+====================
+     02-04-2018
+====================
+
+

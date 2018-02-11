@@ -1,0 +1,199 @@
+ini_set("force_colorspace", "rgba");
+ini_set("rom_name",             "<#a92914><b>EXYNOS-8895-Stock-Kernel</b>");
+ini_set("rom_version",          "<#a92914><b>V3.9-Linux/arm64 4.4.115</b>");
+ini_set("rom_author",           "<#a92914><b>ZION959</b>");
+ini_set("rom_device",           "<#a92914><b>Samsung SM-G95XF/FD/N</b>");
+ini_set("rom_date",             "<#a92914><b>FEB-08-2018</b>");
+
+splash(2500, "zion");
+
+fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+fontresload( "1", "ttf/Roboto-Regular.ttf", "16" );
+
+theme("touchwiz");
+
+###################################################################################################################
+#
+# STEP 1 - SHOW KERNEL INFORMATION
+#
+viewbox(
+  #-- Title
+    "<~Welcome !>",
+
+  #-- Text
+
+    "<~Info>\n\n"+
+
+      "  <~Author>\t: <b><#selectbg_g>"+ini_get("rom_author")+"</#></b>\n"+
+      "  <~Kernel>\t: <b><#selectbg_g>"+ini_get("rom_name")+"</#></b>\n"+
+      "  <~Compability>\t: <b><#selectbg_g>"+ini_get("rom_device")+"</#></b>\n"+
+      "  <~Version>\t: <b><#selectbg_g>"+ini_get("rom_version")+"</#></b>\n"+
+      "  <~Last-Updated-on>\t\t: <b><#selectbg_g>"+ini_get("rom_date")+"</#></b>\n\n\n"+
+
+    "<~A totally New Experience With Your G95XXX, Enjoy !! -F >",
+
+  #-- Icon
+    "@welcome"
+);
+
+###################################################################################################################
+#
+# STEP 2 - TERMS OF USE AND REQUIREMENTS
+#
+agreebox(
+  #-- Title
+    "Important notes!",
+
+  #-- Subtitle / Description
+    "",
+
+  #-- Icon
+    "@agreement",
+
+  #-- Text Content ( Read from <AROMA Resource Dir>/read_me.txt )
+    resread("gnu.txt"),
+
+  #-- Checkbox Text
+    "I agree with these Terms of Use.",
+
+  #-- Unchecked Alert Message
+    "You need to agree with the Terms of Use..."
+);
+
+if
+  confirm(
+    # Arg 1
+    "Requirements!",
+
+    # Arg 2
+    resread("read_me.txt"),
+
+    # Arg 3
+    "@confirm",
+
+    # Arg 4
+    "Yes",
+
+    # Arg 5
+    "No"
+
+  ) == "no"
+
+then
+  exit();
+endif;
+
+###################################################################################################################
+#
+# STEP 3 - CHANGELOG
+#
+textbox(
+  #-- Title
+    "<~Changelog>",
+
+  #-- Subtitle
+    "<~Read <b>ZION959-EXYNOS-8895-Mainline-Kernel's Changelog</b> >",
+
+  #-- Icon
+    "@update",
+
+  #-- Arg 4
+    resread("zionchangelog.txt")
+);
+
+###################################################################################################################
+#
+# STEP 4 - SETUP INSTALLATION
+#
+  #########
+  ## SU
+  #########
+  selectbox(
+    #-- Title
+    "ROOT method",
+
+    #-- Sub Title
+    "Customize how to root your device",
+
+    #-- Icon: <AROMA Resource Dir>/icons/personalize.png or <ThemeDir>/icon.personalize.png
+    "@sim",
+
+    #-- Will be saved in /tmp/aroma/ap_su.prop
+    "ap_su.prop",
+
+    #----------[ Selectbox Without Group ]---------------#
+    # TITLE            |  SUBTITLE       | Initial Value #
+    #------------------+-----------------+---------------#
+    #--------[ Initial Value = 0: Unselected, 1: Selected, 2: Group Item, 3: Not Visible ]---------#
+
+    "No root",                  "ZION959-EXYNOS-8895-Mainline-Kernel without root",        0, #-- selected.0 = 1
+    "Magisk",                   "ZION959-EXYNOS-8895-Mainline-Kernel rooted by Magisk",    1, #-- selected.0 = 2
+    "SuperSU",                  "ZION959-EXYNOS-8895-Mainline-Kernel rooted by SuperSU",   0 #-- selected.0 = 3
+
+  );
+###################################################################################################################
+  #########
+  ## SPECTRUM
+  #########
+
+  selectbox(
+    #-- Title
+    "Spectrum?",
+
+    #-- Sub Title
+    "Install SPECTRUM app so you 4 can choose between 4 pre-configured profiles ?",
+    "@sim",
+    "apps.prop",
+    "NO",                                      "Go with Zion's personal Settings", 1,  #-- selected.0 = 1
+    "YES",                             "I Don't Care, I Want Spectrum !!", 0 #-- selected.0 = 2
+  );
+###################################################################################################################
+#
+# STEP 6 - INSTALLING
+#
+viewbox(
+  "ready to install ZION959-EXYNOS-8895-Mainline-Kernel",
+  "all informations has been collected for installation.\n\n"+
+  "press <b>Next</b> to start the installation..."+
+  "if you want to review or change any of your installation settings, press <b>Back</b>.",
+  "@info"
+);
+
+setvar("retstatus",
+install(
+  "installing ZION959-EXYNOS-8895-Mainline-Kernel",
+  "installing <b>" + ini_get("rom_name") + " " + ini_get("rom_version") + "</b>" +
+  "...\nplease wait until it's finished...",
+  "@install")
+);
+
+#set Next text fo Finish
+ini_set("text_next", "Finish");
+
+if getvar("retstatus")=="0" then
+
+      viewbox(
+              "<b>ZION959-EXYNOS-8895-Mainline-Kernel's installation Completed</b>",
+              "<#080>Congratulations...</#>\n\n"+
+              "<b>"+ini_get("rom_name")+"</b> has been installed into your device.\n\n"+
+              "Installer Status: "+getvar("retstatus")+"\n\n",
+              "@info"
+      );
+else
+      viewbox(
+           "ZION959-EXYNOS-8895-Mainline-Kernel's installation failed",
+           "\n\ninstaller status: "+ getvar("retstatus"),
+           "@alert"
+      );
+endif;
+if
+  confirm(
+      "Reboot",
+      "Reboot Now?",
+      "icons/info",
+      "Yes",
+      "No"
+  )=="yes"
+then
+  reboot("onfinish");
+endif;
