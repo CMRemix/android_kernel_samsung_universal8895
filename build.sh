@@ -87,15 +87,15 @@ mkdir -p $KERNELDIR/out/$DEVICE
 
 # G955F
 if [ "$DEVICE" = "G955F" ]; then
-    make exynos8895-dream2lte_eur_open_defconfig
+    make exynos8895-dream2lte_defconfig
 fi;
 # G950F
 if [ "$DEVICE" = "G950F" ]; then
-    make exynos8895-dreamlte_eur_open_defconfig
+    make exynos8895-dreamlte_defconfig
 fi;
 # N950F
 if [ "$DEVICE" = "N950F" ]; then
-    make exynos8895-greatlte_eur_open_defconfig
+    make exynos8895-greatlte_defconfig
 fi;
 
 # Build Kernel
@@ -195,7 +195,7 @@ cd ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 zip -r ../ZION.zip *
 rm -rf ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 cd ${KERNELDIR}/out/$DEVICE/
-zip -r ZION959-$DEVICE-STOCK-KERNEL-TW7.1.1-BRA2-${GET_VERSION}-`date +[%m-%d-%y]`.zip .
+zip -r ZION959-$DEVICE-STOCK-KERNEL-TW-8.0.0-CRAP-${GET_VERSION}-`date +[%m-%d-%y]`.zip .
 
 echo
 echo "Done"
