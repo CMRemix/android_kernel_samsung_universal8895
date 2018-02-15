@@ -8,16 +8,18 @@ security.perf_harden=1
 ro.adb.secure=1
 ro.allow.mock.location=0
 ro.debuggable=0
-persist.sys.usb.config=mtp
+persist.sys.usb.config=mtp,adb
+persist.service.adb.enable=1
 ro.zygote=zygote64_32
 ro.telephony.default_network=9
-ro.supportmodel.mptcp=1
+ro.supportmodel.mptcp=0
 ro.radio.noril=no
 ro.telephony.default_cdma_sub=0
 dalvik.vm.image-dex2oat-Xms=64m
 dalvik.vm.image-dex2oat-Xmx=64m
 dalvik.vm.dex2oat-Xms=64m
 dalvik.vm.dex2oat-Xmx=512m
+dalvik.vm.dex2oat-swap=false
 ro.dalvik.vm.native.bridge=0
 dalvik.vm.usejit=true
 dalvik.vm.usejitprofiles=true
@@ -29,9 +31,27 @@ pm.dexopt.install=quicken
 pm.dexopt.bg-dexopt=speed-profile
 pm.dexopt.ab-ota=speed-profile
 debug.atrace.tags.enableflags=0
+
+# Security Properties
+ro.config.tima=0
+ro.securestorage.support=false
+ro.security.vaultkeeper.feature=0
+ro.config.knox=v30
+ro.sec.fle.encryption=false
+ro.config.dmverity=false
+ro.config.rkp=false
+ro.config.kap_default_on=false
+ro.config.kap=false
+
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
 ro.bootimage.build.date=Wed Jan 31 22:19:57 KST 2018
 ro.bootimage.build.date.utc=1517404797
 ro.bootimage.build.fingerprint=samsung/dreamltexx/dreamlte:8.0.0/R16NW/G950FXXU1CRAP:user/test-keys
+
+# EXTRA
+boot.fps=32
+shutdown.fps=30
+wlan.wfd.hdcp=disable
+wifi.supplicant_scan_interval=180
