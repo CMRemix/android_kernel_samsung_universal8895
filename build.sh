@@ -123,13 +123,13 @@ make dtbs
 echo
 echo "${bldgrn}***Create Ramdisk***${txtrst}"
 if [ "$DEVICE" = "G955F" ]; then
-    ./utilities/mkbootfs ramdisk/G955F/ramdisk | gzip > ramdisk.packed
+    ./utilities/mkbootfs ramdisk/G955F/ramdisk | lzma > ramdisk.packed
 fi;
 if [ "$DEVICE" = "G950F" ]; then
-    ./utilities/mkbootfs ramdisk/G950F/ramdisk | gzip > ramdisk.packed
+    ./utilities/mkbootfs ramdisk/G950F/ramdisk | lzma > ramdisk.packed
 fi;
 if [ "$DEVICE" = "N950F" ]; then
-    ./utilities/mkbootfs ramdisk/N950F/ramdisk | gzip > ramdisk.packed
+    ./utilities/mkbootfs ramdisk/N950F/ramdisk | lzma > ramdisk.packed
 fi;
 
 # Make BootImage
