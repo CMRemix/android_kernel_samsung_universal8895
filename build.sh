@@ -189,7 +189,7 @@ rm -f ${KERNELDIR}/out/$DEVICE/greatlte.img
 fi;
 
 cd ${KERNELDIR}/out/$DEVICE
-GET_VERSION=`grep 'NN-*V' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
+GET_VERSION=`grep 'OO-*V' ${KERNELDIR}/.config | sed 's/.*".//g' | sed 's/-S.*//g'`
 
 cd ${KERNELDIR}/out/$DEVICE/kernel/ZION/
 zip -r ../ZION.zip *

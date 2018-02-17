@@ -49,6 +49,11 @@ rm -f /system/vendor/lib/libsecure_storage.so
 rm -f /system/vendor/lib/libsecure_storage_jni.so
 rm -f /system/vendor/lib64/libsecure_storage.so
 rm -f /system/vendor/lib64/libsecure_storage_jni.so
+rm -f /system/vendor/etc/wifi/nvram_mfg.txt_r02j_b0
+rm -f /system/vendor/etc/wifi/nvram_net.txt_r02j_b0
+rm -f /system/etc/wifi/bcmdhd_clm.blob
+rm -f /system/etc/wifi/bcmdhd_sta.bin_b0
+rm -f /system/etc/wifi/nvram_net.txt_r02j_b0
 
 cd
 cd /tmp/zion959
@@ -74,6 +79,12 @@ mv -f vendor/lib/libsecure_storage_jni.so /system/vendor/lib/libsecure_storage_j
 mv -f vendor/lib64/libsecure_storage.so /system/vendor/lib64/libsecure_storage.so
 mv -f vendor/lib64/libsecure_storage_jni.so /system/vendor/lib64/libsecure_storage_jni.so
 
+mv -f vendor/etc/wifi/nvram_mfg.txt_r02j_b0 /system/vendor/etc/wifi/nvram_mfg.txt_r02j_b0
+mv -f vendor/etc/wifi/nvram_net.txt_r02j_b0 /system/vendor/etc/wifi/nvram_net.txt_r02j_b0
+mv -f system/etc/wifi/bcmdhd_clm.blob /system/etc/wifi/bcmdhd_clm.blob
+mv -f system/etc/wifi/bcmdhd_sta.bin_b0 /system/etc/wifi/bcmdhd_sta.bin_b0
+mv -f system/etc/wifi/nvram_net.txt_r02j_b0 /system/etc/wifi/nvram_net.txt_r02j_b0
+
 ui_print " - setting permissions"
 
 chmod 0644 /system/vendor/firmware/fimc_is_lib.bin
@@ -85,6 +96,12 @@ chmod 0644 /system/vendor/lib/libsecure_storage.so
 chmod 0644 /system/vendor/lib/libsecure_storage_jni.so
 chmod 0644 /system/vendor/lib64/libsecure_storage.so
 chmod 0644 /system/vendor/lib64/libsecure_storage_jni.so
+
+chmod 0644 /system/vendor/etc/wifi/nvram_mfg.txt_r02j_b0
+chmod 0644 /system/vendor/etc/wifi/nvram_net.txt_r02j_b0
+chmod 0644 /system/etc/wifi/bcmdhd_clm.blob
+chmod 0644 /system/etc/wifi/bcmdhd_sta.bin_b0
+chmod 0644 /system/etc/wifi/nvram_net.txt_r02j_b0
 
 ui_print " "
 ui_print "ENJOY! ZION959's Kernel"
